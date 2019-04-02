@@ -1,0 +1,20 @@
+= content_for :javascript do
+  javascript:
+    ShopifyApp.ready(function(){
+      ShopifyApp.Bar.initialize({ title: "Home" });
+    });
+.product-container
+  .row
+    - @products.each do |product|
+      div class="columns medium-3 small-6" style="margin-bottom: 46px"
+        .single-product-container
+          .img-container
+            .product-image style="background-image: url('#{product.image.src}')"
+          .vendor-field = product.vendor
+          .title-container
+            .title-field = product.title
+          .price-container
+            .price-field = "£ #{product.variants.first.price} GPB"
+            / h1 = product.inspect
+            - if product.variants.first.compare_at_price.present?
+              .compare-at-price = "£ #{product.variants.first.compare_at_price}"
