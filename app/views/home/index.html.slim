@@ -5,7 +5,7 @@
     });
 .product-container
   .js-all-products
-    = render partial: 'products'
+    = render partial: 'products', locals: {showFirst: true}
 
 .gif-container
   .loading-gif.js-loading-gif
