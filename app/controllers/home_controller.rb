@@ -2,8 +2,12 @@
 
 class HomeController < AuthenticatedController
   def index
-    @products = ShopifyAPI::Product.find(:all, params: { limit: 12})
+    @all_products = ShopifyAPI::Product.find(:all)
+    @products = ShopifyAPI::Product.find(:all, params: { limit: 12}).where(tag: 'adidas')
     @webhooks = ShopifyAPI::Webhook.find(:all)
+    @vendor_array = ['Adidas', 'American Sports Teams','Aquascutum','Armani','Asics', 'Avirex', 'Barbour', 'Belstaff', 'Best Company', 'Burberry']
+    @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
+    @product_type = ['Bags', 'dress', 'Football shirts', 'Hockey Top', 'Jackets & Coats', 'Jeans', 'Party Shirts', 'Polo Shirts', 'Rugby Tops', 'Shirts', 'Shorts', 'Skirts', 'Sweatshirts & Hoods', 'T-Shirts', 'Tracksuit', 'Tracksuit Bottoms', 'Trainers', 'Vests', 'Wholesale']
   end
 
   def products

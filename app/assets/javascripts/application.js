@@ -42,4 +42,20 @@ $( document ).ready(function() {
           }
         }
     });
+    $('.js-show-main-filter').click(function(){
+      $('.js-main-container').toggle();
+      $('.main-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
+    $('.js-show-brand-filter').click(function(){
+      $('.js-brand-container').toggle();
+      $('.brand-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
+    $('.js-show-size-filter').click(function(){
+      $('.js-size-container').toggle();
+      $('.size-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
+    $('.js-show-type-filter').click(function(){
+      $('.js-type-container').toggle();
+      $('.type-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
 });
