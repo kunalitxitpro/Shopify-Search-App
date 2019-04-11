@@ -19,7 +19,7 @@
 
 $(function(){ $(document).foundation(); });
 
-$( document ).ready(function() {
+$(document).on('turbolinks:load', () => {
     var PageNumber = 2;
     var running = false;
 
