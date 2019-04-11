@@ -2,8 +2,8 @@
 
 class HomeController < AuthenticatedController
   def index
-    @all_products = ShopifyAPI::Product.find(:all)
-    @products = ShopifyAPI::Product.find(:all, params: { limit: 12}).where(tag: 'adidas')
+    @products = ShopifyAPI::Product.find(:all, params: { limit: 36 })
+    # @products = ProductSearch.new({ limit: 36, tag: 'for_guys', title: 'Adidas' }).search
     @webhooks = ShopifyAPI::Webhook.find(:all)
     @vendor_array = ['Adidas', 'American Sports Teams','Aquascutum','Armani','Asics', 'Avirex', 'Barbour', 'Belstaff', 'Best Company', 'Burberry']
     @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
@@ -12,7 +12,7 @@ class HomeController < AuthenticatedController
 
   def products
     page = params[:page]
-    @products = ShopifyAPI::Product.find(:all, params: { limit: 12, page: page })
-    render json: {productsPartial: render_to_string('home/_products'), layout: false}
+    @products = ShopifyAPI::Product.find(:all, params: { limit: 36, page: page })
+    render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false}), layout: false}
   end
 end
