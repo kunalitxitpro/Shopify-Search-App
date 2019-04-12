@@ -46,7 +46,7 @@ $(document).on('turbolinks:load', () => {
         }
     });
     $('.js-show-main-filter').click(function(){
-      $('.js-main-container').toggle();
+      $('.js-main-container').toggle("slide");
       $('.main-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
     $('.js-show-brand-filter').click(function(){
@@ -70,7 +70,4 @@ $(document).on('turbolinks:load', () => {
       $(this).css({ 'display': `none` });
       $(this).siblings().first().show()
     });
-
-
-
 });
