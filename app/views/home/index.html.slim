@@ -22,28 +22,31 @@
   .main-container
     .filter-data-options-container.js-main-container
       - if params[:brand].present?
-        .black-box-container
-          .black-box-parent style='position: relative'
-            .black-box style='position: relative; top: 0; left: 0'
-            .small-black-box style='position: absolute; top: 0; left: 0'
-          .sub-heading = params[:brand]
-          .remove-filter
+        = link_to root_path(size: params[:size], product_type: params[:product_type]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:brand]
+            .remove-filter
 
       - if params[:size].present?
-        .black-box-container
-          .black-box-parent style='position: relative'
-            .black-box style='position: relative; top: 0; left: 0'
-            .small-black-box style='position: absolute; top: 0; left: 0'
-          .sub-heading = "Size #{params[:size]}"
-          .remove-filter
+        = link_to root_path(brand: params[:brand], product_type: params[:product_type]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = "Size #{params[:size]}"
+            .remove-filter
 
       - if params[:product_type].present?
-        .black-box-container
-          .black-box-parent style='position: relative'
-            .black-box style='position: relative; top: 0; left: 0'
-            .small-black-box style='position: absolute; top: 0; left: 0'
-          .sub-heading = params[:product_type]
-          .remove-filter
+        = link_to root_path(brand: params[:brand], size: params[:size]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:product_type]
+            .remove-filter
 
       .filter-brand-container
         .heading-container
@@ -108,3 +111,6 @@
 
     .gif-container
       .loading-gif.js-loading-gif
+
+javascript:
+  Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"

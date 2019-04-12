@@ -22,21 +22,31 @@ $(function(){ $(document).foundation(); });
 $(document).on('turbolinks:load', () => {
     var PageNumber = 2;
     var running = false;
+    var canLoadMore = true;
 
     $(window).bind('scroll', function() {
         if($(window).scrollTop() >= $('.product-container').offset().top + $('.product-container').outerHeight() - window.innerHeight) {
           if(running == false){
             running = true;
             $('.js-product-group:hidden').slice(0, 12).fadeIn('slow');
-            if ($('.js-product-group:hidden').length <= 1){
+            if ($('.js-product-group:hidden').length <= 1 && canLoadMore){
               $('.loading-gif').fadeIn();
               $.ajax({
                 type: "GET",
-                url: "/all_products?page=" + PageNumber,
+                url: "/all_products?page=" + PageNumber + Window.paramUrl + "&last_prod_id=" + window.LastProductID,
                 data: $(this).serialize(),
                 success: function(response) {
+                  if(response.productCount != 36){
+                    canLoadMore = false;
+                  }
                   $('.loading-gif').fadeOut();
-                  $('.js-all-products').append(response.productsPartial);
+                  var productID = response.lastProductID;
+
+                  if($('.js-product-id-' + productID).length){
+                    canLoadMore = false;
+                  }else {
+                    $('.js-all-products').append(response.productsPartial);
+                  }
                 }
               });
               PageNumber = PageNumber + 1
