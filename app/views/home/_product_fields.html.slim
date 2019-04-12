@@ -1,0 +1,11 @@
+.single-product-container
+  .img-container
+    .product-image style="background-image: url('#{product.image.src}')"
+    .product-image-two style="display: none; background-image: url('#{product.images.third.src}')"
+  .vendor-field = product.vendor
+  .title-container
+    .title-field = product.variants.map{|a| a.title}
+  .price-container
+    .price-field = "£ #{product.variants.first.price} GPB"
+    - if product.variants.first.compare_at_price.present?
+      .compare-at-price = "£ #{product.variants.first.compare_at_price}"
