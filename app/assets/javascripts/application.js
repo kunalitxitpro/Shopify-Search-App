@@ -71,6 +71,10 @@ $(document).on('turbolinks:load', () => {
       $('.js-type-container').toggle();
       $('.type-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
+    $('.js-show-price-filter').click(function(){
+      $('.js-price-container').toggle();
+      $('.price-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
 
     $( ".product-image" ).mouseover(function() {
       $(this).css({ 'display': `none` });

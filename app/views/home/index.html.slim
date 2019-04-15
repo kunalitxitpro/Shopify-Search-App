@@ -3,15 +3,13 @@
     ShopifyApp.ready(function(){
       ShopifyApp.Bar.initialize({ title: "Home" });
     });
-    
+
 .app-container
   .filter-container
     .filter-heading-container
       .filter-heading FILTER
       .main-filter-icon.js-show-main-filter
     select.select-style name="colour"
-      option value="Featured" Featured
-      option value="best-selling" Best Selling
       option value="title-ascending"  Alphabetically, A-Z
       option value="title-descending" Alphabetically, Z-A
       option value="price-ascending" Price, low to high
@@ -104,6 +102,25 @@
                 .black-box-container
                   .black-box
                   .sub-heading = pt
+
+      .filter-price-container
+        .heading-container
+          .filter-price-heading PRICE
+          .price-filter-icon.js-show-price-filter
+        .filter-price-collection.js-price-container
+          - @price_ranges.each do |pr|
+            = link_to root_path(size: params[:size], brand: params[:brand], product_type: pr) do
+              - if params[:product_type] == pr
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = "£ #{pr}"
+                  .tick-icon
+              - else
+                .black-box-container
+                  .black-box
+                  .sub-heading = "£ #{pr}"
 
     .product-container
       .js-all-products
