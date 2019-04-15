@@ -9,13 +9,13 @@
     .filter-heading-container
       .filter-heading FILTER
       .main-filter-icon.js-show-main-filter
-    select.select-style name="colour"
-      option value="title-ascending"  Alphabetically, A-Z
-      option value="title-descending" Alphabetically, Z-A
-      option value="price-ascending" Price, low to high
-      option value="price-descending" Price, high to low
-      option value="created-descending" Date, new to old
-      option value="created-ascending" Date, old to new
+    select.select-style onchange="window.location.href=this.value;"
+      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
+      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
+      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
+      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
+      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
+      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
 
   .main-container
     .filter-data-options-container.js-main-container
