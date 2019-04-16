@@ -3,7 +3,9 @@ class AppProxyController < ApplicationController
 
   def index
     # @products = ProductSearch.new(product_params).search
-    if params[:search].present?
+    if params[:filter].present?
+      render_filtered_products
+    elsif params[:search].present?
       render_searched_products
     else
       render_all_products
@@ -26,7 +28,7 @@ class AppProxyController < ApplicationController
     render content_type: 'application/liquid'
   end
 
-  def render_searched_products
+  def render_filtered_products
     shop = Shop.find_by(shopify_domain: params[:shop])
     if shop
       shop.with_shopify_session do
@@ -34,6 +36,17 @@ class AppProxyController < ApplicationController
         @products = ProductSearch.new(product_params).search
         @products = [] if products_are_already_in_view?
         render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false}), layout: false, productCount: @products.count, lastProductID: @products.last.try(:id)}
+      end
+    end
+  end
+
+  def render_searched_products
+    shop = Shop.find_by(shopify_domain: params[:shop])
+    if shop
+      shop.with_shopify_session do
+        query = params[:query]
+        @products = ShopifyAPI::Product.find(:all, params: {title: query, limit: 36})
+        render json: {searchPartial: render_to_string('home/_search_results', layout: false) }
       end
     end
   end
