@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     # GET /app_proxy/reviews will now be routed to
     # AppProxy::ReviewsController#index, for example
   end
+  get '/apps/index', as: :proxy_prod
   get 'all_products', to: 'home#products', as: :all_products
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

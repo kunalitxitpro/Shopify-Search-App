@@ -33,7 +33,7 @@ $(document).on('turbolinks:load', () => {
               $('.loading-gif').fadeIn();
               $.ajax({
                 type: "GET",
-                url: "/all_products?page=" + PageNumber + Window.paramUrl + "&last_prod_id=" + window.LastProductID,
+                url: "/apps/index?&search=true&page=" + PageNumber + Window.paramUrl + "&last_prod_id=" + window.LastProductID,
                 data: $(this).serialize(),
                 success: function(response) {
                   if(response.productCount != 36){
