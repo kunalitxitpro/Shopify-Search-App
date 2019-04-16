@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :app_proxy do
     root action: 'index'
-    get '/allprods', action: 'index'
+    get 'allprods', to: 'app_proxy#index'
     # simple routes without a specified controller will go to AppProxyController
 
     # more complex routes will go to controllers in the AppProxy namespace
