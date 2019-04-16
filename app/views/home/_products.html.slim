@@ -3,9 +3,9 @@
     - @products.in_groups(3).to_a.each_with_index do |products, i|
       - products.each do |product|
         .columns.medium-3.small-6 style="margin-bottom: 46px" class="js-product-group #{i == 0 && showFirst ? '' : 'hidden-products'} js-product-id-#{product.id}"
-          = render partial: 'product_fields', locals: {product: product}
+          = render partial: 'home/product_fields', locals: {product: product}
 
   - else
     - @products.each do |product|
       .columns.medium-3.small-6 style="margin-bottom: 46px" class="js-product-group js-product-id-#{product.id}"
-        = render partial: 'product_fields', locals: {product: product}
+        = render partial: 'home/product_fields', locals: {product: product}
