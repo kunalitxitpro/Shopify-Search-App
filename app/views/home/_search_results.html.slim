@@ -1,7 +1,9 @@
-- @products.each do |product|
-  div style='width: 100%; background: white'
-    .plop-image style="background-image: url('#{product.image.src}')"
-    p = product.vendor
-    p = product.title
-    p = "£ #{product.variants.first.price} GPB"
-  hr
+.search-result-main-container
+  - @products.each do |product|
+    .search-result-container
+      .search-result-image style="background-image: url('#{product.image.src}')"
+      .search-result-sub-container
+        .search-result-vendor = product.vendor
+        .search-result-title  = truncate("#{product.title}", length: 45)
+        .search-result-price  = "£ #{product.variants.first.price} GPB"
+    hr style="margin: 0.5rem auto"
