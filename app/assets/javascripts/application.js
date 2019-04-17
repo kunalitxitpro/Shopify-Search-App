@@ -80,23 +80,47 @@ $(document).on('turbolinks:load', () => {
 
     $('.js-show-main-filter').click(function(){
       $('.js-main-container').toggle("slide");
-      $('.main-filter-icon' ).toggleClass( 'filter-icon-minus' )
+      $('.js-main-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
     $('.js-show-brand-filter').click(function(){
       $('.js-brand-container').toggle();
-      $('.brand-filter-icon' ).toggleClass( 'filter-icon-minus' )
+      $('.js-brand-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
     $('.js-show-size-filter').click(function(){
       $('.js-size-container').toggle();
-      $('.size-filter-icon' ).toggleClass( 'filter-icon-minus' )
+      $('.js-size-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
     $('.js-show-type-filter').click(function(){
       $('.js-type-container').toggle();
-      $('.type-filter-icon' ).toggleClass( 'filter-icon-minus' )
+      $('.js-type-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
     $('.js-show-price-filter').click(function(){
       $('.js-price-container').toggle();
-      $('.price-filter-icon' ).toggleClass( 'filter-icon-minus' )
+      $('.js-price-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
+
+    $('.openbtn').click(function() {
+      $('#mySidenav').css({ 'width': `250px` });
+      $('.app-container').css({'marginLeft' : "250px"});
+      $('body').css({'background-color' : "rgba(0,0,0,0.4)"});
+    });
+
+    $('.closebtn').click(function() {
+      $('#mySidenav').css({ 'width': `0` });
+      $('.app-container').css({'marginLeft' : "0"});
+      $('body').css({'background-color' : "white"});
+    });
+
+    $('.open-sort-btn').click(function() {
+      $('#myLeftSidenav').css({ 'width': `250px` });
+      $('.app-container').css({'marginLeft' : "250px"});
+      $('body').css({'background-color' : "rgba(0,0,0,0.4)"});
+    });
+
+    $('.close-sort-btn').click(function() {
+      $('#myLeftSidenav').css({ 'width': `0` });
+      $('.app-container').css({'marginLeft' : "0"});
+      $('body').css({'background-color' : "white"});
     });
 
     $( ".product-image" ).mouseover(function() {

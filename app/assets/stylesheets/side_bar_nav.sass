@@ -1,0 +1,80 @@
+body
+  transition: background-color .5s
+
+.sidenav
+  height: 100%
+  width: 0
+  position: fixed
+  z-index: 1
+  top: 0
+  left: 0
+  background-color: #111
+  overflow-x: hidden
+  transition: 0.5s
+  a
+    padding: 8px 0
+    text-decoration: none
+    font-size: 25px
+    color: #818181
+    display: block
+    transition: 0.3s
+    &:hover
+      color: #f1f1f1
+  .closebtn .close-sort-btn
+    position: absolute
+    top: 0
+    right: 25px
+    font-size: 36px
+    margin-left: 50px
+    color: white
+
+.openbtn-container
+  height: 3rem
+  margin: 1rem
+  display: flex
+  justify-content: space-around
+  align-items: center
+
+.openbtn-sub-container
+  background-color: #646464
+  width: 49%
+  text-align: center
+  color: white
+
+.close-filter-container
+  color: white
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+@media screen and (max-height: 450px)
+  .sidenav
+    padding-top: 15px
+    a
+      font-size: 18px
+
+// tablet
+@media screen and (min-width: 800px) and (max-width: 1024px)
+  .hidden-on-large-screen
+    display: none
+
+// desktop
+@media screen and (min-width: 1025px)
+  .hidden-on-large-screen
+    display: none
+
+// mobile
+@media screen and (min-width: 0px) and (max-width: 800px)
+  .hidden-on-small-screen
+    display: none
+  .main-container
+    min-width: 0
+  .js-brand-filter-icon, .js-type-filter-icon, .js-size-filter-icon, .js-main-filter-icon, .js-price-filter-icon
+    background-image: asset-url('add-white.svg')
+  .filter-icon-minus
+    background-image: asset-url('minus-symbol-white.svg')
+  .filter-price-container, .filter-type-container, .filter-size-container, .filter-brand-container
+    border-bottom: 1px solid white
+  .sub-heading
+    color: white
