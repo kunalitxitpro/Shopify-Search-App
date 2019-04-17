@@ -33,7 +33,7 @@ $(document).on('turbolinks:load', () => {
               $('.loading-gif').fadeIn();
               $.ajax({
                 type: "GET",
-                url: "/all_products?page=" + PageNumber + Window.paramUrl + "&last_prod_id=" + window.LastProductID,
+                url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl + "&last_prod_id=" + window.LastProductID,
                 data: $(this).serialize(),
                 success: function(response) {
                   if(response.productCount != 36){
@@ -55,6 +55,29 @@ $(document).on('turbolinks:load', () => {
           }
         }
     });
+    var searchField = $('.search-form').children('.form-group').children('.form-control')
+    $('.search-form').append("<div class='plop'></div>")
+
+    $(searchField).keyup(function() {
+      var dInput = this.value;
+      if(dInput.length > 2){
+        console.log(dInput);
+        $('.plop').html('');
+
+        $.ajax({
+          type: "GET",
+          url: "/apps/index?&search=true&query=" + dInput,
+          data: $(this).serialize(),
+          success: function(response) {
+            $('.plop').html(response.searchPartial);
+            $('.plop').show('slow');
+          }
+        });
+      }else{
+        $('.plop').hide();
+      }
+    });
+
     $('.js-show-main-filter').click(function(){
       $('.js-main-container').toggle("slide");
       $('.main-filter-icon' ).toggleClass( 'filter-icon-minus' )

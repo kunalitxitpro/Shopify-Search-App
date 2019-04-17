@@ -1,0 +1,7 @@
+- @products.each do |product|
+  div style='width: 100%; background: white'
+    .plop-image style="background-image: url('#{product.image.src}')"
+    p = product.vendor
+    p = product.title
+    p = "£ #{product.variants.first.price} GPB"
+  hr
