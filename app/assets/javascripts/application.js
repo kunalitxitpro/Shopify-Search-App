@@ -102,25 +102,25 @@ $(document).on('turbolinks:load', () => {
     $('.openbtn').click(function() {
       $('#mySidenav').css({ 'width': `250px` });
       $('.app-container').css({'marginLeft' : "250px"});
-      $('body').css({'background-color' : "rgba(0,0,0,0.4)"});
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeOut()
     });
 
     $('.closebtn').click(function() {
       $('#mySidenav').css({ 'width': `0` });
       $('.app-container').css({'marginLeft' : "0"});
-      $('body').css({'background-color' : "white"});
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
     });
 
     $('.open-sort-btn').click(function() {
       $('#myLeftSidenav').css({ 'width': `250px` });
       $('.app-container').css({'marginLeft' : "250px"});
-      $('body').css({'background-color' : "rgba(0,0,0,0.4)"});
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeOut()
     });
 
     $('.close-sort-btn').click(function() {
       $('#myLeftSidenav').css({ 'width': `0` });
       $('.app-container').css({'marginLeft' : "0"});
-      $('body').css({'background-color' : "white"});
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
     });
 
     $( ".product-image" ).mouseover(function() {

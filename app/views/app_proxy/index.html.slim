@@ -1,13 +1,9 @@
 .app-container
-
   #mySidenav.sidenav.hidden-on-large-screen
     div style='padding: 60px 16px'
       .close-filter-container
         .close-filter-text FILTER
-        a.closebtn.hidden-on-large-screen href="javascript:void(0)" &times;
-
-
-
+        a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
 
       - if params[:brand].present?
         = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type]) do
@@ -35,10 +31,6 @@
               .small-black-box style='position: absolute; top: 0; left: 0'
             .sub-heading = params[:product_type]
             .remove-filter
-
-
-
-
 
       .filter-brand-container
         .heading-container
@@ -117,20 +109,35 @@
                   .sub-heading style="color: white" = "£ #{pr}"
 
   #myLeftSidenav.sidenav.hidden-on-large-screen
-    a.close-sort-btn.hidden-on-large-screen href="javascript:void(0)" &times;
-    a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
-    a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
-    a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
-    a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
-    a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
-    a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
+    div style='padding: 0 20px'
+      .close-filter-container style='margin: 2rem 0 0 0'
+        .close-filter-text SORT
+        a.close-sort-btn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+      .sort-nav-container
+        .black-box
+        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
+      .sort-nav-container
+        .black-box
+        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
+      .sort-nav-container
+        .black-box
+        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
+      .sort-nav-container
+        .black-box
+        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
+      .sort-nav-container
+        .black-box
+        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
+      .sort-nav-container
+        .black-box
+        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
 
   .openbtn-container.hidden-on-large-screen
-    .openbtn-sub-container.hidden-on-large-screen
-      span.openbtn.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
+    .openbtn-sub-container.hidden-on-large-screen.openbtn
+      span.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
 
-    .openbtn-sub-container.hidden-on-large-screen
-      span.open-sort-btn.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
+    .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
+      span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
 
   .filter-container.hidden-on-small-screen
     .filter-heading-container
