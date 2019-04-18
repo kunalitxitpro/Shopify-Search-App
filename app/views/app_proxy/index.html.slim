@@ -14,6 +14,15 @@
             .sub-heading = params[:brand]
             .remove-filter
 
+      - if params[:price].present?
+        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:price]
+            .remove-filter
+
       - if params[:size].present?
         = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type]) do
           .black-box-container
@@ -154,7 +163,7 @@
   .main-container
     .filter-data-options-container.js-main-container.hidden-on-small-screen
       - if params[:brand].present?
-        = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type]) do
+        = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price]) do
           .black-box-container
             .black-box-parent style='position: relative'
               .black-box style='position: relative; top: 0; left: 0'
@@ -163,7 +172,7 @@
             .remove-filter
 
       - if params[:size].present?
-        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type]) do
+        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
           .black-box-container
             .black-box-parent style='position: relative'
               .black-box style='position: relative; top: 0; left: 0'
@@ -171,8 +180,17 @@
             .sub-heading = "Size #{params[:size]}"
             .remove-filter
 
+      - if params[:price].present?
+        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:price]
+            .remove-filter
+
       - if params[:product_type].present?
-        = link_to proxy_prod_path(brand: params[:brand], size: params[:size]) do
+        = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price]) do
           .black-box-container
             .black-box-parent style='position: relative'
               .black-box style='position: relative; top: 0; left: 0'
@@ -186,7 +204,7 @@
           .js-brand-filter-icon.js-show-brand-filter
         .filter-brand-collection.js-brand-container
           - @vendor_array.each do |va|
-            = link_to proxy_prod_path(brand: va, size: params[:size], product_type: params[:product_type]) do
+            = link_to proxy_prod_path(brand: va, size: params[:size], product_type: params[:product_type], price: params[:price]) do
               - if params[:brand] == va
                 .black-box-container
                   .black-box-parent style='position: relative'
@@ -205,7 +223,7 @@
           .js-size-filter-icon.js-show-size-filter
         .filter-size-collection.js-size-container
           - @size_array.each do |size|
-            = link_to proxy_prod_path(size: size, brand: params[:brand], product_type: params[:product_type]) do
+            = link_to proxy_prod_path(size: size, brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
               - if params[:size] == size
                 .black-box-container
                   .black-box-parent style='position: relative'
@@ -224,7 +242,7 @@
           .js-type-filter-icon.js-show-type-filter
         .filter-type-collection.js-type-container
           - @product_type.each do |pt|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pt) do
+            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pt, price: params[:price]) do
               - if params[:product_type] == pt
                 .black-box-container
                   .black-box-parent style='position: relative'
@@ -243,7 +261,7 @@
           .js-price-filter-icon.js-show-price-filter
         .filter-price-collection.js-price-container
           - @price_ranges.each do |pr|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
+            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
               - if params[:product_type] == pr
                 .black-box-container
                   .black-box-parent style='position: relative'

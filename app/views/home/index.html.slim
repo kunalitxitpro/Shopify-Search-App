@@ -4,130 +4,130 @@
       ShopifyApp.Bar.initialize({ title: "Home" });
     });
 
-.app-container
-  .filter-container
-    .filter-heading-container
-      .filter-heading FILTER
-      .main-filter-icon.js-show-main-filter
-    select.select-style onchange="window.location.href=this.value;"
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
+/ .app-container
+/   .filter-container
+/     .filter-heading-container
+/       .filter-heading FILTER
+/       .main-filter-icon.js-show-main-filter
+/     select.select-style onchange="window.location.href=this.value;"
+/       option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
+/       option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
+/       option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
+/       option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
+/       option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
+/       option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
 
-  .main-container
-    .filter-data-options-container.js-main-container
-      - if params[:brand].present?
-        = link_to root_path(size: params[:size], product_type: params[:product_type]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:brand]
-            .remove-filter
-
-      - if params[:size].present?
-        = link_to root_path(brand: params[:brand], product_type: params[:product_type]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = "Size #{params[:size]}"
-            .remove-filter
-
-      - if params[:product_type].present?
-        = link_to root_path(brand: params[:brand], size: params[:size]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:product_type]
-            .remove-filter
-
-      .filter-brand-container
-        .heading-container
-          .filter-brand-heading BRAND
-          .brand-filter-icon.js-show-brand-filter
-        .filter-brand-collection.js-brand-container
-          - @vendor_array.each do |va|
-            = link_to root_path(brand: va, size: params[:size], product_type: params[:product_type]) do
-              - if params[:brand] == va
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = va
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = va
-
-      .filter-size-container
-        .heading-container
-          .filter-size-heading SIZE
-          .size-filter-icon.js-show-size-filter
-        .filter-size-collection.js-size-container
-          - @size_array.each do |size|
-            = link_to root_path(size: size, brand: params[:brand], product_type: params[:product_type]) do
-              - if params[:size] == size
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = size
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = size
-
-      .filter-type-container
-        .heading-container
-          .filter-type-heading TYPE
-          .type-filter-icon.js-show-type-filter
-        .filter-type-collection.js-type-container
-          - @product_type.each do |pt|
-            = link_to root_path(size: params[:size], brand: params[:brand], product_type: pt) do
-              - if params[:product_type] == pt
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = pt
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = pt
-
-      .filter-price-container
-        .heading-container
-          .filter-price-heading PRICE
-          .price-filter-icon.js-show-price-filter
-        .filter-price-collection.js-price-container
-          - @price_ranges.each do |pr|
-            = link_to root_path(size: params[:size], brand: params[:brand], product_type: pr) do
-              - if params[:product_type] == pr
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = "£ #{pr}"
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = "£ #{pr}"
-
-    .product-container
-      .js-all-products
-        = render partial: 'products', locals: {showFirst: true}
-
-    .gif-container
-      .loading-gif.js-loading-gif
-
-javascript:
-  Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
+/   .main-container
+/     .filter-data-options-container.js-main-container
+/       - if params[:brand].present?
+/         = link_to root_path(size: params[:size], product_type: params[:product_type]) do
+/           .black-box-container
+/             .black-box-parent style='position: relative'
+/               .black-box style='position: relative; top: 0; left: 0'
+/               .small-black-box style='position: absolute; top: 0; left: 0'
+/             .sub-heading = params[:brand]
+/             .remove-filter
+/ 
+/       - if params[:size].present?
+/         = link_to root_path(brand: params[:brand], product_type: params[:product_type]) do
+/           .black-box-container
+/             .black-box-parent style='position: relative'
+/               .black-box style='position: relative; top: 0; left: 0'
+/               .small-black-box style='position: absolute; top: 0; left: 0'
+/             .sub-heading = "Size #{params[:size]}"
+/             .remove-filter
+/ 
+/       - if params[:product_type].present?
+/         = link_to root_path(brand: params[:brand], size: params[:size]) do
+/           .black-box-container
+/             .black-box-parent style='position: relative'
+/               .black-box style='position: relative; top: 0; left: 0'
+/               .small-black-box style='position: absolute; top: 0; left: 0'
+/             .sub-heading = params[:product_type]
+/             .remove-filter
+/ 
+/       .filter-brand-container
+/         .heading-container
+/           .filter-brand-heading BRAND
+/           .brand-filter-icon.js-show-brand-filter
+/         .filter-brand-collection.js-brand-container
+/           - @vendor_array.each do |va|
+/             = link_to root_path(brand: va, size: params[:size], product_type: params[:product_type]) do
+/               - if params[:brand] == va
+/                 .black-box-container
+/                   .black-box-parent style='position: relative'
+/                     .black-box style='position: relative; top: 0; left: 0'
+/                     .small-black-box style='position: absolute; top: 0; left: 0'
+/                   .sub-heading = va
+/                   .tick-icon
+/               - else
+/                 .black-box-container
+/                   .black-box
+/                   .sub-heading = va
+/ 
+/       .filter-size-container
+/         .heading-container
+/           .filter-size-heading SIZE
+/           .size-filter-icon.js-show-size-filter
+/         .filter-size-collection.js-size-container
+/           - @size_array.each do |size|
+/             = link_to root_path(size: size, brand: params[:brand], product_type: params[:product_type]) do
+/               - if params[:size] == size
+/                 .black-box-container
+/                   .black-box-parent style='position: relative'
+/                     .black-box style='position: relative; top: 0; left: 0'
+/                     .small-black-box style='position: absolute; top: 0; left: 0'
+/                   .sub-heading = size
+/                   .tick-icon
+/               - else
+/                 .black-box-container
+/                   .black-box
+/                   .sub-heading = size
+/ 
+/       .filter-type-container
+/         .heading-container
+/           .filter-type-heading TYPE
+/           .type-filter-icon.js-show-type-filter
+/         .filter-type-collection.js-type-container
+/           - @product_type.each do |pt|
+/             = link_to root_path(size: params[:size], brand: params[:brand], product_type: pt) do
+/               - if params[:product_type] == pt
+/                 .black-box-container
+/                   .black-box-parent style='position: relative'
+/                     .black-box style='position: relative; top: 0; left: 0'
+/                     .small-black-box style='position: absolute; top: 0; left: 0'
+/                   .sub-heading = pt
+/                   .tick-icon
+/               - else
+/                 .black-box-container
+/                   .black-box
+/                   .sub-heading = pt
+/ 
+/       .filter-price-container
+/         .heading-container
+/           .filter-price-heading PRICE
+/           .price-filter-icon.js-show-price-filter
+/         .filter-price-collection.js-price-container
+/           - @price_ranges.each do |pr|
+/             = link_to root_path(size: params[:size], brand: params[:brand], product_type: pr) do
+/               - if params[:product_type] == pr
+/                 .black-box-container
+/                   .black-box-parent style='position: relative'
+/                     .black-box style='position: relative; top: 0; left: 0'
+/                     .small-black-box style='position: absolute; top: 0; left: 0'
+/                   .sub-heading = "£ #{pr}"
+/                   .tick-icon
+/               - else
+/                 .black-box-container
+/                   .black-box
+/                   .sub-heading = "£ #{pr}"
+/ 
+/     .product-container
+/       .js-all-products
+/         = render partial: 'products', locals: {showFirst: true}
+/ 
+/     .gif-container
+/       .loading-gif.js-loading-gif
+/ 
+/ javascript:
+/   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"

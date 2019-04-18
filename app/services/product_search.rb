@@ -1,13 +1,14 @@
 class ProductSearch
 
-  def initialize(params)
+  def initialize(params, shop = nil)
     @params = params
     @products = []
+    @shop = shop
   end
 
   def search
     return get_all_products_for_tag if variant_param_present?
-    ShopifyAPI::Product.find(:all, params: shopify_params)
+    shopify_api_query(shopify_params)
   end
 
   private
@@ -25,18 +26,18 @@ class ProductSearch
 
 
   def variant_param_present?
-    params[:tag].present?
+    params[:tag].present? || params[:price].present?
   end
 
 
   def get_all_products_for_tag
-    total_products = ShopifyAPI::Product.count()
+    total_products = product_count_query
     total_prods_to_loop = (total_products.to_f/250).round
 
     total_prods_to_loop.times do |page|
       break if @products.count >= 36
       page = page + 1
-      products = ShopifyAPI::Product.find(:all, params: shopify_params(true).merge!({page: page, limit: 250})).select{|p| can_include_product?(p) }
+      products = shopify_api_query(shopify_params(true).merge!({page: page, limit: 250})).select{|p| can_include_product?(p) }
       @products << products
       @products = @products.flatten.uniq
     end
@@ -53,6 +54,48 @@ class ProductSearch
 
 
   def can_include_product?(product)
+    if params[:tag].present? && params[:price].present?
+      price_between_range_for_product?(product) && tag_is_included?(product)
+    elsif params[:tag].present?
+      tag_is_included?(product)
+    elsif params[:price].present?
+      price_between_range_for_product?(product)
+    else
+      false
+    end
+  end
+
+  def price_between_range_for_product?(product)
+    price = product.variants.first.price.to_i
+    price_range[0].to_i <= price && price_range[1].to_i >= price
+  end
+
+  def tag_is_included?(product)
     product.variants.map{|a| a.title}.include?(params[:tag])
+  end
+
+  def price_range
+    params[:price].gsub(" - ", ",").split(',')
+  end
+
+ # TODO refactor to block
+  def shopify_api_query(params)
+    if @shop.present?
+      @shop.with_shopify_session do
+        return ShopifyAPI::Product.find(:all, params: params)
+      end
+    else
+      return ShopifyAPI::Product.find(:all, params: params)
+    end
+  end
+
+  def product_count_query
+    if @shop.present?
+      @shop.with_shopify_session do
+        return ShopifyAPI::Product.count()
+      end
+    else
+      return ShopifyAPI::Product.count()
+    end
   end
 end
