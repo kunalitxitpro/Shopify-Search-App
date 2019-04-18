@@ -59,12 +59,22 @@ $(document).on('turbolinks:load', () => {
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     $('.search-form').append("<div class='plop'></div>")
 
-    $(searchField).keyup(function() {
-      var dInput = this.value;
-      if(dInput.length > 2){
-        console.log(dInput);
-        $('.plop').html('');
+    $('.search-form').keyup(function() {
+      if ($('.search-loading-gif')[0]) {
+      } else {
+        $('.plop').append("<div class='search-loading-gif'></div>")
+        $('.search-loading-gif').fadeIn();
+      }
+    });
 
+    $(searchField).keyup(function() {
+      $('.plop').show('slow');
+      var dInput = this.value;
+      if(dInput.length >= 1){
+        console.log(dInput);
+
+        $('.plop').html('');
+        $('.search-loading-gif').hide();
         $.ajax({
           type: "GET",
           url: "/apps/index?&search=true&query=" + dInput,
