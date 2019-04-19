@@ -1,12 +1,12 @@
 class LoaderUploader < CarrierWave::Uploader::Base
-  if true
+  if ENV['RAILS_ENV'] == 'production'
     storage :fog
   else
     storage :file
   end
 
   def store_dir
-    "articles"
+    "loaders"
   end
 
   def filename

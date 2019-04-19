@@ -10,7 +10,9 @@
     .cell
       .off-canvas-wrapper
         #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas="" 
-          
+          = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+            = f.input :image, label: false, as: :file
+            = f.submit 'Submit', class: 'button'
         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;") 
           .main-container
             .product-container
@@ -18,7 +20,7 @@
                 = render partial: 'products', locals: {showFirst: true}
 
             .gif-container
-              .loading-gif.js-loading-gif
+              .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
 
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"

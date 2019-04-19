@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require jquery
@@ -58,38 +57,44 @@ $(document).on('turbolinks:load', () => {
     });
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     if(searchField){
-      $('.search-form').append("<div class='plop'></div>")
+      $('.search-form').append("<div class='js-search-results'></div>")
 
-      $('.search-form').keyup(function() {
-        if ($('.search-loading-gif')[0]) {
-        } else {
-          $('.plop').append("<div class='search-loading-gif'></div>")
-          $('.search-loading-gif').fadeIn();
-        }
-      });
-
-      $(searchField).keyup(function() {
-        $('.plop').show('slow');
-        var dInput = this.value;
-        if(dInput.length >= 1){
+      $(searchField).keyup(debounce(function(){
+         $('.js-search-results').show('slow');
+         var dInput = this.value;
+         if(dInput.length >= 1){
           console.log(dInput);
-
-          $('.plop').html('');
-          $('.search-loading-gif').hide();
+          $('.js-search-results').html("<div class='search-loading-gif'></div>");
+          $('.search-loading-gif').fadeIn();
           $.ajax({
             type: "GET",
             url: "/apps/index?&search=true&query=" + dInput,
             data: $(this).serialize(),
             success: function(response) {
-              $('.plop').html(response.searchPartial);
-              $('.plop').show('slow');
+              $('.js-search-results').html(response.searchPartial);
+              $('.js-search-results').show('slow');
             }
           });
         }else{
-          $('.plop').hide();
+          $('.js-search-results').hide();
         }
-      });
+      },500));
     }
+
+    function debounce(func, wait, immediate) {
+    	var timeout;
+    	return function() {
+    		var context = this, args = arguments;
+    		var later = function() {
+    			timeout = null;
+    			if (!immediate) func.apply(context, args);
+    		};
+    		var callNow = immediate && !timeout;
+    		clearTimeout(timeout);
+    		timeout = setTimeout(later, wait);
+    		if (callNow) func.apply(context, args);
+    	};
+    };
 
     $('.js-show-main-filter').click(function(){
       $('.js-main-container').toggle("slide");

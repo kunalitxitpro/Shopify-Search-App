@@ -8,7 +8,7 @@ development: &default
 
 test:
   <<: *default
-  database: jppost_test
+  database: infinite_test
 
 production:
   adapter: sqlite3
