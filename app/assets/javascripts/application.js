@@ -81,6 +81,35 @@ $(document).on('turbolinks:load', () => {
       },500));
     }
 
+    // $('.file').change(function() {
+    //   alert( "Handler for .change() called." );
+    //   $('.image-placeholder').css({ 'width': `250px` });
+    // });
+
+
+    $(function() {
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            // $('#img_prev').attr('src', e.target.result);
+            // $('#img_prev').attr('data-url', e.target.result);
+            const newUrl = e.target.result;
+            $('#img_prev').css({ 'background-image': `url(${newUrl})` });
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      $('.file').change(function () {
+        $('#img_prev').removeClass('hidden');
+        readURL(this);
+      });
+    });
+
+
+
     function debounce(func, wait, immediate) {
     	var timeout;
     	return function() {

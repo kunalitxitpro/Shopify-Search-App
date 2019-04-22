@@ -5,15 +5,19 @@
     });
 
 .app-container
-  button.button data-toggle="offCanvasLeftSplit1" type="button" Config
+  button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
   .grid-x.grid-margin-x
     .cell
       .off-canvas-wrapper
-        #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas="" 
-          = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
-            = f.input :image, label: false, as: :file
-            = f.submit 'Submit', class: 'button'
-        .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;") 
+        #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
+          div style="padding: 1rem"
+            = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+              .file-upload-container
+                = f.input :image, label: false, as: :file, id: "image-upload"
+
+              img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
+              = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
+        .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
           .main-container
             .product-container
               .js-all-products
