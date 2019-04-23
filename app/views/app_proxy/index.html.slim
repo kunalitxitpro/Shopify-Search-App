@@ -124,22 +124,25 @@
         a.close-sort-btn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
       .sort-nav-container
         .black-box
-        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
+        a href="#{proxy_prod_url}" Sort
       .sort-nav-container
         .black-box
-        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')}" Alphabetically, A-Z
       .sort-nav-container
         .black-box
-        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending')}" Alphabetically, Z-A
       .sort-nav-container
         .black-box
-        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')}" Price, low to high
       .sort-nav-container
         .black-box
-        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')}" Price, high to low
       .sort-nav-container
         .black-box
-        a href="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')}" Date, new to old
+      .sort-nav-container
+        .black-box
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')}" Date, old to new
 
   .openbtn-container.hidden-on-large-screen
     .openbtn-sub-container.hidden-on-large-screen.openbtn
@@ -153,12 +156,35 @@
       .filter-heading FILTER
       .js-main-filter-icon.js-show-main-filter
     select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_ascending" Alphabetically, A-Z
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=title_descending" Alphabetically, Z-A
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_ascending" Price, low to high
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=price_descending" Price, high to low
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_descending" Date, new to old
-      option value="/?brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=created_ascending" Date, old to new
+      option value="#{proxy_prod_url}" Sort
+      / DOG SHIT
+      - if params[:sort_by] == 'title_ascending'
+        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+      - else
+        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+
+      - if params[:sort_by] == 'price_ascending'
+        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+      - else
+        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+
+
+      - if params[:sort_by] == 'price_descending'
+        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+      - else
+        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+
+
+      - if params[:sort_by] == 'created_descending'
+        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+      - else
+        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+
+
+      - if params[:sort_by] == 'created_ascending'
+        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+      - else
+        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
 
   .main-container
     .filter-data-options-container.js-main-container.hidden-on-small-screen
@@ -282,4 +308,4 @@
       .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
 
 javascript:
-  Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
+  Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=#{params[:sort_by]}"
