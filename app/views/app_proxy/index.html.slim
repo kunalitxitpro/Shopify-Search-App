@@ -156,6 +156,9 @@
     .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
       span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
 
+  .product-searched-heading.hidden-on-small-screen WHAT WAS SEARCHED
+  .products-found-count.hidden-on-small-screen ITEMS FOUND
+
   .filter-container.hidden-on-small-screen
     .filter-heading-container
       .filter-heading FILTER
@@ -230,7 +233,7 @@
             .remove-filter
 
       .filter-brand-container.hidden-on-small-screen
-        .heading-container
+        .heading-container style="margin-top: 0rem"
           .filter-brand-heading BRAND
           .js-brand-filter-icon.js-show-brand-filter
         .filter-brand-collection.js-brand-container
@@ -305,10 +308,10 @@
       /             .black-box
       /             .sub-heading = "£ #{pr}"
 
-      p
+      p.hidden-on-small-screen
         label for="amount-two" style=" font-weight: bold; margin: 1rem 0" Price range:
         input#amount-two readonly="" style="border:0; color: #fe89b5; font-weight:bold; box-shadow: none; background-color: #fefefe; padding-left: 0rem" type="text"
-      #slider-range-two
+      #slider-range-two.hidden-on-small-screen
 
     .product-container
       .js-all-products
