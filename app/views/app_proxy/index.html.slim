@@ -98,24 +98,29 @@
                   .black-box
                   .sub-heading style='color: white' = pt
 
-      .filter-price-container
-        .heading-container
-          .filter-price-heading style="color: white" PRICE
-          .js-price-filter-icon.js-show-price-filter
-        .filter-price-collection.js-price-container
-          - @price_ranges.each do |pr|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
-              - if params[:product_type] == pr
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading style="color: white" = "£ #{pr}"
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading style="color: white" = "£ #{pr}"
+      / .filter-price-container
+      /   .heading-container
+      /     .filter-price-heading style="color: white" PRICE
+      /     .js-price-filter-icon.js-show-price-filter
+      /   .filter-price-collection.js-price-container
+      /     - @price_ranges.each do |pr|
+      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
+      /         - if params[:product_type] == pr
+      /           .black-box-container
+      /             .black-box-parent style='position: relative'
+      /               .black-box style='position: relative; top: 0; left: 0'
+      /               .small-black-box style='position: absolute; top: 0; left: 0'
+      /             .sub-heading style="color: white" = "£ #{pr}"
+      /             .tick-icon
+      /         - else
+      /           .black-box-container
+      /             .black-box
+      /             .sub-heading style="color: white" = "£ #{pr}"
+
+      p
+        label style="color: white; margin: 1rem 0; font-weight: bold" for="amount"  Price range:
+        input#amount readonly="" style="border:0; color: #fe89b5; font-weight:bold; background-color: #111111; box-shadow: none; padding-left: 0rem" type="text"
+      #slider-range
 
   #myLeftSidenav.sidenav.hidden-on-large-screen
     div style='padding: 0 20px'
@@ -281,24 +286,29 @@
                   .black-box
                   .sub-heading = pt
 
-      .filter-price-container.hidden-on-small-screen
-        .heading-container
-          .filter-price-heading PRICE
-          .js-price-filter-icon.js-show-price-filter
-        .filter-price-collection.js-price-container
-          - @price_ranges.each do |pr|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
-              - if params[:product_type] == pr
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = "£ #{pr}"
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = "£ #{pr}"
+      / .filter-price-container.hidden-on-small-screen
+      /   .heading-container
+      /     .filter-price-heading PRICE
+      /     .js-price-filter-icon.js-show-price-filter
+      /   .filter-price-collection.js-price-container
+      /     - @price_ranges.each do |pr|
+      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
+      /         - if params[:product_type] == pr
+      /           .black-box-container
+      /             .black-box-parent style='position: relative'
+      /               .black-box style='position: relative; top: 0; left: 0'
+      /               .small-black-box style='position: absolute; top: 0; left: 0'
+      /             .sub-heading = "£ #{pr}"
+      /             .tick-icon
+      /         - else
+      /           .black-box-container
+      /             .black-box
+      /             .sub-heading = "£ #{pr}"
+
+      p
+        label for="amount-two" style=" font-weight: bold; margin: 1rem 0" Price range:
+        input#amount-two readonly="" style="border:0; color: #fe89b5; font-weight:bold; box-shadow: none; background-color: #fefefe; padding-left: 0rem" type="text"
+      #slider-range-two
 
     .product-container
       .js-all-products

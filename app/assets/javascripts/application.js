@@ -11,10 +11,10 @@
 // about supported directives.
 //
 //= require activestorage
-//= require turbolinks
 //= require jquery
+//= require added-jquery-ui
 //= require foundation
-//= require_tree
+//= require turbolinks
 
 $(function(){ $(document).foundation(); });
 
@@ -108,6 +108,32 @@ $(document).on('turbolinks:load', () => {
       });
     });
 
+    $( function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+        }
+      });
+      $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - £" + $( "#slider-range" ).slider( "values", 1 ) );
+
+        $( "#slider-range-two" ).slider({
+          range: true,
+          min: 0,
+          max: 500,
+          values: [ 75, 300 ],
+          slide: function( event, ui ) {
+            $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+          }
+        });
+        $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) +
+          " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
+
+    } );
 
 
     function debounce(func, wait, immediate) {
@@ -172,6 +198,7 @@ $(document).on('turbolinks:load', () => {
 
     window.tabs = new function() {
       this.loadTabs = function() {
+
         $( ".product-image" ).mouseover(function() {
           $(this).css({ 'display': `none` });
           $(this).siblings().first().show()
