@@ -315,7 +315,7 @@
         = render partial: 'home/products', locals: {showFirst: true}
 
     .gif-container
-      .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
+      .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
 
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=#{params[:sort_by]}"
