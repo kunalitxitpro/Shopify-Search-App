@@ -163,36 +163,48 @@
     .filter-heading-container
       .filter-heading FILTER
       .js-main-filter-icon.js-show-main-filter
-    select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
-      option value="#{proxy_prod_url}" Sort
-      / DOG SHIT
-      - if params[:sort_by] == 'title_ascending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
 
-      - if params[:sort_by] == 'price_ascending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+    .dropdown
+      button.dropbtn
+        span style="color: black" Sort
+        .arrow-down
+      .dropdown-content
+        a href="#"  Alphabetically, A-Z
+        a href="#"  Price, low to high
+        a href="#"  Price, high to low
+        a href="#"  Date, new to old
+        a href="#"  Date, old to new
 
-
-      - if params[:sort_by] == 'price_descending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
-
-
-      - if params[:sort_by] == 'created_descending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
-
-
-      - if params[:sort_by] == 'created_ascending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+    / select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
+    /   option value="#{proxy_prod_url}" Sort
+    /   / DOG SHIT
+    /   - if params[:sort_by] == 'title_ascending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+    /
+    /   - if params[:sort_by] == 'price_ascending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+    /
+    /
+    /   - if params[:sort_by] == 'price_descending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+    /
+    /
+    /   - if params[:sort_by] == 'created_descending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+    /
+    /
+    /   - if params[:sort_by] == 'created_ascending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
 
   .main-container
     .filter-data-options-container.js-main-container.hidden-on-small-screen
