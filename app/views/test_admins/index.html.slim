@@ -1,8 +1,3 @@
-= content_for :javascript do
-  javascript:
-    ShopifyApp.ready(function(){
-      ShopifyApp.Bar.initialize({ title: "Home"});
-    });
 
 .app-container
   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
@@ -14,8 +9,9 @@
             = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
               .file-upload-container
                 = f.input :image, label: false, as: :file, id: "image-upload"
-
               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
+              br
+              = f.input :number_of_items_to_load, as: :select, collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load
               = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
           .main-container
@@ -28,3 +24,4 @@
 
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
+  Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"

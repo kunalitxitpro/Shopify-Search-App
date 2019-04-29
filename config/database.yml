@@ -1,6 +1,6 @@
 development: &default
-  adapter: sqlite3
-  database: infinite_development
+  adapter: postgresql
+  database: shopify_development
   encoding: utf8
   min_messages: warning
   pool: 5
@@ -8,11 +8,11 @@ development: &default
 
 test:
   <<: *default
-  database: infinite_test
+  database: shopify_test
 
 production:
-  adapter: sqlite3
-  database: infinite_production
+  adapter: postgresql
+  database: shopify_production
   encoding: utf8
   min_messages: warning
   pool: 5
