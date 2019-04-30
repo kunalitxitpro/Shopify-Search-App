@@ -5,8 +5,8 @@ class ProductFilter
   end
 
   def search
-    products = param_is_present? ? Product.where(sql_query) : Product.limit(36)
-    # ordered_query(products)
+    products = param_is_present? ? Product.where(sql_query) : Product
+    ordered_query(products)
   end
 
   private
@@ -24,7 +24,6 @@ class ProductFilter
   end
 
   def ordered_query(products)
-    return products if param_is_present?
     if @params[:sort_by] == 'title_descending'
       products.order(title: :desc).offset(offset_page).limit(items_to_load)
     elsif @params[:sort_by] == 'title_ascending'
@@ -34,7 +33,11 @@ class ProductFilter
     elsif @params[:sort_by] == 'price_descending'
       products.order(price: :desc).offset(offset_page).limit(items_to_load)
     elsif @params[:sort_by] == 'created_ascending'
+      products.order(shopify_created_at: :asc).offset(offset_page).limit(items_to_load)
     elsif @params[:sort_by] == 'created_descending'
+      products.order(shopify_created_at: :desc).offset(offset_page).limit(items_to_load)
+    else
+      products.order(title: :asc).limit(items_to_load)
     end
   end
 

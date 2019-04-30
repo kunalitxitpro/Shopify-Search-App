@@ -16,9 +16,10 @@
 //= require foundation
 //= require_tree
 
-$(function(){ $(document).foundation(); });
+
 
 $(document).on('turbolinks:load', () => {
+    $(function(){ $(document).foundation(); });
     var PageNumber = 2;
     var running = false;
     var canLoadMore = true;
@@ -32,10 +33,10 @@ $(document).on('turbolinks:load', () => {
               $('.loading-gif').fadeIn();
               $.ajax({
                 type: "GET",
-                url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl + "&last_prod_id=" + window.LastProductID,
+                url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
                 data: $(this).serialize(),
                 success: function(response) {
-                  if(response.productCount != 36){
+                  if(response.productCount != Window.noOfProducts){
                     canLoadMore = false;
                   }
                   $('.loading-gif').fadeOut();
@@ -169,6 +170,16 @@ $(document).on('turbolinks:load', () => {
       $('.app-container').css({'marginLeft' : "0"});
       $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
     });
+
+    $( "#sortable" ).sortable({
+      update: function( event, ui ) {
+        var ids = $("#sortable").children().map(function(){return this.id}).toArray();
+        ids = ids.filter(String).join(",")
+        debugger;
+        $('.js-filter-order').val(ids)
+      }
+    });
+    $( "#sortable" ).disableSelection();
 
     window.tabs = new function() {
       this.loadTabs = function() {

@@ -6,12 +6,19 @@
       .off-canvas-wrapper
         #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
           div style="padding: 1rem"
+            = link_to 'Sync Products', sync_products_path, class: 'button'
+            hr
             = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
               .file-upload-container
                 = f.input :image, label: false, as: :file, id: "image-upload"
               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
               br
               = f.input :number_of_items_to_load, as: :select, collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load
+              ul#sortable
+                - ProductSetting.last.filter_array.each do |filter|
+                  li id="#{filter}"
+                    p = filter
+              = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
               = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
           .main-container
