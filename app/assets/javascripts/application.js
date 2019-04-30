@@ -11,12 +11,10 @@
 // about supported directives.
 //
 //= require activestorage
-//= require turbolinks
 //= require jquery
+//= require added-jquery-ui
 //= require foundation
-//= require_tree
-
-
+//= require turbolinks
 
 $(document).on('turbolinks:load', () => {
     $(function(){ $(document).foundation(); });
@@ -109,6 +107,32 @@ $(document).on('turbolinks:load', () => {
       });
     });
 
+    $( function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+        }
+      });
+      $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - £" + $( "#slider-range" ).slider( "values", 1 ) );
+
+        $( "#slider-range-two" ).slider({
+          range: true,
+          min: 0,
+          max: 500,
+          values: [ 75, 300 ],
+          slide: function( event, ui ) {
+            $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+          }
+        });
+        $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) +
+          " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
+
+    } );
 
 
     function debounce(func, wait, immediate) {
@@ -180,9 +204,31 @@ $(document).on('turbolinks:load', () => {
       }
     });
     $( "#sortable" ).disableSelection();
+    $('.search-box').addClass('main-search').removeClass('search-box').removeClass('search');
+    $('.search-box, .search-form').hide();
+    $('.main-search').addClass('collapsed');
+    $('.main-search').append("<input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a>");
+    // $('.main-search').css({ 'display': 'block' });
+
+    $(".main-search-button").click(function() {
+      if ($('#main-search-id').hasClass("collapsed")) {
+        $('.main-search-button').css({'background-color': '#8FD4F5'});
+        $('.main-search-input').focus();
+      } else {
+        $('.main-search-button').css({'background-color': '#FEFEFE'});
+      }
+
+      if ($('.main-search-input').val() != "") {
+        $('#main-search-id a').attr("href", 'https://www.facebook.com');
+      } else {
+        $('#main-search-id a').removeAttr("href");
+      }
+      $(this).parent(".main-search").toggleClass("collapsed");
+    });
 
     window.tabs = new function() {
       this.loadTabs = function() {
+
         $( ".product-image" ).mouseover(function() {
           $(this).css({ 'display': `none` });
           $(this).siblings().first().show()

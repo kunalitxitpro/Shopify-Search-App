@@ -1,3 +1,7 @@
+.main-search.collapsed#main-search-id style="display: none"
+  input placeholder="Search..." type="text" class="main-search-input"
+  a.main-search-button
+
 .app-container
   #mySidenav.sidenav.hidden-on-large-screen
     div style='padding: 60px 16px'
@@ -98,24 +102,29 @@
                   .black-box
                   .sub-heading style='color: white' = pt
 
-      .filter-price-container
-        .heading-container
-          .filter-price-heading style="color: white" PRICE
-          .js-price-filter-icon.js-show-price-filter
-        .filter-price-collection.js-price-container
-          - @price_ranges.each do |pr|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
-              - if params[:product_type] == pr
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading style="color: white" = "£ #{pr}"
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading style="color: white" = "£ #{pr}"
+      / .filter-price-container
+      /   .heading-container
+      /     .filter-price-heading style="color: white" PRICE
+      /     .js-price-filter-icon.js-show-price-filter
+      /   .filter-price-collection.js-price-container
+      /     - @price_ranges.each do |pr|
+      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
+      /         - if params[:product_type] == pr
+      /           .black-box-container
+      /             .black-box-parent style='position: relative'
+      /               .black-box style='position: relative; top: 0; left: 0'
+      /               .small-black-box style='position: absolute; top: 0; left: 0'
+      /             .sub-heading style="color: white" = "£ #{pr}"
+      /             .tick-icon
+      /         - else
+      /           .black-box-container
+      /             .black-box
+      /             .sub-heading style="color: white" = "£ #{pr}"
+
+      p
+        label style="color: white; margin: 1rem 0; font-weight: bold" for="amount"  Price range:
+        input#amount readonly="" style="border:0; color: #fe89b5; font-weight:bold; background-color: #111111; box-shadow: none; padding-left: 0rem" type="text"
+      #slider-range
 
   #myLeftSidenav.sidenav.hidden-on-large-screen
     div style='padding: 0 20px'
@@ -151,40 +160,55 @@
     .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
       span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
 
+  .product-searched-heading.hidden-on-small-screen WHAT WAS SEARCHED
+  .products-found-count.hidden-on-small-screen ITEMS FOUND
+
   .filter-container.hidden-on-small-screen
     .filter-heading-container
       .filter-heading FILTER
       .js-main-filter-icon.js-show-main-filter
-    select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
-      option value="#{proxy_prod_url}" Sort
-      / DOG SHIT
-      - if params[:sort_by] == 'title_ascending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
 
-      - if params[:sort_by] == 'price_ascending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+    .dropdown
+      button.dropbtn
+        span style="color: black" Sort
+        .arrow-down
+      .dropdown-content
+        a href="#"  Alphabetically, A-Z
+        a href="#"  Price, low to high
+        a href="#"  Price, high to low
+        a href="#"  Date, new to old
+        a href="#"  Date, old to new
 
-
-      - if params[:sort_by] == 'price_descending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
-
-
-      - if params[:sort_by] == 'created_descending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
-
-
-      - if params[:sort_by] == 'created_ascending'
-        option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
-      - else
-        option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+    / select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
+    /   option value="#{proxy_prod_url}" Sort
+    /   / DOG SHIT
+    /   - if params[:sort_by] == 'title_ascending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+    /
+    /   - if params[:sort_by] == 'price_ascending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+    /
+    /
+    /   - if params[:sort_by] == 'price_descending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+    /
+    /
+    /   - if params[:sort_by] == 'created_descending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+    /
+    /
+    /   - if params[:sort_by] == 'created_ascending'
+    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+    /   - else
+    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
 
   .main-container
     .filter-data-options-container.js-main-container.hidden-on-small-screen
@@ -225,7 +249,7 @@
             .remove-filter
 
       .filter-brand-container.hidden-on-small-screen
-        .heading-container
+        .heading-container style="margin-top: 0rem"
           .filter-brand-heading BRAND
           .js-brand-filter-icon.js-show-brand-filter
         .filter-brand-collection.js-brand-container
@@ -281,24 +305,29 @@
                   .black-box
                   .sub-heading = pt
 
-      .filter-price-container.hidden-on-small-screen
-        .heading-container
-          .filter-price-heading PRICE
-          .js-price-filter-icon.js-show-price-filter
-        .filter-price-collection.js-price-container
-          - @price_ranges.each do |pr|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
-              - if params[:product_type] == pr
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = "£ #{pr}"
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = "£ #{pr}"
+      / .filter-price-container.hidden-on-small-screen
+      /   .heading-container
+      /     .filter-price-heading PRICE
+      /     .js-price-filter-icon.js-show-price-filter
+      /   .filter-price-collection.js-price-container
+      /     - @price_ranges.each do |pr|
+      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
+      /         - if params[:product_type] == pr
+      /           .black-box-container
+      /             .black-box-parent style='position: relative'
+      /               .black-box style='position: relative; top: 0; left: 0'
+      /               .small-black-box style='position: absolute; top: 0; left: 0'
+      /             .sub-heading = "£ #{pr}"
+      /             .tick-icon
+      /         - else
+      /           .black-box-container
+      /             .black-box
+      /             .sub-heading = "£ #{pr}"
+
+      p.hidden-on-small-screen
+        label for="amount-two" style=" font-weight: bold; margin: 1rem 0" Price range:
+        input#amount-two readonly="" style="border:0; color: #fe89b5; font-weight:bold; box-shadow: none; background-color: #fefefe; padding-left: 0rem" type="text"
+      #slider-range-two.hidden-on-small-screen
 
     .product-container
       .js-all-products
