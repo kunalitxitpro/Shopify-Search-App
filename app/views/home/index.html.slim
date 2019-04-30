@@ -4,27 +4,59 @@
       ShopifyApp.Bar.initialize({ title: "Home" });
     });
 
-.app-container
-  button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
-  .grid-x.grid-margin-x
-    .cell
-      .off-canvas-wrapper
-        #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
+.admin-section-container
+  .admin-section-header-container
+    .admin-section-header TRUE SEARCH ADMIN
+  .row
+    .admin-section-side-bar-container.columns.medium-2
+      p.js-true-scroll-option TRUE SCROLL
+      p.js-true-filter-option TRUE FILTER
+      p.js-true-search-option TRUE SEARCH
+    .js-admin-section-scroll-config-container.columns.medium-10
+      p TRUE SCROLL
+      span The following configurations relate to the TRUE SCROLL APP
+      .admin-gif-upload-container
+        .position-left
           div style="padding: 1rem"
             = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
               .file-upload-container
                 = f.input :image, label: false, as: :file, id: "image-upload"
 
               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
-              = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
-        .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
-          .main-container
-            .product-container
-              .js-all-products
-                = render partial: 'products', locals: {showFirst: true}
+              .admin-submit-button-container
+                .admin-submit-button-hint Click on the image to change it.
+                = f.submit 'Submit', class: 'button', style: 'width: 40%; height: 100%; text-align: center'
 
-            .gif-container
-              .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+
+    .js-admin-section-filter-config-container.columns.medium-10 style="display: none"
+      h1 im the filter box
+
+
+
+    .js-admin-section-search-config-container.columns.medium-10 style="display: none"
+      h1 im the search box
+
+/ .app-container
+/   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
+/   .grid-x.grid-margin-x
+/     .cell
+/       .off-canvas-wrapper
+/         #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
+/           div style="padding: 1rem"
+/             = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+/               .file-upload-container
+/                 = f.input :image, label: false, as: :file, id: "image-upload"
+/
+/               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
+/               = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
+/         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
+/           .main-container
+/             .product-container
+/               .js-all-products
+/                 = render partial: 'products', locals: {showFirst: true}
+/
+/             .gif-container
+/               .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
 
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"

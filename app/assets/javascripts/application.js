@@ -136,6 +136,20 @@ $(document).on('turbolinks:load', () => {
     } );
 
 
+    $('.js-true-scroll-option').click(function(){
+      $('.js-admin-section-filter-config-container, .js-admin-section-search-config-container').hide()
+      $('.js-admin-section-scroll-config-container').show()
+    });
+    $('.js-true-filter-option').click(function(){
+      $('.js-admin-section-scroll-config-container, .js-admin-section-search-config-container').hide()
+      $('.js-admin-section-filter-config-container').show();
+    });
+    $('.js-true-search-option').click(function(){
+      $('.js-admin-section-scroll-config-container, .js-admin-section-filter-config-container').hide()
+      $('.js-admin-section-search-config-container').show();
+    });
+
+
     function debounce(func, wait, immediate) {
     	var timeout;
     	return function() {
