@@ -2,7 +2,8 @@
 
 class HomeController < AuthenticatedController
   def index
-    @products = ProductSearch.new(product_params).search
+    @products = Product.all
+    # @products = ProductSearch.new(product_params).search
     # @webhooks = ShopifyAPI::Webhook.find(:all)
     @vendor_array = ['Adidas', 'American Sports Teams','Aquascutum','Armani','Asics', 'Avirex', 'Barbour', 'Belstaff', 'Best Company', 'Burberry', 'Nike']
     @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
