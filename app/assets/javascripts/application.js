@@ -196,6 +196,34 @@ $(document).on('turbolinks:load', () => {
       $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
     });
 
+    $('.search-box').addClass('main-search').removeClass('search-box').removeClass('search');
+    $('.search-box, .search-form').hide();
+    $('.main-search').addClass('collapsed');
+    $('.main-search').append("<input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a>");
+    // $('.main-search').css({ 'display': 'block' });
+
+    $(".main-search-button").click(function() {
+      if ($('#main-search-id').hasClass("collapsed")) {
+        $('.main-search-button').css({'background-color': '#8FD4F5'});
+        $('.main-search-input').focus();
+      } else {
+        $('.main-search-button').css({'background-color': '#FEFEFE'});
+      }
+
+      if ($('.main-search-input').val() != "") {
+        $('#main-search-id a').attr("href", 'https://www.facebook.com');
+      } else {
+        $('#main-search-id a').removeAttr("href");
+      }
+      $(this).parent(".main-search").toggleClass("collapsed");
+    });
+
+
+    // $( ".main-search" ).focusout(function() {
+      // alert('lost fuck us');
+      // $(this).parent(".main-search").toggleClass("collapsed");
+    // });
+
     window.tabs = new function() {
       this.loadTabs = function() {
 

@@ -49,3 +49,70 @@
   float: left
   margin-left: 1rem
   font-weight: bold
+
+
+
+// a
+//   text-decoration: none
+//   &:hover
+//     text-decoration: underline
+
+.main-search
+  width: 22em
+  height: 40px
+  padding: 0
+  margin: 0
+  line-height: 40px
+  position: relative
+  transition: all 0.25s linear
+  input
+    // width: 9.5em
+    height: 40px
+    line-height: 40px
+    padding: 0 0 0 0.5em
+    border: none
+    outline: none
+    background-color: transparent
+    font-size: 1em
+    float: left
+    transition: all 0.25s linear
+  a
+    width: 40px
+    height: 40px
+    line-height: 40px
+    padding: 0
+    color: #ccc
+    text-align: center
+    text-decoration: none
+    display: block
+    position: absolute
+    top: 0
+    right: 0
+    transition: all 0.25s linear
+  .main-search-button
+    // background-color: #8FD4F5
+    &:before
+      content: ""
+      font-family: FontAwesome
+      color: #FEFEFE
+      font-style: normal
+      font-size: 20px
+    &:hover
+      // color: #eee
+  &.collapsed
+    width: 2em
+    margin-left: 20em
+    input
+      width: 0
+      padding: 0
+      margin: 0
+    a
+      color: black
+      &:before
+        color: black
+        // background-color: #FEFEFE
+    &.main-search-button
+      color: white
+      background-color: #FEFEFE
+      &:hover
+        // color: #bbb
