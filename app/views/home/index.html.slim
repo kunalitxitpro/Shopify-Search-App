@@ -3,22 +3,31 @@
     ShopifyApp.ready(function(){
       ShopifyApp.Bar.initialize({ title: "Home"});
     });
+= simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+  .admin-section-container
+    .admin-section-header-container
+      .admin-section-header TRUE SEARCH ADMIN
+    .row
+      .admin-section-side-bar-container.columns.medium-2 style="padding: 0"
+        .js-true-scroll-option style='border-left: 10px solid pink; background-color: #a7b8c9; color: white'
+          = image_tag('vertical-scroll.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text TRUE SCROLL
+        .js-true-filter-option
+          = image_tag('funnel.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text TRUE FILTER
+        .js-true-search-option
+          = image_tag('search.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text TRUE SEARCH
+      .js-admin-section-scroll-config-container.columns.medium-10
+        .header-box
+          span TRUE SCROLL
+          span The following configurations relate to the TRUE SCROLL APP
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; border-radius: 5px'
 
-.admin-section-container
-  .admin-section-header-container
-    .admin-section-header TRUE SEARCH ADMIN
-  .row
-    .admin-section-side-bar-container.columns.medium-2
-      p.js-true-scroll-option TRUE SCROLL
-      p.js-true-filter-option TRUE FILTER
-      p.js-true-search-option TRUE SEARCH
-    .js-admin-section-scroll-config-container.columns.medium-10
-      p TRUE SCROLL
-      span The following configurations relate to the TRUE SCROLL APP
-      .admin-gif-upload-container
-        .position-left
-          div style="padding: 1rem"
-            = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+        .admin-gif-upload-container
+          .admin-gif-upload-info Changing this image will set the gif that appears when new products are being loaded into the page.
+          .position-left
+            div style="padding: 1rem"
               .file-upload-container
                 = f.input :image, label: false, as: :file, id: "image-upload"
 
@@ -27,14 +36,34 @@
                 .admin-submit-button-hint Click on the image to change it.
                 = f.submit 'Submit', class: 'button', style: 'width: 40%; height: 100%; text-align: center'
 
+        .scroll-data-inputs
+          .number-of-items-to-load-container
+            = f.input :number_of_items_to_load, as: :select,label: false ,collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load, :input_html => { :style => 'width: 220px; margin: 0 1rem 0 0' }
+            .number-of-items-to-load-text Pick the number of items that will be loaded in.
 
-    .js-admin-section-filter-config-container.columns.medium-10 style="display: none"
-      h1 im the filter box
+      .js-admin-section-filter-config-container.columns.medium-10 style="display: none"
+        .header-box
+          span TRUE FILTER
+          span The following configurations relate to the TRUE FILTER APP
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0'
+        .filter-app-config-container
+          .filter-app-config-text Drag and drop the blocks to set the order of the filters
+          ul#sortable
+            - ProductSetting.last.filter_array.each do |filter|
+              li id="#{filter}"
+                = image_tag('drag.svg', size: "20", style: 'margin: 1rem')
+                .li-sub-box
+                  .li-sub-box-text = filter
+          = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
+          = f.submit 'Submit', class: 'button', style: 'width: 26%; margin-top: 1rem; border-radius: 5px'
 
 
 
-    .js-admin-section-search-config-container.columns.medium-10 style="display: none"
-      h1 im the search box
+      .js-admin-section-search-config-container.columns.medium-10 style="display: none"
+        .header-box
+          span TRUE SEARCH
+          span The following configurations relate to the TRUE SEARCH APP
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0'
 
 / .app-container
 /   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
