@@ -106,7 +106,6 @@ $(document).on('turbolinks:load', () => {
     //   $('.image-placeholder').css({ 'width': `250px` });
     // });
 
-
     $(function() {
       function readURL(input) {
         if (input.files && input.files[0]) {
@@ -214,6 +213,10 @@ $(document).on('turbolinks:load', () => {
       $('#myLeftSidenav').css({ 'width': `0` });
       $('.app-container').css({'marginLeft' : "0"});
       $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
+    });
+
+    $('.js-new-syn-button').click(function(){
+      $('.js-new-syn').first().clone().appendTo( ".js-syn-container" );
     });
 
     $( "#sortable" ).sortable({

@@ -56,7 +56,3 @@
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
   Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"
-
-  $('.js-new-syn-button').click(function(){
-    $('.js-new-syn').first().clone().appendTo( ".js-syn-container" );
-  });
