@@ -1,4 +1,6 @@
 .single-product-container
+  - if params[:clown]
+    .quick-view-button value='#{product.shopify_id}' view more
   .img-container
     .product-image style="background-image: url('#{product.first_image_url}')"
     .product-image-two style="display: none; background-image: url('#{product.second_image_url}')"
