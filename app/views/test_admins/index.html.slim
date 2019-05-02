@@ -1,4 +1,3 @@
-
 .app-container
   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
   .grid-x.grid-margin-x
@@ -19,6 +18,28 @@
                   li id="#{filter}"
                     p = filter
               = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
+              = f.input :include_out_of_stock_products, as: :boolean, input_html: {checked: ProductSetting.last.include_out_of_stock_products}
+              = f.input :autoscroll_on, as: :boolean, input_html: {checked: ProductSetting.last.autoscroll_on}
+              = f.input :related_search_on, as: :boolean, input_html: {checked: ProductSetting.last.related_search_on}
+              = f.input :load_more_text, placeholder: 'Load More..', input_html: {value:ProductSetting.last.load_more_text }
+              hr
+                = f.simple_fields_for :product_synonyms do |p|
+                  .js-syn-container
+                    - ProductSetting.last.product_synonyms.each do |ps|
+                      .row
+                        .columns.medium-6.small-6.large-6
+                          = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', value: ps.synonym}
+                        .columns.medium-6.small-6.large-6
+                          = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', value: ps.value}
+                          = p.input :id, as: :hidden, input_html: { value: ps.id, name: 'product_setting[product_synonyms][id][]' }
+                    .js-new-syn
+                      .row
+                        .columns.medium-6.small-6.large-6
+                          = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]'}
+                        .columns.medium-6.small-6.large-6
+                          = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]'}
+              = link_to '+ New Synonym', 'javascript:void(0)', class: 'button js-new-syn-button'
+
               = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
           .main-container
@@ -26,9 +47,16 @@
               .js-all-products
                 = render partial: 'products', locals: {showFirst: true}
 
-            .gif-container
-              .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+            - if ProductSetting.last.autoscroll_on
+              .gif-container
+                .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+            - else
+              = link_to ProductSetting.last.load_more_text, '#', class: 'js-load-more'
 
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
   Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"
+
+  $('.js-new-syn-button').click(function(){
+    $('.js-new-syn').first().clone().appendTo( ".js-syn-container" );
+  });

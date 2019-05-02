@@ -13,5 +13,7 @@ Rails.application.routes.draw do
   get 'all_products', to: 'home#products', as: :all_products
   get '/products/sync', to: 'product_settings#sync', as: :sync_products
 
+  get '/example', to: 'test_admins#example', as: :example
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

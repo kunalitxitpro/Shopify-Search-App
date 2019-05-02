@@ -5,7 +5,16 @@ class ProductFilter
   end
 
   def search
+    Product.where('lower(title) ~* ? OR lower(vendor) ~* ?', @params[:title].downcase,@params[:title].downcase).limit(50)
+  end
+
+  def popular
+    Product.where('lower(title) ~* ? ', @params[:title]).order(quantity: :asc).limit(8)
+  end
+
+  def filter
     products = param_is_present? ? Product.where(sql_query) : Product
+    products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     ordered_query(products)
   end
 

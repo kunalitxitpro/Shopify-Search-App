@@ -1,3 +1,8 @@
+.main-search.collapsed#main-search-id style="display: block"
+  input placeholder="Search..." type="text" class="main-search-input"
+  a.main-search-button
+.js-search-results
+
 .app-container
   #mySidenav.sidenav.hidden-on-large-screen
     div style='padding: 60px 16px'
@@ -167,8 +172,12 @@
       .js-all-products
         = render partial: 'test_admins/products', locals: {showFirst: true}
 
-    .gif-container
-      .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
+    - if ProductSetting.last.autoscroll_on
+      .gif-container
+        .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
+    - else
+      div style="width: 100%; text-align: center"
+        = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px;'
 
 javascript:
   Window.paramUrl = "#{request.url.split("?")[1]}"

@@ -22,38 +22,59 @@ $(document).on('turbolinks:load', () => {
     var running = false;
     var canLoadMore = true;
 
-    $(window).bind('scroll', function() {
-        if($(window).scrollTop() >= $('.product-container').offset().top + $('.product-container').outerHeight() - window.innerHeight) {
-          if(running == false){
-            running = true;
-            $('.js-product-group:hidden').slice(0, 12).fadeIn('slow');
-            if ($('.js-product-group:hidden').length <= 1 && canLoadMore){
-              $('.loading-gif').fadeIn();
-              $.ajax({
-                type: "GET",
-                url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
-                data: $(this).serialize(),
-                success: function(response) {
-                  if(response.productCount != Window.noOfProducts){
-                    canLoadMore = false;
-                  }
-                  $('.loading-gif').fadeOut();
-                  var productID = response.lastProductID;
 
-                  if($('.js-product-id-' + productID).length){
-                    canLoadMore = false;
-                  }else {
-                    $('.js-all-products').append(response.productsPartial);
-                    window.tabs.loadTabs();
+    if ($('.gif-container').length > 0 ) {
+      $(window).bind('scroll', function() {
+          if($(window).scrollTop() >= $('.product-container').offset().top + $('.product-container').outerHeight() - window.innerHeight) {
+            if(running == false){
+              running = true;
+              $('.js-product-group:hidden').slice(0, 12).fadeIn('slow');
+              if ($('.js-product-group:hidden').length <= 1 && canLoadMore){
+                $('.loading-gif').fadeIn();
+                $.ajax({
+                  type: "GET",
+                  url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
+                  data: $(this).serialize(),
+                  success: function(response) {
+                    if(response.productCount != Window.noOfProducts){
+                      canLoadMore = false;
+                    }
+                    $('.loading-gif').fadeOut();
+                    var productID = response.lastProductID;
+
+                    if($('.js-product-id-' + productID).length){
+                      canLoadMore = false;
+                    }else {
+                      $('.js-all-products').append(response.productsPartial);
+                      window.tabs.loadTabs();
+                    }
                   }
-                }
-              });
-              PageNumber = PageNumber + 1
+                });
+                PageNumber = PageNumber + 1
+              }
+              setTimeout(function(){running = false}, 300);
             }
-            setTimeout(function(){running = false}, 300);
           }
+      });
+    }
+
+    $('.js-load-more').click(function(){
+      var element = this
+      $(element).fadeOut()
+      $.ajax({
+        type: "GET",
+        url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
+        data: $(this).serialize(),
+        success: function(response) {
+          var productID = response.lastProductID;
+          $('.js-all-products').append(response.productsPartial);
+          window.tabs.loadTabs();
+          $(element).fadeIn()
         }
+      });
+      PageNumber = PageNumber + 1
     });
+
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     if(searchField){
       $('.search-form').append("<div class='js-search-results'></div>")
@@ -219,7 +240,7 @@ $(document).on('turbolinks:load', () => {
       }
 
       if ($('.main-search-input').val() != "") {
-        $('#main-search-id a').attr("href", 'https://www.facebook.com');
+        $('#main-search-id a').attr("href", '#');
       } else {
         $('#main-search-id a').removeAttr("href");
       }
