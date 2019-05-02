@@ -6,23 +6,25 @@
 = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
   .admin-section-container
     .admin-section-header-container
-      .admin-section-header TRUE SEARCH ADMIN
+      .admin-section-header True search admin
     .row
       .admin-section-side-bar-container.columns.medium-2 style="padding: 0"
-        .js-true-scroll-option style='border-left: 10px solid pink; background-color: #a7b8c9; color: white'
+        .js-true-scroll-option style='border-left: 10px solid rgb(92, 106, 196); background-color: white; color: rgb(92, 106, 196);'
           = image_tag('vertical-scroll.svg', size: '20', style: 'margin: 0.5rem')
-          .admin-section-side-bar-text TRUE SCROLL
+          .admin-section-side-bar-text True scroll
         .js-true-filter-option
           = image_tag('funnel.svg', size: '20', style: 'margin: 0.5rem')
-          .admin-section-side-bar-text TRUE FILTER
+          .admin-section-side-bar-text True filter
         .js-true-search-option
           = image_tag('search.svg', size: '20', style: 'margin: 0.5rem')
-          .admin-section-side-bar-text TRUE SEARCH
+          .admin-section-side-bar-text True search
       .js-admin-section-scroll-config-container.columns.medium-10
         .header-box
-          span TRUE SCROLL
-          span The following configurations relate to the TRUE SCROLL APP
-          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; border-radius: 5px'
+          span True scroll
+          span The following configurations relate to the True scroll app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; border-radius: 5px; background-color: #3f4eae'
+
+        hr
 
         .admin-gif-upload-container
           .admin-gif-upload-info Changing this image will set the gif that appears when new products are being loaded into the page.
@@ -34,18 +36,21 @@
               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
               .admin-submit-button-container
                 .admin-submit-button-hint Click on the image to change it.
-                = f.submit 'Submit', class: 'button', style: 'width: 40%; height: 100%; text-align: center'
-
+                = f.submit 'Submit', class: 'button', style: 'width: 40%; height: 100%; text-align: center; background-color: #3f4eae'
+        hr
         .scroll-data-inputs
           .number-of-items-to-load-container
-            = f.input :number_of_items_to_load, as: :select,label: false ,collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load, :input_html => { :style => 'width: 220px; margin: 0 1rem 0 0' }
+            = f.input :number_of_items_to_load, as: :select,label: false ,collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load, :input_html => { :style => 'border-radius: 5px; width: 220px; margin: 0 1rem 0 0; color: #212b36' }
             .number-of-items-to-load-text Pick the number of items that will be loaded in.
 
       .js-admin-section-filter-config-container.columns.medium-10 style="display: none"
         .header-box
-          span TRUE FILTER
-          span The following configurations relate to the TRUE FILTER APP
-          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0'
+          span True filter
+          span The following configurations relate to the True filter app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
+
+        hr
+
         .filter-app-config-container
           .filter-app-config-text Drag and drop the blocks to set the order of the filters
           ul#sortable
@@ -55,15 +60,15 @@
                 .li-sub-box
                   .li-sub-box-text = filter
           = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
-          = f.submit 'Submit', class: 'button', style: 'width: 26%; margin-top: 1rem; border-radius: 5px'
+          = f.submit 'Submit', class: 'button', style: 'width: 26%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
 
 
 
       .js-admin-section-search-config-container.columns.medium-10 style="display: none"
         .header-box
-          span TRUE SEARCH
-          span The following configurations relate to the TRUE SEARCH APP
-          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0'
+          span True search
+          span The following configurations relate to the True search app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
 
 / .app-container
 /   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
