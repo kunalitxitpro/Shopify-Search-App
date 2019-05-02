@@ -30,6 +30,7 @@ namespace :jobs do
       first_image_url: prod.image.src,
       second_image_url: prod.images.second.try(:src),
       price: prod.variants.first.price.to_f,
+      quantity: prod.variants.first.inventory_quantity,
       compare_at_price: compare_price,
       sizes: prod.variants.map{|a| a.title}.join(', '),
       shopify_id: prod.id,
@@ -45,6 +46,7 @@ namespace :jobs do
     set_product_record.first_image_url = prod.image.src
     set_product_record.second_image_url = prod.images.second.try(:src)
     set_product_record.price = prod.variants.first.price.to_f
+    set_product_record.quantity = prod.variants.first.inventory_quantity
     set_product_record.compare_at_price = compare_price
     set_product_record.sizes = prod.variants.map{|a| a.title}.join(', ')
     set_product_record.product_type =  prod.product_type

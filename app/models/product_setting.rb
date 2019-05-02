@@ -1,5 +1,7 @@
 class ProductSetting < ApplicationRecord
   mount_uploader :image, LoaderUploader
+  has_many :product_synonyms
+  accepts_nested_attributes_for :product_synonyms, allow_destroy: true
 
   def filter_array
     filter_order.split(',')
