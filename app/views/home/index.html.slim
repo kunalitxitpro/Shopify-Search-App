@@ -43,6 +43,15 @@
             = f.input :number_of_items_to_load, as: :select,label: false ,collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load, :input_html => { :style => 'border-radius: 5px; width: 220px; margin: 0 1rem 0 0; color: #212b36' }
             .number-of-items-to-load-text Pick the number of items that will be loaded in.
 
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.autoscroll_on}" checked="checked" name="product_setting[autoscroll_on]" id="product_setting_autoscroll_on" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              span.slider.round
+            .toggle-switch-text Toggle autoscroll on or off
+          div style="display: flex; align-items: center"
+            = f.input :load_more_text, placeholder: 'Load More..', label: false, input_html: {value:ProductSetting.last.load_more_text, style: 'margin-top: 1rem; width: 220px; border-radius: 5px' }
+            .toggle-switch-text Toggle autoscroll on or off
+
       .js-admin-section-filter-config-container.columns.medium-10 style="display: none"
         .header-box
           span True filter
@@ -62,8 +71,6 @@
           = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
           = f.submit 'Submit', class: 'button', style: 'width: 26%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
 
-
-
       .js-admin-section-search-config-container.columns.medium-10 style="display: none"
         .header-box
           span True search
@@ -75,6 +82,12 @@
               input class="boolean optional" type="checkbox" value="#{ProductSetting.last.include_out_of_stock_products}" checked="checked" name="product_setting[include_out_of_stock_products]" id="product_setting_include_out_of_stock_products" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
               span.slider.round
             .toggle-switch-text Include out of stock products
+
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.related_search_on}" checked="checked" name="product_setting[related_search_on]" id="product_setting_related_search_on" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              span.slider.round
+            .toggle-switch-text Toggle related search
 
 / .app-container
 /   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
