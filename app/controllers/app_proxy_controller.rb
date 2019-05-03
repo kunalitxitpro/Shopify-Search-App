@@ -2,7 +2,6 @@ class AppProxyController < ApplicationController
    include ShopifyApp::AppProxyVerification
 
   def index
-    # @products = ProductSearch.new(product_params).search
     if params[:filter].present?
       render_filtered_products
     elsif params[:search].present?
@@ -15,32 +14,31 @@ class AppProxyController < ApplicationController
   private
 
   def render_all_products
-    shop = Shop.find_by(shopify_domain: params[:shop])
-    @products = ProductSearch.new(product_params, shop).search
-    @vendor_array = ['Adidas', 'American Sports Teams','Aquascutum','Armani','Asics', 'Avirex', 'Barbour', 'Belstaff', 'Best Company', 'Burberry', 'Nike']
+    @products = ProductFilter.new(product_params).filter
+    @vendor_array = Product.pluck(:vendor).uniq
     @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
-    @product_type = ['Bags', 'dress', 'Football shirts', 'Hockey Top', 'Jackets & Coats', 'Jeans', 'Party Shirts', 'Polo Shirts', 'Rugby Tops', 'Shirts', 'Shorts', 'Skirts', 'Sweatshirts & Hoods', 'T-Shirts', 'Tracksuit', 'Tracksuit Bottoms', 'Trainers', 'Vests', 'Wholesale']
+    @product_type = Product.pluck(:product_type).uniq.reject(&:blank?)
     @price_ranges = ['0 - 31', '31 - 70', '71 - 90', '91 - 110']
     render content_type: 'application/liquid'
   end
 
   def render_filtered_products
-    shop = Shop.find_by(shopify_domain: params[:shop])
     page = params[:page]
-    @products = ProductSearch.new(product_params, shop).search
+    @products = ProductFilter.new(product_params).filter
     @products = [] if products_are_already_in_view?
     render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false}), layout: false, productCount: @products.count, lastProductID: @products.last.try(:id)}
   end
 
   def render_searched_products
-    shop = Shop.find_by(shopify_domain: params[:shop])
-    if shop
-      shop.with_shopify_session do
-        query = params[:query]
-        @products = ShopifyAPI::Product.find(:all, params: {title: query, limit: 36})
-        render json: {searchPartial: render_to_string('home/_search_results', layout: false) }
-      end
-    end
+    @products = ProductFilter.new({title: query_string}).search
+    @popular = ProductFilter.new({title: query_string}).popular
+    render json: {searchPartial: render_to_string('home/_search_results', layout: false) }
+  end
+
+  def query_string
+    synon = ProductSetting.last.product_synonyms.where('synonym = ?', params[:query]).first
+    return params[:query] unless synon
+    return synon.value
   end
 
   def product_params

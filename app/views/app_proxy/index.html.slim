@@ -1,7 +1,3 @@
-.main-search.collapsed#main-search-id style="display: none"
-  input placeholder="Search..." type="text" class="main-search-input"
-  a.main-search-button
-
 .app-container
   #mySidenav.sidenav.hidden-on-large-screen
     div style='padding: 60px 16px'
@@ -10,13 +6,28 @@
         a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
 
       - if params[:brand].present?
-        = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:brand]
-            .remove-filter
+        - params[:brand].each do |brand|
+          - newbrand = params[:brand].dup
+          - newbrand.delete(brand)
+          = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = brand
+              .remove-filter
+
+      - if params[:size].present?
+        - params[:size].each do |size|
+          - newSize = params[:size].dup
+          - newSize.delete(size)
+          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = "Size #{size}"
+              .remove-filter
 
       - if params[:price].present?
         = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
@@ -27,80 +38,57 @@
             .sub-heading = params[:price]
             .remove-filter
 
-      - if params[:size].present?
-        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = "Size #{params[:size]}"
-            .remove-filter
-
       - if params[:product_type].present?
-        = link_to proxy_prod_path(brand: params[:brand], size: params[:size]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:product_type]
-            .remove-filter
+        - params[:product_type].each do |pt|
+          - newpt = params[:product_type].dup
+          - newpt.delete(pt)
+          = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = pt
+              .remove-filter
 
-      .filter-brand-container
-        .heading-container
-          .filter-brand-heading style='color: white' BRAND
-          .js-brand-filter-icon.js-show-brand-filter
-        .filter-brand-collection.js-brand-container
-          - @vendor_array.each do |va|
-            = link_to proxy_prod_path(brand: va, size: params[:size], product_type: params[:product_type]) do
-              - if params[:brand] == va
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading style='color: white' = va
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading style='color: white' = va
+      - ProductSetting.last.filter_array.each do |filter|
+        = render partial: filter, locals: {desktop: false}
+      / .filter-size-container
+      /   .heading-container
+      /     .filter-size-heading style='color: white' SIZE
+      /     .js-size-filter-icon.js-show-size-filter
+      /   .filter-size-collection.js-size-container
+      /     - @size_array.each do |size|
+      /       = link_to proxy_prod_path(size: size, brand: params[:brand], product_type: params[:product_type]) do
+      /         - if params[:size] == size
+      /           .black-box-container
+      /             .black-box-parent style='position: relative'
+      /               .black-box style='position: relative; top: 0; left: 0'
+      /               .small-black-box style='position: absolute; top: 0; left: 0'
+      /             .sub-heading style='color: white' = size
+      /             .tick-icon
+      /         - else
+      /           .black-box-container
+      /             .black-box
+      /             .sub-heading  style='color: white' = size
 
-      .filter-size-container
-        .heading-container
-          .filter-size-heading style='color: white' SIZE
-          .js-size-filter-icon.js-show-size-filter
-        .filter-size-collection.js-size-container
-          - @size_array.each do |size|
-            = link_to proxy_prod_path(size: size, brand: params[:brand], product_type: params[:product_type]) do
-              - if params[:size] == size
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading style='color: white' = size
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading  style='color: white' = size
-
-      .filter-type-container
-        .heading-container
-          .filter-type-heading style='color: white' TYPE
-          .js-type-filter-icon.js-show-type-filter
-        .filter-type-collection.js-type-container
-          - @product_type.each do |pt|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pt) do
-              - if params[:product_type] == pt
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading style='color: white' = pt
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading style='color: white' = pt
+      / .filter-type-container
+      /   .heading-container
+      /     .filter-type-heading style='color: white' TYPE
+      /     .js-type-filter-icon.js-show-type-filter
+      /   .filter-type-collection.js-type-container
+      /     - @product_type.each do |pt|
+      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pt) do
+      /         - if params[:product_type] == pt
+      /           .black-box-container
+      /             .black-box-parent style='position: relative'
+      /               .black-box style='position: relative; top: 0; left: 0'
+      /               .small-black-box style='position: absolute; top: 0; left: 0'
+      /             .sub-heading style='color: white' = pt
+      /             .tick-icon
+      /         - else
+      /           .black-box-container
+      /             .black-box
+      /             .sub-heading style='color: white' = pt
 
       / .filter-price-container
       /   .heading-container
@@ -170,65 +158,40 @@
 
     .dropdown
       button.dropbtn
-        span style="color: black" Sort
+        span style="color: black" = sort_params_title(params[:sort_by])
         .arrow-down
       .dropdown-content
-        a href="#"  Alphabetically, A-Z
-        a href="#"  Price, low to high
-        a href="#"  Price, high to low
-        a href="#"  Date, new to old
-        a href="#"  Date, old to new
-
-    / select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
-    /   option value="#{proxy_prod_url}" Sort
-    /   / DOG SHIT
-    /   - if params[:sort_by] == 'title_ascending'
-    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
-    /   - else
-    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
-    /
-    /   - if params[:sort_by] == 'price_ascending'
-    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
-    /   - else
-    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
-    /
-    /
-    /   - if params[:sort_by] == 'price_descending'
-    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
-    /   - else
-    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
-    /
-    /
-    /   - if params[:sort_by] == 'created_descending'
-    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
-    /   - else
-    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
-    /
-    /
-    /   - if params[:sort_by] == 'created_ascending'
-    /     option selected='selected' value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
-    /   - else
-    /     option value="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')}"  Alphabetically, A-Z
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')}"  Price, low to high
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')}"  Price, high to low
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')}"  Date, new to old
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')}"  Date, old to new
 
   .main-container
     .filter-data-options-container.js-main-container.hidden-on-small-screen
       - if params[:brand].present?
-        = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:brand]
-            .remove-filter
+        - params[:brand].each do |brand|
+          - newbrand = params[:brand].dup
+          - newbrand.delete(brand)
+          = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = brand
+              .remove-filter
 
       - if params[:size].present?
-        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = "Size #{params[:size]}"
-            .remove-filter
+        - params[:size].each do |size|
+          - newSize = params[:size].dup
+          - newSize.delete(size)
+          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = "Size #{size}"
+              .remove-filter
 
       - if params[:price].present?
         = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
@@ -240,101 +203,31 @@
             .remove-filter
 
       - if params[:product_type].present?
-        = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:product_type]
-            .remove-filter
+        - params[:product_type].each do |pt|
+          - newpt = params[:product_type].dup
+          - newpt.delete(pt)
+          = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = pt
+              .remove-filter
 
-      .filter-brand-container.hidden-on-small-screen
-        .heading-container style="margin-top: 0rem"
-          .filter-brand-heading BRAND
-          .js-brand-filter-icon.js-show-brand-filter
-        .filter-brand-collection.js-brand-container
-          - @vendor_array.each do |va|
-            = link_to proxy_prod_path(brand: va, size: params[:size], product_type: params[:product_type], price: params[:price]) do
-              - if params[:brand] == va
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = va
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = va
-
-      .filter-size-container.hidden-on-small-screen
-        .heading-container
-          .filter-size-heading SIZE
-          .js-size-filter-icon.js-show-size-filter
-        .filter-size-collection.js-size-container
-          - @size_array.each do |size|
-            = link_to proxy_prod_path(size: size, brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
-              - if params[:size] == size
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = size
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = size
-
-      .filter-type-container.hidden-on-small-screen
-        .heading-container
-          .filter-type-heading TYPE
-          .js-type-filter-icon.js-show-type-filter
-        .filter-type-collection.js-type-container
-          - @product_type.each do |pt|
-            = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pt, price: params[:price]) do
-              - if params[:product_type] == pt
-                .black-box-container
-                  .black-box-parent style='position: relative'
-                    .black-box style='position: relative; top: 0; left: 0'
-                    .small-black-box style='position: absolute; top: 0; left: 0'
-                  .sub-heading = pt
-                  .tick-icon
-              - else
-                .black-box-container
-                  .black-box
-                  .sub-heading = pt
-
-      / .filter-price-container.hidden-on-small-screen
-      /   .heading-container
-      /     .filter-price-heading PRICE
-      /     .js-price-filter-icon.js-show-price-filter
-      /   .filter-price-collection.js-price-container
-      /     - @price_ranges.each do |pr|
-      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
-      /         - if params[:product_type] == pr
-      /           .black-box-container
-      /             .black-box-parent style='position: relative'
-      /               .black-box style='position: relative; top: 0; left: 0'
-      /               .small-black-box style='position: absolute; top: 0; left: 0'
-      /             .sub-heading = "£ #{pr}"
-      /             .tick-icon
-      /         - else
-      /           .black-box-container
-      /             .black-box
-      /             .sub-heading = "£ #{pr}"
-
-      p.hidden-on-small-screen
-        label for="amount-two" style=" font-weight: bold; margin: 1rem 0" Price range:
-        input#amount-two readonly="" style="border:0; color: #fe89b5; font-weight:bold; box-shadow: none; background-color: #fefefe; padding-left: 0rem" type="text"
-      #slider-range-two.hidden-on-small-screen
+      - ProductSetting.last.filter_array.each do |filter|
+        = render partial: filter, locals: {desktop: true}
 
     .product-container
       .js-all-products
-        = render partial: 'home/products', locals: {showFirst: true}
+        = render partial: 'test_admins/products', locals: {showFirst: true}
 
-    .gif-container
-      .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+    - if ProductSetting.last.autoscroll_on
+      .gif-container
+        .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
+    - else
+      div style="width: 100%; text-align: center"
+        = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px;'
 
 javascript:
-  Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}&sort_by=#{params[:sort_by]}"
+  Window.paramUrl = "#{request.url.split("?")[1]}"
+  Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"
