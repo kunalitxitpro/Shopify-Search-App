@@ -69,6 +69,12 @@
           span True search
           span The following configurations relate to the True search app
           = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
+        .filter-app-config-container
+          .toggle-switch
+            label.switch
+              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.include_out_of_stock_products}" checked="checked" name="product_setting[include_out_of_stock_products]" id="product_setting_include_out_of_stock_products" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              span.slider.round
+            .toggle-switch-text Include out of stock products
 
 / .app-container
 /   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
