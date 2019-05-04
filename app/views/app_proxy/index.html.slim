@@ -29,14 +29,14 @@
               .sub-heading = "Size #{size}"
               .remove-filter
 
-      - if params[:price].present?
-        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:price]
-            .remove-filter
+        - if params[:price].present?
+          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = params[:price]
+              .remove-filter
 
       - if params[:product_type].present?
         - params[:product_type].each do |pt|
@@ -90,71 +90,71 @@
       /             .black-box
       /             .sub-heading style='color: white' = pt
 
-      / .filter-price-container
-      /   .heading-container
-      /     .filter-price-heading style="color: white" PRICE
-      /     .js-price-filter-icon.js-show-price-filter
-      /   .filter-price-collection.js-price-container
-      /     - @price_ranges.each do |pr|
-      /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
-      /         - if params[:product_type] == pr
-      /           .black-box-container
-      /             .black-box-parent style='position: relative'
-      /               .black-box style='position: relative; top: 0; left: 0'
-      /               .small-black-box style='position: absolute; top: 0; left: 0'
-      /             .sub-heading style="color: white" = "£ #{pr}"
-      /             .tick-icon
-      /         - else
-      /           .black-box-container
-      /             .black-box
-      /             .sub-heading style="color: white" = "£ #{pr}"
+        / .filter-price-container
+        /   .heading-container
+        /     .filter-price-heading style="color: white" PRICE
+        /     .js-price-filter-icon.js-show-price-filter
+        /   .filter-price-collection.js-price-container
+        /     - @price_ranges.each do |pr|
+        /       = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: pr) do
+        /         - if params[:product_type] == pr
+        /           .black-box-container
+        /             .black-box-parent style='position: relative'
+        /               .black-box style='position: relative; top: 0; left: 0'
+        /               .small-black-box style='position: absolute; top: 0; left: 0'
+        /             .sub-heading style="color: white" = "£ #{pr}"
+        /             .tick-icon
+        /         - else
+        /           .black-box-container
+        /             .black-box
+        /             .sub-heading style="color: white" = "£ #{pr}"
 
-      p
-        label style="color: white; margin: 1rem 0; font-weight: bold" for="amount"  Price range:
-        input#amount readonly="" style="border:0; color: #fe89b5; font-weight:bold; background-color: #111111; box-shadow: none; padding-left: 0rem" type="text"
-      #slider-range
+        p
+          label style="color: white; margin: 1rem 0; font-weight: bold" for="amount"  Price range:
+          input#amount readonly="" style="border:0; color: #fe89b5; font-weight:bold; background-color: #111111; box-shadow: none; padding-left: 0rem" type="text"
+        #slider-range
 
-  #myLeftSidenav.sidenav.hidden-on-large-screen
-    div style='padding: 0 20px'
-      .close-filter-container style='margin: 2rem 0 0 0'
-        .close-filter-text SORT
-        a.close-sort-btn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url}" Sort
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')}" Alphabetically, A-Z
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending')}" Alphabetically, Z-A
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')}" Price, low to high
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')}" Price, high to low
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')}" Date, new to old
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')}" Date, old to new
+    #myLeftSidenav.sidenav.hidden-on-large-screen
+      div style='padding: 0 20px'
+        .close-filter-container style='margin: 2rem 0 0 0'
+          .close-filter-text SORT
+          a.close-sort-btn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url}" Sort
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')}" Alphabetically, A-Z
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending')}" Alphabetically, Z-A
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')}" Price, low to high
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')}" Price, high to low
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')}" Date, new to old
+        .sort-nav-container
+          .black-box
+          a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')}" Date, old to new
 
-  .openbtn-container.hidden-on-large-screen
-    .openbtn-sub-container.hidden-on-large-screen.openbtn
-      span.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
+    .openbtn-container.hidden-on-large-screen
+      .openbtn-sub-container.hidden-on-large-screen.openbtn
+        span.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
 
-    .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
-      span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
+      .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
+        span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
 
-  .product-searched-heading.hidden-on-small-screen WHAT WAS SEARCHED
-  .products-found-count.hidden-on-small-screen ITEMS FOUND
+    .product-searched-heading.hidden-on-small-screen WHAT WAS SEARCHED
+    .products-found-count.hidden-on-small-screen ITEMS FOUND
 
-  .filter-container.hidden-on-small-screen
-    .filter-heading-container
-      .filter-heading FILTER
-      .js-main-filter-icon.js-show-main-filter
+    .filter-container.hidden-on-small-screen
+      .filter-heading-container
+        .filter-heading FILTER
+        .js-main-filter-icon.js-show-main-filter
 
     .dropdown
       button.dropbtn
@@ -193,14 +193,14 @@
               .sub-heading = "Size #{size}"
               .remove-filter
 
-      - if params[:price].present?
-        = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
-          .black-box-container
-            .black-box-parent style='position: relative'
-              .black-box style='position: relative; top: 0; left: 0'
-              .small-black-box style='position: absolute; top: 0; left: 0'
-            .sub-heading = params[:price]
-            .remove-filter
+        - if params[:price].present?
+          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = params[:price]
+              .remove-filter
 
       - if params[:product_type].present?
         - params[:product_type].each do |pt|

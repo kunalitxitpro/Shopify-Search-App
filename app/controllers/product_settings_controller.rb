@@ -8,9 +8,9 @@ class ProductSettingsController < ApplicationController
     @product_setting = ProductSetting.find_by_id(params[:id])
     if @product_setting.update(product_setting_params)
       set_synonyms
-      redirect_to test_admins_path
+      redirect_to all_products_path
     else
-      redirect_to test_admins_path
+      redirect_to all_products_path
     end
   end
 
@@ -26,6 +26,7 @@ class ProductSettingsController < ApplicationController
   end
 
   def set_synonyms
+    return unless synonym_params[:synonym].present?
     synonym_params[:synonym].each_with_index do |synonym, i|
       value = synonym_params[:value][i]
       id = synonym_params[:id][i] rescue nil

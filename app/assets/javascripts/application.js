@@ -132,6 +132,57 @@ $(document).on('turbolinks:load', () => {
       });
     });
 
+<<<<<<< HEAD
+=======
+    $( function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [ 75, 300 ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+        }
+      });
+      $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - £" + $( "#slider-range" ).slider( "values", 1 ) );
+
+        $( "#slider-range-two" ).slider({
+          range: true,
+          min: 0,
+          max: 500,
+          values: [ 75, 300 ],
+          slide: function( event, ui ) {
+            $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+          }
+        });
+        $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) +
+          " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
+
+    } );
+
+
+    $('.js-true-scroll-option').click(function(){
+      $('.js-admin-section-filter-config-container, .js-admin-section-search-config-container').hide()
+      $('.js-admin-section-scroll-config-container').show()
+      $('.js-true-scroll-option').css({'border-left':'5px solid rgb(92, 106, 196)', 'background-color': 'white', 'color': 'rgb(92, 106, 196)'});
+      $('.js-true-filter-option, .js-true-search-option').css({'border-left':'0', 'background-color': 'transparent', 'color': 'black'})
+    });
+    $('.js-true-filter-option').click(function(){
+      $('.js-admin-section-scroll-config-container, .js-admin-section-search-config-container').hide()
+      $('.js-admin-section-filter-config-container').show();
+      $('.js-true-filter-option').css({'border-left':'5px solid rgb(92, 106, 196)', 'background-color': 'white', 'color': 'rgb(92, 106, 196);'});
+      $('.js-true-scroll-option, .js-true-search-option').css({'border-left':'0', 'background-color': 'transparent', 'color': 'black'})
+    });
+    $('.js-true-search-option').click(function(){
+      $('.js-admin-section-scroll-config-container, .js-admin-section-filter-config-container').hide()
+      $('.js-admin-section-search-config-container').show();
+      $('.js-true-search-option').css({'border-left':'5px solid rgb(92, 106, 196)', 'background-color': 'white', 'color': 'rgb(92, 106, 196);'});
+      $('.js-true-filter-option, .js-true-scroll-option').css({'border-left':'0', 'background-color': 'transparent', 'color': 'black'})
+    });
+
+
+>>>>>>> master
     function debounce(func, wait, immediate) {
     	var timeout;
     	return function() {
@@ -230,7 +281,6 @@ $(document).on('turbolinks:load', () => {
       $(this).parent(".main-search").toggleClass("collapsed");
     });
 
-
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     if(searchField){
 
@@ -255,6 +305,38 @@ $(document).on('turbolinks:load', () => {
         }
       },500));
     }
+
+    $('.quick-view-button').click(function() {
+      $('.the-modal').show();
+    });
+
+    $('.model-close').click(function() {
+      $('.the-modal').hide();
+    });
+
+    // var modal = document.getElementById('myModal');
+    //
+    // // Get the button that opens the modal
+    // var btn = document.getElementById("myBtn");
+    //
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+    //
+    // // When the user clicks the button, open the modal
+    // btn.onclick = function() {
+    //   modal.style.display = "block";
+    // }
+    //
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    //   modal.style.display = "none";
+    // }
+    //
+    // // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    // }
 
     window.tabs = new function() {
       this.loadTabs = function() {

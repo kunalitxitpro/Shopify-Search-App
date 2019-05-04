@@ -3,28 +3,140 @@
     ShopifyApp.ready(function(){
       ShopifyApp.Bar.initialize({ title: "Home"});
     });
+= simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+  .admin-section-container
+    .admin-section-header-container
+      .admin-section-header True search admin
+    .row
+      .admin-section-side-bar-container.columns.medium-2 style="padding: 0"
+        .js-true-scroll-option style='border-left: 10px solid rgb(92, 106, 196); background-color: white; color: rgb(92, 106, 196);'
+          = image_tag('vertical-scroll.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text True scroll
+        .js-true-filter-option
+          = image_tag('funnel.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text True filter
+        .js-true-search-option
+          = image_tag('search.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text True search
+      .js-admin-section-scroll-config-container.columns.medium-10
+        .header-box
+          span True scroll
+          span The following configurations relate to the True scroll app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; border-radius: 5px; background-color: #3f4eae'
 
-.app-container
-  button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
-  .grid-x.grid-margin-x
-    .cell
-      .off-canvas-wrapper
-        #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
-          div style="padding: 1rem"
-            = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+        hr
+
+        .admin-gif-upload-container
+          .admin-gif-upload-info Changing this image will set the gif that appears when new products are being loaded into the page.
+          .position-left
+            div style="padding: 1rem"
               .file-upload-container
                 = f.input :image, label: false, as: :file, id: "image-upload"
 
               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
-              = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
-        .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
-          .main-container
-            .product-container
-              .js-all-products
-                = render partial: 'products', locals: {showFirst: true}
+              .admin-submit-button-container
+                .admin-submit-button-hint Click on the image to change it.
+                / = f.submit 'Submit', class: 'button', style: 'width: 40%; height: 100%; text-align: center; background-color: #3f4eae'
+        hr
+        .scroll-data-inputs
+          .number-of-items-to-load-container
+            = f.input :number_of_items_to_load, as: :select,label: false ,collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load, :input_html => { :style => 'border-radius: 5px; width: 220px; margin: 0 1rem 0 0; color: #212b36' }
+            = f.submit 'Submit', class: 'button', style: 'width: 100px; border-radius: 5px; background-color: #3f4eae; margin: 0 1rem 0'
+            .number-of-items-to-load-text Pick the number of items that will be loaded in.
 
-            .gif-container
-              .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+
+
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.autoscroll_on}" checked="checked" name="product_setting[autoscroll_on]" id="product_setting_autoscroll_on" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              span.slider.round
+            .toggle-switch-text Toggle autoscroll on or off
+          div style="display: flex; align-items: center"
+            = f.input :load_more_text, placeholder: 'Load More..', label: false, input_html: {value:ProductSetting.last.load_more_text, style: 'margin-top: 1rem; width: 220px; border-radius: 5px' }
+            .toggle-switch-text Toggle autoscroll on or off
+          = f.submit 'Submit', class: 'button', style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'
+
+
+      .js-admin-section-filter-config-container.columns.medium-10 style="display: none"
+        .header-box
+          span True filter
+          span The following configurations relate to the True filter app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
+
+        hr
+
+        .filter-app-config-container
+          .filter-app-config-text Drag and drop the blocks to set the order of the filters
+          ul#sortable
+            - ProductSetting.last.filter_array.each do |filter|
+              li id="#{filter}"
+                = image_tag('drag.svg', size: "20", style: 'margin: 1rem')
+                .li-sub-box
+                  .li-sub-box-text = filter
+          = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
+          = f.submit 'Submit', class: 'button', style: 'width: 26%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
+
+      .js-admin-section-search-config-container.columns.medium-10 style="display: none"
+        .header-box
+          span True search
+          span The following configurations relate to the True search app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
+        .filter-app-config-container
+          .toggle-switch
+            label.switch
+              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.include_out_of_stock_products}" checked="checked" name="product_setting[include_out_of_stock_products]" id="product_setting_include_out_of_stock_products" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              span.slider.round
+            .toggle-switch-text Include out of stock products
+
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.related_search_on}" checked="checked" name="product_setting[related_search_on]" id="product_setting_related_search_on" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              span.slider.round
+            .toggle-switch-text Toggle related search
+
+
+
+          .synonym-container
+            = f.simple_fields_for :product_synonyms do |p|
+              .js-syn-container
+                - ProductSetting.last.product_synonyms.each do |ps|
+                  .row
+                    .columns.medium-6.small-6.large-6
+                      = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', value: ps.synonym, style: 'border-radius: 5px'}
+                    .columns.medium-6.small-6.large-6
+                      = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', value: ps.value, style: 'border-radius: 5px'}
+                      = p.input :id, as: :hidden, input_html: { value: ps.id, name: 'product_setting[product_synonyms][id][]' }
+                .js-new-syn
+                  .row
+                    .columns.medium-6.small-6.large-6
+                      = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', style: 'border-radius: 5px'}
+                    .columns.medium-6.small-6.large-6
+                      = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', style: 'border-radius: 5px'}
+          = link_to 'Add new synonym', 'javascript:void(0)', class: 'button js-new-syn-button', style: 'width: 230px'
+
+          = f.submit 'Submit', class: 'button', style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'
+
+/ .app-container
+/   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
+/   .grid-x.grid-margin-x
+/     .cell
+/       .off-canvas-wrapper
+/         #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
+/           div style="padding: 1rem"
+/             = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+/               .file-upload-container
+/                 = f.input :image, label: false, as: :file, id: "image-upload"
+/
+/               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
+/               = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
+/         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
+/           .main-container
+/             .product-container
+/               .js-all-products
+/                 = render partial: 'products', locals: {showFirst: true}
+/
+/             .gif-container
+/               .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
 
 javascript:
   Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
