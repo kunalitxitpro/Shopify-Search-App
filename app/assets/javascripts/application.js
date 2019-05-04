@@ -208,7 +208,10 @@ $(document).on('turbolinks:load', () => {
     $('.search-box').addClass('main-search').removeClass('search-box').removeClass('search');
     $('.search-box, .search-form').hide();
     $('.main-search').addClass('collapsed');
-    $('.main-search').append("<div class='new-search-container'><input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a></div>");
+    $('.main-search').append("<div class='js-search-results'></div>")
+    $('.main-search').append("<input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a>");
+
+
     // $('.main-search').css({ 'display': 'block' });
 
     $(".main-search-button").click(function() {
@@ -230,7 +233,6 @@ $(document).on('turbolinks:load', () => {
 
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     if(searchField){
-      $('.new-search-container').append("<div class='js-search-results'></div>")
 
       $(".main-search-input").keyup(debounce(function(){
          $('.js-search-results').show('slow');
