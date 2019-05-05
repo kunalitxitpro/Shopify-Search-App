@@ -132,8 +132,6 @@ $(document).on('turbolinks:load', () => {
       });
     });
 
-<<<<<<< HEAD
-=======
     $( function() {
       $( "#slider-range" ).slider({
         range: true,
@@ -161,7 +159,6 @@ $(document).on('turbolinks:load', () => {
 
     } );
 
-
     $('.js-true-scroll-option').click(function(){
       $('.js-admin-section-filter-config-container, .js-admin-section-search-config-container').hide()
       $('.js-admin-section-scroll-config-container').show()
@@ -181,8 +178,6 @@ $(document).on('turbolinks:load', () => {
       $('.js-true-filter-option, .js-true-scroll-option').css({'border-left':'0', 'background-color': 'transparent', 'color': 'black'})
     });
 
-
->>>>>>> master
     function debounce(func, wait, immediate) {
     	var timeout;
     	return function() {
