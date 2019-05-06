@@ -8,9 +8,11 @@ class ProductSettingsController < ApplicationController
     @product_setting = ProductSetting.find_by_id(params[:id])
     if @product_setting.update(product_setting_params)
       set_synonyms
-      redirect_to all_products_path
+      flash[:notice] = "Successfully updated..."
+      redirect_to root_path
     else
-      redirect_to all_products_path
+      flash[:error] = "Update Unsuccessful..."
+      redirect_to root_path
     end
   end
 
