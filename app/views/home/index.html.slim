@@ -31,7 +31,7 @@
           .position-left
             div style="padding: 1rem"
               .file-upload-container
-                = f.input :image, label: false, as: :file, id: "image-upload"
+                = f.input :image, label: false, required: false, as: :file, id: "image-upload"
 
               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
               .admin-submit-button-container
@@ -52,7 +52,7 @@
             .toggle-switch-text Toggle autoscroll on or off
           div style="display: flex; align-items: center"
             = f.input :load_more_text, placeholder: 'Load More..', label: false, input_html: {value:ProductSetting.last.load_more_text, style: 'margin-top: 1rem; width: 220px; border-radius: 5px' }
-            .toggle-switch-text Toggle autoscroll on or off
+            .toggle-switch-text Text to be set as the load more option
           = f.submit 'Submit', class: 'button', style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'
 
 
@@ -113,7 +113,7 @@
                       = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', style: 'border-radius: 5px'}
           = link_to 'Add new synonym', 'javascript:void(0)', class: 'button js-new-syn-button', style: 'width: 230px'
 
-          = f.submit 'Submit', class: 'button', style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'
+          = f.submit 'Submit', class: 'button' ,style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'
 
 / .app-container
 /   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
