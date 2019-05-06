@@ -251,30 +251,30 @@ $(document).on('turbolinks:load', () => {
       }
     });
     $( "#sortable" ).disableSelection();
-    $('.search-box').addClass('main-search').removeClass('search-box').removeClass('search');
-    $('.search-box, .search-form').hide();
-    $('.main-search').addClass('collapsed');
-    $('.main-search').append("<div class='js-search-results'></div>")
-    $('.main-search').append("<input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a>");
+    // $('.search-box').addClass('main-search').removeClass('search-box').removeClass('search');
+    // $('.search-box, .search-form').hide();
+    // $('.main-search').addClass('collapsed');
+    // $('.main-search').append("<div class='js-search-results'></div>")
+    // $('.main-search').append("<input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a>");
 
 
     // $('.main-search').css({ 'display': 'block' });
 
-    $(".main-search-button").click(function() {
-      if ($('#main-search-id').hasClass("collapsed")) {
-        $('.main-search-button').css({'background-color': '#8FD4F5'});
-        $('.main-search-input').focus();
-      } else {
-        $('.main-search-button').css({'background-color': '#FEFEFE'});
-      }
-
-      if ($('.main-search-input').val() != "") {
-        $('#main-search-id a').attr("href", '#');
-      } else {
-        $('#main-search-id a').removeAttr("href");
-      }
-      $(this).parent(".main-search").toggleClass("collapsed");
-    });
+    // $(".main-search-button").click(function() {
+    //   if ($('#main-search-id').hasClass("collapsed")) {
+    //     $('.main-search-button').css({'background-color': '#8FD4F5'});
+    //     $('.main-search-input').focus();
+    //   } else {
+    //     $('.main-search-button').css({'background-color': '#FEFEFE'});
+    //   }
+    //
+    //   if ($('.main-search-input').val() != "") {
+    //     $('#main-search-id a').attr("href", '#');
+    //   } else {
+    //     $('#main-search-id a').removeAttr("href");
+    //   }
+    //   $(this).parent(".main-search").toggleClass("collapsed");
+    // });
 
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     if(searchField){
@@ -302,7 +302,7 @@ $(document).on('turbolinks:load', () => {
     }
 
     $('.quick-view-button').click(function() {
-      $('.the-modal').show();
+      $(this).next().show();
     });
 
     $('.model-close').click(function() {

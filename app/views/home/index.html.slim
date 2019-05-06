@@ -41,7 +41,6 @@
         .scroll-data-inputs
           .number-of-items-to-load-container
             = f.input :number_of_items_to_load, as: :select,label: false ,collection: [16, 24, 32], selected: ProductSetting.last.number_of_items_to_load, :input_html => { :style => 'border-radius: 5px; width: 220px; margin: 0 1rem 0 0; color: #212b36' }
-            = f.submit 'Submit', class: 'button', style: 'width: 100px; border-radius: 5px; background-color: #3f4eae; margin: 0 1rem 0'
             .number-of-items-to-load-text Pick the number of items that will be loaded in.
 
 
@@ -74,7 +73,7 @@
                 .li-sub-box
                   .li-sub-box-text = filter
           = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
-          = f.submit 'Submit', class: 'button', style: 'width: 26%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
+          = f.submit 'Submit', class: 'button', style: 'width: 50%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
 
       .js-admin-section-search-config-container.columns.medium-10 style="display: none"
         .header-box

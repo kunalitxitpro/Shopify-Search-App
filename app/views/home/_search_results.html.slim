@@ -1,7 +1,7 @@
 .search-result-main-container
   .search-result-product-container
     .search-result-product-text PRODUCTS
-  div style="overflow: auto; background-color: red; height: 300px; width: 100%"
+  div style="overflow: auto; height: 300px; width: 100%; background-color: #ffffff"
     - @products.each do |product|
       .search-result-container
         .search-result-image style="background-image: url('#{product.first_image_url}')"
@@ -13,5 +13,9 @@
     .search-result-product-container
       .search-result-product-text POPULAR SEARCHES
       br
-      - @popular.each do |prod|
-        p = prod.title
+      .popular-search-container
+        - @popular.each do |prod|
+          .popular-search-sub-container
+            .popular-search-icon
+            / = image_tag('search.svg', size: '10', style: "margin: 0 1.5rem 0 1rem")
+            span = prod.title
