@@ -26,6 +26,7 @@ class ProductSettingsController < ApplicationController
   end
 
   def set_synonyms
+    return unless synonym_params[:synonym].present?
     synonym_params[:synonym].each_with_index do |synonym, i|
       value = synonym_params[:value][i]
       id = synonym_params[:id][i] rescue nil

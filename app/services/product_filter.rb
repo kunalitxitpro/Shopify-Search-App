@@ -25,11 +25,12 @@ class ProductFilter
     sql_arr << vendor_lookup if @params[:title].present?
     sql_arr << product_type if @params[:product_type].present?
     sql_arr << size_lookup if @params[:tag].present?
+    sql_arr << price_lookup if @params[:price].present?
     sql_arr.join(" AND ")
   end
 
   def param_is_present?
-    @params[:title].present? || @params[:product_type].present? || @params[:tag].present?
+    @params[:title].present? || @params[:product_type].present? || @params[:tag].present? || @params[:price].present?
   end
 
   def ordered_query(products)
@@ -60,6 +61,11 @@ class ProductFilter
       sql_arr << "vendor = '#{title}'"
     end
     sql_arr.join(" OR ")
+  end
+
+  def price_lookup
+    prices = @params[:price].split('-')
+    "price >= #{prices[0]} AND price <= #{prices[1]}"
   end
 
   def product_type

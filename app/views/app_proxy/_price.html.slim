@@ -1,0 +1,14 @@
+- if desktop
+  p
+    label for="amount-two" style=" font-weight: bold; margin: 1rem 0" Price range:
+    input#amount-two readonly="" style="border:0; color: #fe89b5; font-weight:bold; box-shadow: none; background-color: #fefefe; padding-left: 0rem" type="text"
+  #slider-range-two
+  div style="width: 100%;text-align: right;margin-top: 8px;"
+    = link_to 'Filter Price', 'javascript:void(0)', class: 'button js-filter-price', style: 'background: black'
+- else
+  p
+    label style="color: white; margin: 1rem 0; font-weight: bold" for="amount"  Price range:
+    input#amount readonly="" style="border:0; color: #fe89b5; font-weight:bold; background-color: #111111; box-shadow: none; padding-left: 0rem" type="text"
+  #slider-range
+  div style="width: 100%;margin-top: 8px;"
+    = link_to 'Filter Price', 'javascript:void(0)', class: 'button js-filter-price', style: 'background: white'
