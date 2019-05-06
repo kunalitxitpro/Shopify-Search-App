@@ -43,10 +43,22 @@
   background-size: cover
 
 .filter-data-options-container
-  height: 100rem
   width: 12rem
   float: left
   margin: 0 1rem 0 0
+
+.box-1
+  float: left
+  width: 20%
+
+.box-2
+  float: left
+  width: 80%
+
+.clearfix::after
+  content: ""
+  clear: both
+  display: table
 
 .filter-brand-container, .filter-price-container
   border-bottom: 1px solid #ccc
@@ -93,7 +105,7 @@
   color: black
   font-size: 14px
   line-height: 11px
-  transition: .5s
+  // transition: .5s
   &:hover, &:active, &:focus, &:disabled
     color: #fe89b5
 
