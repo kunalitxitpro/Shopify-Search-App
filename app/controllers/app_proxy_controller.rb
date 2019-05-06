@@ -26,7 +26,7 @@ class AppProxyController < ApplicationController
     page = params[:page]
     @products = ProductFilter.new(product_params).filter
     @products = [] if products_are_already_in_view?
-    render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false}), layout: false, productCount: @products.count, lastProductID: @products.last.try(:id)}
+    render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false},layout: false), productCount: @products.count, lastProductID: @products.last.try(:id)}
   end
 
   def render_searched_products

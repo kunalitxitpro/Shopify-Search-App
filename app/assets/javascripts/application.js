@@ -40,18 +40,14 @@ $(document).on('turbolinks:load', () => {
                     }
                     $('.loading-gif').fadeOut();
                     var productID = response.lastProductID;
+                    $('.js-all-products').append(response.productsPartial);
+                    window.tabs.loadTabs();
 
-                    if($('.js-product-id-' + productID).length){
-                      canLoadMore = false;
-                    }else {
-                      $('.js-all-products').append(response.productsPartial);
-                      window.tabs.loadTabs();
-                    }
                   }
                 });
                 PageNumber = PageNumber + 1
               }
-              setTimeout(function(){running = false}, 300);
+              setTimeout(function(){running = false}, 1000);
             }
           }
       });
@@ -194,8 +190,17 @@ $(document).on('turbolinks:load', () => {
     };
 
     $('.js-show-main-filter').click(function(){
+      // $('.box-2').css({'width': '80%'});
       $('.js-main-container').toggle("slide");
       $('.js-main-filter-icon' ).toggleClass( 'filter-icon-minus' )
+      if ($('.filter-icon-minus').length > 0 ) {
+        $('.box-2').css({'float': 'none'});
+        $('.box-2').css({'width': '100%'});
+      } else {
+        $('.box-2').css({'width': '80%'});
+        $('.box-2').css({'float': 'left'});
+      }
+
     });
     $('.js-show-brand-filter').click(function(){
       $('.js-brand-container').toggle();
@@ -251,30 +256,6 @@ $(document).on('turbolinks:load', () => {
       }
     });
     $( "#sortable" ).disableSelection();
-    // $('.search-box').addClass('main-search').removeClass('search-box').removeClass('search');
-    // $('.search-box, .search-form').hide();
-    // $('.main-search').addClass('collapsed');
-    // $('.main-search').append("<div class='js-search-results'></div>")
-    // $('.main-search').append("<input class='main-search-input' type='text' placeholder='Search...' ></input><a class='main-search-button'></a>");
-
-
-    // $('.main-search').css({ 'display': 'block' });
-
-    // $(".main-search-button").click(function() {
-    //   if ($('#main-search-id').hasClass("collapsed")) {
-    //     $('.main-search-button').css({'background-color': '#8FD4F5'});
-    //     $('.main-search-input').focus();
-    //   } else {
-    //     $('.main-search-button').css({'background-color': '#FEFEFE'});
-    //   }
-    //
-    //   if ($('.main-search-input').val() != "") {
-    //     $('#main-search-id a').attr("href", '#');
-    //   } else {
-    //     $('#main-search-id a').removeAttr("href");
-    //   }
-    //   $(this).parent(".main-search").toggleClass("collapsed");
-    // });
 
     var searchField = $('.search-form').children('.form-group').children('.form-control')
     if(searchField){
