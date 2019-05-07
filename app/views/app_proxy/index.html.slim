@@ -111,7 +111,7 @@
 
 
     .clearfix.main-container
-      .box-1 
+      .box-1
         .filter-data-options-container.js-main-container.hidden-on-small-screen
           - if params[:brand].present?
             - params[:brand].each do |brand|
@@ -124,7 +124,7 @@
                     .small-black-box style='position: absolute; top: 0; left: 0'
                   .sub-heading = brand
                   .remove-filter
-      
+
           - if params[:size].present?
             - params[:size].each do |size|
               - newSize = params[:size].dup
@@ -136,7 +136,7 @@
                     .small-black-box style='position: absolute; top: 0; left: 0'
                   .sub-heading = "Size #{size}"
                   .remove-filter
-      
+
             - if params[:price].present?
               = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
                 .black-box-container
@@ -145,7 +145,7 @@
                     .small-black-box style='position: absolute; top: 0; left: 0'
                   .sub-heading = params[:price]
                   .remove-filter
-      
+
           - if params[:product_type].present?
             - params[:product_type].each do |pt|
               - newpt = params[:product_type].dup
@@ -157,7 +157,7 @@
                     .small-black-box style='position: absolute; top: 0; left: 0'
                   .sub-heading = pt
                   .remove-filter
-      
+
           - ProductSetting.last.filter_array.each do |filter|
             = render partial: filter, locals: {desktop: true}
       .box-2
@@ -178,7 +178,7 @@
                   .small-black-box style='position: absolute; top: 0; left: 0'
                 .sub-heading = brand
                 .remove-filter
-    
+
         - if params[:size].present?
           - params[:size].each do |size|
             - newSize = params[:size].dup
@@ -190,7 +190,7 @@
                   .small-black-box style='position: absolute; top: 0; left: 0'
                 .sub-heading = "Size #{size}"
                 .remove-filter
-    
+
           - if params[:price].present?
             = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
               .black-box-container
@@ -217,7 +217,7 @@
           .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
       - else
         div style="width: 100%; text-align: center"
-          = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px;'
+          = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px; background-color: black'
 
 javascript:
   Window.paramUrl = "&#{request.url.split('?')[1].split('shop')[0]}"
