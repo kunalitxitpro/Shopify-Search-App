@@ -1,11 +1,12 @@
 .single-product-container
   - if params[:clown]
+
     .quick-view-button value='#{product.id}'view more
 
-    .the-modal style="padding: 1rem"
-      .row style="height: 100%; padding: 1rem; border: 1px solid black"
-        .the-modal-sub.medium-4.small-6.large-3 style="background-image: url('#{product.first_image_url}');background-position: center; height: 100%; width: 50%; background-size: cover"
-        .the-modal-sub-two.medium-8.small-6.large-9 style="background-color: yellow; padding: 1rem"
+    .the-modal
+      .row.row-style
+        .the-modal-sub.medium-4.small-12.large-3 style="background-image: url('#{product.first_image_url}')"
+        .the-modal-sub-two.medium-8.small-12.large-9
           .model-close &times;
           h3 = product.vendor
           div style="display: flex"
@@ -13,7 +14,7 @@
             - if product.compare_at_price != 0.0
               h3 = "£ #{product.compare_at_price}"
           h3 = product.title
-          select
+          select style="border-radius: 5px"
             - product.sizes.split(',').each do |size|
               option = size
 
@@ -31,15 +32,14 @@
     /       .the-product-description style="font-size: 2rem" = product.title
 
 
-
-
-  .img-container
-    .product-image style="background-image: url('#{product.first_image_url}')" value='#{product.id}'
-    .product-image-two style="display: none; background-image: url('#{product.second_image_url}')"
-  .vendor-field = product.vendor
-  .title-container
-    .title-field = product.title
-  .price-container
-    .price-field = "£ #{product.price} GPB"
-    - if product.compare_at_price != 0.0
-      .compare-at-price = "£ #{product.compare_at_price}"
+  .blur-div
+    .img-container
+      .product-image style="background-image: url('#{product.first_image_url}')" value='#{product.id}'
+      .product-image-two style="display: none; background-image: url('#{product.second_image_url}')"
+    .vendor-field = product.vendor
+    .title-container
+      .title-field = product.title
+    .price-container
+      .price-field = "£ #{product.price} GPB"
+      - if product.compare_at_price != 0.0
+        .compare-at-price = "£ #{product.compare_at_price}"

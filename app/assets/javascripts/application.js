@@ -197,7 +197,7 @@ $(document).on('turbolinks:load', () => {
         $('.box-2').css({'float': 'none'});
         $('.box-2').css({'width': '100%'});
       } else {
-        $('.box-2').css({'width': '80%'});
+        $('.box-2').css({'width': '85%'});
         $('.box-2').css({'float': 'left'});
       }
 
@@ -284,10 +284,16 @@ $(document).on('turbolinks:load', () => {
 
     $('.quick-view-button').click(function() {
       $(this).next().show();
+      $('.blur-div, .quick-view-button').toggleClass('fade-blur');
+      $(body).css({'pointer-events': 'none'});
+
+
     });
 
     $('.model-close').click(function() {
       $('.the-modal').hide();
+      $('.blur-div, .quick-view-button').toggleClass('fade-blur');
+      $(body).css({'pointer-events': 'auto'});
     });
 
     // var modal = document.getElementById('myModal');
