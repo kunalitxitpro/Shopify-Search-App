@@ -6,6 +6,8 @@ class AppProxyController < ApplicationController
       render_filtered_products
     elsif params[:search].present?
       render_searched_products
+    elsif params[:query].present?
+      render_queried_results
     else
       render_all_products
     end
@@ -13,8 +15,14 @@ class AppProxyController < ApplicationController
 
   private
 
+  def render_queried_results
+    @products = ProductFilter.new({title: params[:query]}).search
+    render content_type: 'application/liquid'
+  end
+
   def render_all_products
     @products = ProductFilter.new(product_params).filter
+    @products_count = ProductFilter.new(product_params).count_from_filter
     @vendor_array = Product.pluck(:vendor).uniq
     @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
     @product_type = Product.pluck(:product_type).uniq.reject(&:blank?)
@@ -25,6 +33,7 @@ class AppProxyController < ApplicationController
   def render_filtered_products
     page = params[:page]
     @products = ProductFilter.new(product_params).filter
+    @products_count = ProductFilter.new(product_params).count_from_filter
     @products = [] if products_are_already_in_view?
     render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false},layout: false), productCount: @products.count, lastProductID: @products.last.try(:id)}
   end

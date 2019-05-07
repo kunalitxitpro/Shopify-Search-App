@@ -35,6 +35,9 @@ gem 'fog'
 # form
 gem 'simple_form'
 
+# Sidekiq
+gem 'sidekiq'
+
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim'

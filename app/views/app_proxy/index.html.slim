@@ -1,4 +1,4 @@
-- if params[:clown]
+- if params[:query]
   = render 'search_results_index'
 - else
   .app-container
@@ -90,8 +90,8 @@
       .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
         span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
 
-    .product-searched-heading.hidden-on-small-screen WHAT WAS SEARCHED
-    .products-found-count.hidden-on-small-screen ITEMS FOUND
+    .product-searched-heading.hidden-on-small-screen TRUE VINTAGE NEW IN
+    .products-found-count.hidden-on-small-screen = "#{@products_count} ITEMS FOUND"
 
     .filter-container.hidden-on-small-screen
       .filter-heading-container

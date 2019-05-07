@@ -17,7 +17,8 @@ class ProductSettingsController < ApplicationController
   end
 
   def sync
-    %x[rake jobs:add_and_update_products]
+    SyncProductsJob.perform_later
+    flash[:notice] = "Running sync jobs..."
     redirect_to test_admins_path
   end
 

@@ -18,6 +18,12 @@ class ProductFilter
     ordered_query(products)
   end
 
+  def count_from_filter
+    products = param_is_present? ? Product.where(sql_query) : Product
+    products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
+    return products.count
+  end
+
   private
 
   def sql_query

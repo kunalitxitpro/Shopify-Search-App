@@ -274,31 +274,6 @@ $(document).on('turbolinks:load', () => {
     });
     $( "#sortable" ).disableSelection();
 
-    var searchField = $('.search-form').children('.form-group').children('.form-control')
-    if(searchField){
-
-      $(".main-search-input").keyup(debounce(function(){
-         $('.js-search-results').show('slow');
-         var dInput = this.value;
-         if(dInput.length >= 1){
-          console.log(dInput);
-          $('.js-search-results').html("<div class='search-loading-gif'></div>");
-          $('.search-loading-gif').fadeIn();
-          $.ajax({
-            type: "GET",
-            url: "/apps/index?&search=true&query=" + dInput,
-            data: $(this).serialize(),
-            success: function(response) {
-              $('.js-search-results').html(response.searchPartial);
-              $('.js-search-results').show('slow');
-            }
-          });
-        }else{
-          $('.js-search-results').hide();
-        }
-      },500));
-    }
-
     $('.quick-view-button').click(function() {
       // debugger;
       $(this).parent().siblings().first().show()
