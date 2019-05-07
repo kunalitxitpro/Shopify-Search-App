@@ -1,4 +1,4 @@
-.row style="max-width: 100%; padding: 0 1rem"
+.row.div-style style="max-width: 100%"
   - if @products.count >= 36
     - @products.in_groups(3).to_a.each_with_index do |products, i|
       - products.each do |product|
