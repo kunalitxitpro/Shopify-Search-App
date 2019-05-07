@@ -300,18 +300,18 @@ $(document).on('turbolinks:load', () => {
     }
 
     $('.quick-view-button').click(function() {
-      $(this).next().show();
-      modalShowing = true
+      // debugger;
+      $(this).parent().siblings().first().show()
+      // $(this).next().show();
+      modalShowing = true;
       $('.blur-div, .quick-view-button').toggleClass('fade-blur');
       $(body).css({'pointer-events': 'none'});
-
-
     });
 
     $('.model-close').click(function() {
       $(".the-modal").css({'top': '0'});
       $('.the-modal').hide();
-      modalShowing = false
+      modalShowing = false;
       $('.blur-div, .quick-view-button').toggleClass('fade-blur');
       $(body).css({'pointer-events': 'auto'});
     });
