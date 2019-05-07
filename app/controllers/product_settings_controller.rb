@@ -19,7 +19,7 @@ class ProductSettingsController < ApplicationController
   def sync
     SyncProductsJob.perform_later
     flash[:notice] = "Running sync jobs..."
-    redirect_to test_admins_path
+    redirect_to root_path
   end
 
   private
