@@ -18,7 +18,7 @@
 
 $(document).on('turbolinks:load', () => {
     $(function(){ $(document).foundation(); });
-    var PageNumber = 2;
+    var PageNumber = 1;
     var running = false;
     var canLoadMore = true;
     var modalrunning = false
@@ -42,9 +42,10 @@ $(document).on('turbolinks:load', () => {
                     }
                     $('.loading-gif').fadeOut();
                     var productID = response.lastProductID;
-                    $('.js-all-products').append(response.productsPartial);
-                    window.tabs.loadTabs();
-
+                    if($('.js-product-id-'+ productID).length == 0){
+                      $('.js-all-products').append(response.productsPartial);
+                      window.tabs.loadTabs();
+                    }
                   }
                 });
                 PageNumber = PageNumber + 1

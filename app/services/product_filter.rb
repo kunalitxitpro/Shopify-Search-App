@@ -53,7 +53,7 @@ class ProductFilter
     elsif @params[:sort_by] == 'created_descending'
       products.order(shopify_created_at: :desc).offset(offset_page).limit(items_to_load)
     else
-      products.order(title: :asc).limit(items_to_load)
+      products.order(title: :asc).offset(offset_page).limit(items_to_load)
     end
   end
 
