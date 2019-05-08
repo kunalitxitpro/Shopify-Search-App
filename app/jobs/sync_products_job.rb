@@ -20,6 +20,7 @@ class SyncProductsJob < ApplicationJob
           end
         end
       end
+      Product.dedupe
     end
   end
 
