@@ -214,7 +214,7 @@
 
       - if ProductSetting.last.autoscroll_on
         .gif-container
-          .loading-gif.js-loading-gif style="background-image: url('http://localhost:3000#{ProductSetting.last.image.url}')"
+          .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
       - else
         div style="width: 100%; text-align: center"
           = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px; background-color: black'
