@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_02_111009) do
+ActiveRecord::Schema.define(version: 2019_05_10_111623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_05_02_111009) do
     t.boolean "related_search_on", default: true
     t.boolean "autoscroll_on", default: true
     t.string "load_more_text"
+    t.boolean "overflow_scroll_on", default: true
   end
 
   create_table "product_synonyms", force: :cascade do |t|
