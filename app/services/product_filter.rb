@@ -5,7 +5,11 @@ class ProductFilter
   end
 
   def search
-    Product.where('lower(title) ~* ? OR lower(vendor) ~* ?', @params[:title].downcase,@params[:title].downcase).limit(50)
+    if ProductSetting.last.overflow_scroll_on
+      Product.where('lower(title) ~* ? OR lower(vendor) ~* ?', @params[:title].downcase,@params[:title].downcase).limit(50)
+    else
+      Product.where('lower(title) ~* ? OR lower(vendor) ~* ?', @params[:title].downcase,@params[:title].downcase).limit(5)
+    end
   end
 
   def popular

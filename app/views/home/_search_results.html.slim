@@ -1,14 +1,24 @@
 .search-result-main-container
   .search-result-product-container
     .search-result-product-text PRODUCTS
-  div style="overflow: auto; height: 300px; width: 100%; background-color: #ffffff"
-    - @products.each do |product|
-      .search-result-container
-        .search-result-image style="background-image: url('#{product.first_image_url}')"
-        .search-result-sub-container
-          .search-result-vendor style="font-weight: bold" = product.vendor
-          .search-result-title  = truncate("#{product.title}", length: 45)
-          .search-result-price  = "£ #{product.price} GPB"
+  - if ProductSetting.last.overflow_scroll_on
+    div style="overflow: auto; max-height: 334px; width: 100%; background-color: #ffffff"
+      - @products.each do |product|
+        .search-result-container
+          .search-result-image style="background-image: url('#{product.first_image_url}')"
+          .search-result-sub-container
+            .search-result-vendor style="font-weight: bold" = product.vendor
+            .search-result-title  = truncate("#{product.title}", length: 45)
+            .search-result-price  = "£ #{product.price} GPB"
+  - unless ProductSetting.last.overflow_scroll_on
+    div style="overflow: hidden; max-height: 334px; width: 100%; background-color: #ffffff"
+      - @products.each do |product|
+        .search-result-container
+          .search-result-image style="background-image: url('#{product.first_image_url}')"
+          .search-result-sub-container
+            .search-result-vendor style="font-weight: bold" = product.vendor
+            .search-result-title  = truncate("#{product.title}", length: 45)
+            .search-result-price  = "£ #{product.price} GPB"
   - if ProductSetting.last.related_search_on
     .search-result-product-container
       .search-result-product-text POPULAR SEARCHES
