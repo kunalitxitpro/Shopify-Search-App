@@ -44,12 +44,15 @@
             .number-of-items-to-load-text Pick the number of items that will be loaded in.
 
 
-
           .toggle-switch style="margin-top: 1rem"
             label.switch
-              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.autoscroll_on}" checked="checked" name="product_setting[autoscroll_on]" id="product_setting_autoscroll_on" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              - if ProductSetting.last.autoscroll_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_autoscroll_on').val() == '1' ? $('#product_setting_autoscroll_on').val('0') : $('#product_setting_autoscroll_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_autoscroll_on').val() == '1' ? $('#product_setting_autoscroll_on').val('0') : $('#product_setting_autoscroll_on').val('1')"
               span.slider.round
             .toggle-switch-text Toggle autoscroll on or off
+            = f.input :autoscroll_on, as: :hidden, input_html: { value: "#{ProductSetting.last.autoscroll_on ? '1' : '0'}" }
           div style="display: flex; align-items: center"
             = f.input :load_more_text, placeholder: 'Load More..', label: false, input_html: {value:ProductSetting.last.load_more_text, style: 'margin-top: 1rem; width: 220px; border-radius: 5px' }
             .toggle-switch-text Text to be set as the load more option
@@ -83,17 +86,23 @@
         .filter-app-config-container
           .toggle-switch
             label.switch
-              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.include_out_of_stock_products}" checked="checked" name="product_setting[include_out_of_stock_products]" id="product_setting_include_out_of_stock_products" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              - if ProductSetting.last.include_out_of_stock_products
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_include_out_of_stock_products').val() == '1' ? $('#product_setting_include_out_of_stock_products').val('0') : $('#product_setting_include_out_of_stock_products').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_include_out_of_stock_products').val() == '1' ? $('#product_setting_include_out_of_stock_products').val('0') : $('#product_setting_include_out_of_stock_products').val('1')"
               span.slider.round
             .toggle-switch-text Include out of stock products
+            = f.input :include_out_of_stock_products, as: :hidden, input_html: { value: "#{ProductSetting.last.include_out_of_stock_products ? '1' : '0'}" }
 
           .toggle-switch style="margin-top: 1rem"
             label.switch
-              input class="boolean optional" type="checkbox" value="#{ProductSetting.last.related_search_on}" checked="checked" name="product_setting[related_search_on]" id="product_setting_related_search_on" onclick="$(this).val() == 'true' ? $(this).val(false) : $(this).val(true)"
+              - if ProductSetting.last.related_search_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_related_search_on').val() == '1' ? $('#product_setting_related_search_on').val('0') : $('#product_setting_related_search_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_related_search_on').val() == '1' ? $('#product_setting_related_search_on').val('0') : $('#product_setting_related_search_on').val('1')"
               span.slider.round
             .toggle-switch-text Toggle related search
-
-
+            = f.input :related_search_on, as: :hidden, input_html: { value: "#{ProductSetting.last.related_search_on ? '1' : '0'}" }
 
           .synonym-container
             = f.simple_fields_for :product_synonyms do |p|
@@ -114,28 +123,3 @@
           = link_to 'Add new synonym', 'javascript:void(0)', class: 'button js-new-syn-button', style: 'width: 230px'
 
           = f.submit 'Submit', class: 'button' ,style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'
-
-/ .app-container
-/   button data-toggle="offCanvasLeftSplit1" class="change-loading-gif-btn" type="button"
-/   .grid-x.grid-margin-x
-/     .cell
-/       .off-canvas-wrapper
-/         #offCanvasLeftSplit1.off-canvas-absolute.position-left data-off-canvas=""
-/           div style="padding: 1rem"
-/             = simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
-/               .file-upload-container
-/                 = f.input :image, label: false, as: :file, id: "image-upload"
-/
-/               img class="spinner-upload hidden" id="img_prev" style="background-image: url('#{ProductSetting.last.image.url}')"
-/               = f.submit 'Submit', class: 'button', style: 'width: 100%; margin-top: 1rem; border-radius: 5px'
-/         .off-canvas-content data-off-canvas-content="" style=("min-height: 100vh;")
-/           .main-container
-/             .product-container
-/               .js-all-products
-/                 = render partial: 'products', locals: {showFirst: true}
-/
-/             .gif-container
-/               .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
-
-javascript:
-  Window.paramUrl = "&brand=#{params[:brand]}&size=#{params[:size]}&product_type=#{params[:product_type]}"
