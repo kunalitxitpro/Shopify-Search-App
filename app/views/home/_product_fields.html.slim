@@ -17,7 +17,9 @@
           select style="border-radius: 5px"
             - product.sizes.split(',').each do |size|
               option = size
-
+          div style="display: flex; align-items: center"
+            = link_to image_tag('//cdn.shopify.com/s/files/1/0109/7865/6320/t/7/assets/basket.png?396', size: 30)
+            div style="font-size: 16px; margin-left: 0.5rem" Add to cart
 
     / .the-modal
     /   .modal-content style="display: flex"
