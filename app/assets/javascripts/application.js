@@ -207,6 +207,22 @@ $(document).on('turbolinks:load', () => {
     	};
     };
 
+    $('.js-cart-btn').click(function(){
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data : { id: 17951668699200, quantity: 1 },
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          location.reload();
+        },
+        error: function(data) {
+          alert("Something went wrong");
+        }
+      });
+    });
+
     $('.js-show-main-filter').click(function(){
       // $('.box-2').css({'width': '80%'});
       $('.js-main-container').toggle("slide");

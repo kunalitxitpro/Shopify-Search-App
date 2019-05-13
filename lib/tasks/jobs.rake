@@ -35,7 +35,8 @@ namespace :jobs do
       sizes: prod.variants.map{|a| a.title}.join(', '),
       shopify_id: prod.id,
       product_type: prod.product_type,
-      shopify_created_at: prod.created_at.to_datetime
+      shopify_created_at: prod.created_at.to_datetime,
+      slug_url: prod.handle
     )
   end
 
@@ -51,6 +52,7 @@ namespace :jobs do
     set_product_record.sizes = prod.variants.map{|a| a.title}.join(', ')
     set_product_record.product_type =  prod.product_type
     set_product_record.shopify_created_at = prod.created_at.to_datetime
+    set_product_record.slug_url =  prod.handle
     return set_product_record
   end
 end

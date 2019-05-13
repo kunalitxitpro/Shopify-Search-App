@@ -8,4 +8,12 @@ class Product < ApplicationRecord
       duplicates.each{|double| double.destroy}
     end
   end
+
+  def display_price
+    '%.2f' % price
+  end
+
+  def compare_at_display_price
+    '%.2f' % compare_at_price
+  end
 end
