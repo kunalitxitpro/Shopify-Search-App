@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_10_111623) do
+ActiveRecord::Schema.define(version: 2019_05_14_084120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 2019_05_10_111623) do
     t.boolean "autoscroll_on", default: true
     t.string "load_more_text"
     t.boolean "overflow_scroll_on", default: true
+    t.boolean "true_filter_on", default: true
+    t.boolean "true_search_on", default: true
   end
 
   create_table "product_synonyms", force: :cascade do |t|
@@ -48,9 +50,9 @@ ActiveRecord::Schema.define(version: 2019_05_10_111623) do
     t.datetime "updated_at", null: false
     t.string "shopify_id"
     t.string "product_type"
-    t.string "sizes"
     t.datetime "shopify_created_at"
     t.integer "quantity"
+    t.string "slug_url"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -59,6 +61,16 @@ ActiveRecord::Schema.define(version: 2019_05_10_111623) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "title"
+    t.integer "inventory_quantity"
+    t.string "shopify_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sizes_on_product_id"
   end
 
 end

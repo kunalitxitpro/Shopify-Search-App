@@ -2,7 +2,9 @@ class AppProxyController < ApplicationController
    include ShopifyApp::AppProxyVerification
 
   def index
-    if params[:filter].present?
+    if params[:search_on_query].present?
+      render_search_on_bool
+    elsif params[:filter].present?
       render_filtered_products
     elsif params[:search].present?
       render_searched_products
@@ -14,6 +16,10 @@ class AppProxyController < ApplicationController
   end
 
   private
+
+  def render_search_on_bool
+    render json: {search_on: ProductSetting.last.true_search_on}
+  end
 
   def render_queried_results
     @products = ProductFilter.new({title: params[:query]}).search

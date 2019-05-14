@@ -68,6 +68,16 @@
         hr
 
         .filter-app-config-container
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.true_filter_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_true_filter_on').val() == '1' ? $('#product_setting_true_filter_on').val('0') : $('#product_setting_true_filter_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_true_filter_on').val() == '1' ? $('#product_setting_true_filter_on').val('0') : $('#product_setting_true_filter_on').val('1')"
+              span.slider.round
+            .toggle-switch-text True Filter Active
+            = f.input :true_filter_on, as: :hidden, input_html: { value: "#{ProductSetting.last.true_filter_on ? '1' : '0'}" }
+          hr
           .filter-app-config-text Drag and drop the blocks to set the order of the filters
           ul#sortable
             - ProductSetting.last.filter_array.each do |filter|
@@ -84,6 +94,16 @@
           span The following configurations relate to the True search app
           = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
         .filter-app-config-container
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.true_search_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_true_search_on').val() == '1' ? $('#product_setting_true_search_on').val('0') : $('#product_setting_true_search_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_true_search_on').val() == '1' ? $('#product_setting_true_search_on').val('0') : $('#product_setting_true_search_on').val('1')"
+              span.slider.round
+            .toggle-switch-text True Search Active
+            = f.input :true_search_on, as: :hidden, input_html: { value: "#{ProductSetting.last.true_search_on ? '1' : '0'}" }
+          hr
           .toggle-switch
             label.switch
               - if ProductSetting.last.include_out_of_stock_products
@@ -103,9 +123,6 @@
               span.slider.round
             .toggle-switch-text Toggle related search
             = f.input :related_search_on, as: :hidden, input_html: { value: "#{ProductSetting.last.related_search_on ? '1' : '0'}" }
-
-
-
 
           .toggle-switch style="margin-top: 1rem"
             label.switch

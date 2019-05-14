@@ -16,6 +16,7 @@ namespace :jobs do
             set_prod = Product.where(shopify_id: prod.id).first
             new_prod = set_prod.present? ?  update_product(prod, compare_price, set_prod) : new_product(prod, compare_price)
             new_prod.save
+            add_sizes(prod, new_prod)
           end
         end
       end
@@ -32,10 +33,10 @@ namespace :jobs do
       price: prod.variants.first.price.to_f,
       quantity: prod.variants.first.inventory_quantity,
       compare_at_price: compare_price,
-      sizes: prod.variants.map{|a| a.title}.join(', '),
       shopify_id: prod.id,
       product_type: prod.product_type,
-      shopify_created_at: prod.created_at.to_datetime
+      shopify_created_at: prod.created_at.to_datetime,
+      slug_url: prod.handle
     )
   end
 
@@ -48,9 +49,19 @@ namespace :jobs do
     set_product_record.price = prod.variants.first.price.to_f
     set_product_record.quantity = prod.variants.first.inventory_quantity
     set_product_record.compare_at_price = compare_price
-    set_product_record.sizes = prod.variants.map{|a| a.title}.join(', ')
     set_product_record.product_type =  prod.product_type
     set_product_record.shopify_created_at = prod.created_at.to_datetime
+    set_product_record.slug_url =  prod.handle
     return set_product_record
+  end
+
+  def add_sizes(product, record)
+    product.variants.each do |size|
+      newsize = Size.find_or_create_by(shopify_id: size.id)
+      newsize.title = size.title
+      newsize.inventory_quantity = size.inventory_quantity
+      newsize.product_id = record.id
+      newsize.save
+    end
   end
 end

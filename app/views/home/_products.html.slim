@@ -1,4 +1,4 @@
-.row.div-style style="max-width: 100%"
+.row.div-style style="max-width: 100% #{ProductSetting.last.true_filter_on ? '' : ';padding: 0 !important'}"
   - @products.each do |product|
     .columns.medium-4.small-6.large-3 style="margin-bottom: 46px" class="js-product-group js-product-id-#{product.id}"
       = render partial: 'home/product_fields', locals: {product: product}

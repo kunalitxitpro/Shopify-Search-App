@@ -17,13 +17,13 @@ class ProductFilter
   end
 
   def filter
-    products = param_is_present? ? Product.where(sql_query) : Product
+    products = param_is_present? ? Product.joins(:sizes).where(sql_query).distinct : Product.joins(:sizes).distinct
     products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     ordered_query(products)
   end
 
   def count_from_filter
-    products = param_is_present? ? Product.where(sql_query) : Product
+    products = param_is_present? ? Product.joins(:sizes).where(sql_query).distinct  : Product.joins(:sizes).distinct
     products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     return products.count
   end
@@ -94,7 +94,7 @@ class ProductFilter
   def size_lookup
     sql_arr = []
     @params[:tag].each do |tag|
-      sql_arr << "sizes LIKE '%#{tag}%'"
+      sql_arr << "sizes.title = '#{tag}'"
     end
     sql_arr.join(" OR ")
   end

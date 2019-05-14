@@ -207,6 +207,24 @@ $(document).on('turbolinks:load', () => {
     	};
     };
 
+    $('.js-cart-btn').click(function(){
+      var sizeID = parseInt($(this).parent().parent().find('select').val());
+      window.cartField = this;
+      $.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data : { id: sizeID, quantity: 1 },
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          location.reload();
+        },
+        error: function(data) {
+          $(window.cartField).parent().siblings().closest('.js-cart-error').html("* " + data.responseJSON.description)
+        }
+      });
+    });
+
     $('.js-show-main-filter').click(function(){
       // $('.box-2').css({'width': '80%'});
       $('.js-main-container').toggle("slide");
