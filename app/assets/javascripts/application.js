@@ -208,17 +208,19 @@ $(document).on('turbolinks:load', () => {
     };
 
     $('.js-cart-btn').click(function(){
+      var sizeID = parseInt($(this).parent().parent().find('select').val());
+      window.cartField = this;
       $.ajax({
         type: 'POST',
         url: '/cart/add.js',
-        data : { id: 17951668699200, quantity: 1 },
+        data : { id: sizeID, quantity: 1 },
         dataType: 'json',
         success: function(data) {
           console.log(data);
           location.reload();
         },
         error: function(data) {
-          alert("Something went wrong");
+          $(window.cartField).parent().siblings().closest('.js-cart-error').html("* " + data.responseJSON.description)
         }
       });
     });

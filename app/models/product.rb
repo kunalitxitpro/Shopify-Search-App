@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   validates :shopify_id, uniqueness: true
+  has_many :sizes, dependent: :destroy
 
   def self.dedupe
     grouped = all.group_by{|model| [model.shopify_id] }

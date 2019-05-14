@@ -3,58 +3,59 @@
 - else
   .app-container
     #mySidenav.sidenav.hidden-on-large-screen
-      div style='padding: 60px 16px'
-        .close-filter-container
-          .close-filter-text FILTER
-          a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+      - if ProductSetting.last.true_filter_on
+        div style='padding: 60px 16px'
+          .close-filter-container
+            .close-filter-text FILTER
+            a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
 
-        - if params[:brand].present?
-          - params[:brand].each do |brand|
-            - newbrand = params[:brand].dup
-            - newbrand.delete(brand)
-            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = brand
-                .remove-filter
+          - if params[:brand].present?
+            - params[:brand].each do |brand|
+              - newbrand = params[:brand].dup
+              - newbrand.delete(brand)
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = brand
+                  .remove-filter
 
-        - if params[:size].present?
-          - params[:size].each do |size|
-            - newSize = params[:size].dup
-            - newSize.delete(size)
-            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = "Size #{size}"
-                .remove-filter
+          - if params[:size].present?
+            - params[:size].each do |size|
+              - newSize = params[:size].dup
+              - newSize.delete(size)
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = "Size #{size}"
+                  .remove-filter
 
-          - if params[:price].present?
-            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = params[:price]
-                .remove-filter
+            - if params[:price].present?
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = params[:price]
+                  .remove-filter
 
-        - if params[:product_type].present?
-          - params[:product_type].each do |pt|
-            - newpt = params[:product_type].dup
-            - newpt.delete(pt)
-            = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = pt
-                .remove-filter
+          - if params[:product_type].present?
+            - params[:product_type].each do |pt|
+              - newpt = params[:product_type].dup
+              - newpt.delete(pt)
+              = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = pt
+                  .remove-filter
 
-        - ProductSetting.last.filter_array.each do |filter|
-          = render partial: filter, locals: {desktop: false}
+          - ProductSetting.last.filter_array.each do |filter|
+            = render partial: filter, locals: {desktop: false}
 
     #myLeftSidenav.sidenav.hidden-on-large-screen
       div style='padding: 0 20px'
@@ -84,8 +85,9 @@
           a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')}" Date, old to new
 
     .openbtn-container.hidden-on-large-screen
-      .openbtn-sub-container.hidden-on-large-screen.openbtn
-        span.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
+      - if ProductSetting.last.true_filter_on
+        .openbtn-sub-container.hidden-on-large-screen.openbtn
+          span.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
 
       .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
         span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT

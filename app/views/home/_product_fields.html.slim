@@ -14,12 +14,13 @@
             - if product.compare_at_price != 0.0
               h3 = "£ #{product.compare_at_display_price}"
           h3 = product.title
-          select style="border-radius: 5px"
-            - product.sizes.split(',').each do |size|
-              option = size
-
-        = link_to 'Test', 'javascript:void(0)', class: 'button js-cart-btn'
-
+          br
+          select style="border-radius: 5px; width: 13em"
+            - product.sizes.each do |size|
+              option value="#{size.shopify_id}" = size.title
+          div style="display: flex; align-items: center"
+            = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #90d4f7;border-radius: 5em;width: 12em;font-size: 17px;font-weight: bold;'
+          p.js-cart-error style="color: red"
 
 
 
