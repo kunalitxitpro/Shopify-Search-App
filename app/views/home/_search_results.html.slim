@@ -2,25 +2,23 @@
   .search-result-product-container
     .search-result-product-text PRODUCTS
   - if ProductSetting.last.overflow_scroll_on
-    div style="overflow: auto; max-height: 334px; width: 100%; background-color: #ffffff"
+    .search-result-main-box style="overflow: auto"
       - @products.each do |product|
-        / = link_to "/products/#{product.slug_url}" do
-        .search-result-container
-          .search-result-image style="background-image: url('#{product.first_image_url}')"
-          .search-result-sub-container
+        a.search-result-single-box  href="/products/#{product.slug_url}"
+          div style="background-image: url('#{product.first_image_url}'); background-size: cover; background-position: center; height: 50px; width: 50px"
+          .search-result-sub-container style="margin-left: 0.5rem"
             .search-result-vendor style="font-weight: bold" = product.vendor
-            .search-result-title  = truncate("#{product.title}", length: 45)
-            .search-result-price  = "£ #{product.display_price} GPB"
+            .search-result-title = truncate("#{product.title}", length: 45)
+            .search-result-price = "£ #{product.display_price} GPB"
   - unless ProductSetting.last.overflow_scroll_on
-    div style="overflow: hidden; max-height: 334px; width: 100%; background-color: #ffffff"
+    .search-result-main-box style="overflow: hidden; height: 200px"
       - @products.each do |product|
-        / = link_to "/products/#{product.slug_url}" do
-        .search-result-container
-          .search-result-image style="background-image: url('#{product.first_image_url}')"
-          .search-result-sub-container
+        a.search-result-single-box href="/products/#{product.slug_url}"
+          div style="background-image: url('#{product.first_image_url}'); background-size: cover; background-position: center; height: 50px; width: 50px"
+          .search-result-sub-container style="margin-left: 0.5rem"
             .search-result-vendor style="font-weight: bold" = product.vendor
-            .search-result-title  = truncate("#{product.title}", length: 45)
-            .search-result-price  = "£ #{product.display_price} GPB"
+            .search-result-title = truncate("#{product.title}", length: 45)
+            .search-result-price = "£ #{product.display_price} GPB"
   - if ProductSetting.last.related_search_on
     .search-result-product-container
       .search-result-product-text POPULAR SEARCHES
@@ -28,7 +26,50 @@
       .popular-search-container
         - @popular.each do |prod|
           / = link_to "/products/#{prod.slug_url}" do
-          .popular-search-sub-container
+          a.pop-search-sub-container href="/products/#{prod.slug_url}"
             .popular-search-icon
+            .pop-search-sub-text  = prod.title
+
+          / .popular-search-sub-container
+          /   .popular-search-icon
             / = image_tag('search.svg', size: '10', style: "margin: 0 1.5rem 0 1rem")
-            span = prod.title
+            / span = prod.title
+
+
+
+
+
+/
+/ .search-result-main-container
+/   .search-result-product-container
+/     .search-result-product-text PRODUCTS
+/   - if ProductSetting.last.overflow_scroll_on
+/     div style="overflow: auto; max-height: 334px; width: 100%; background-color: #ffffff"
+/       - @products.each do |product|
+/         a.search-result-container href="#"
+/           .search-result-image style="background-image: url('#{product.first_image_url}')"
+/           .search-result-sub-container
+/             .search-result-vendor style="font-weight: bold" = product.vendor
+/             .search-result-title  = truncate("#{product.title}", length: 45)
+/             .search-result-price  = "£ #{product.display_price} GPB"
+/   - unless ProductSetting.last.overflow_scroll_on
+/     div style="overflow: hidden; max-height: 334px; width: 100%; background-color: #ffffff"
+/       - @products.each do |product|
+/         / = link_to "/products/#{product.slug_url}" do
+/         .search-result-container
+/           .search-result-image style="background-image: url('#{product.first_image_url}')"
+/           .search-result-sub-container
+/             .search-result-vendor style="font-weight: bold" = product.vendor
+/             .search-result-title  = truncate("#{product.title}", length: 45)
+/             .search-result-price  = "£ #{product.display_price} GPB"
+/   - if ProductSetting.last.related_search_on
+/     .search-result-product-container
+/       .search-result-product-text POPULAR SEARCHES
+/       br
+/       .popular-search-container
+/         - @popular.each do |prod|
+/           / = link_to "/products/#{prod.slug_url}" do
+/           .popular-search-sub-container
+/             .popular-search-icon
+/             / = image_tag('search.svg', size: '10', style: "margin: 0 1.5rem 0 1rem")
+/             span = prod.title
