@@ -10,8 +10,8 @@
             .search-result-vendor style="font-weight: bold" = product.vendor
             .search-result-title = truncate("#{product.title}", length: 45)
             .search-result-price = "£ #{product.display_price} GPB"
-  - unless ProductSetting.last.overflow_scroll_on
-    .search-result-main-box style="overflow: hidden; height: 200px"
+  - else
+    .search-result-main-box style="overflow: hidden;"
       - @products.each do |product|
         a.search-result-single-box href="/products/#{product.slug_url}"
           div style="background-image: url('#{product.first_image_url}'); background-size: cover; background-position: center; height: 50px; width: 50px"
