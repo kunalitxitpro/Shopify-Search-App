@@ -33,7 +33,7 @@ class SyncProductsJob < ApplicationJob
       first_image_url: prod.image.src,
       second_image_url: prod.images.second.try(:src),
       price: prod.variants.first.price.to_f,
-      quantity: prod.variants.first.inventory_quantity,
+      quantity: prod.variants.sum{|p| p.inventory_quantity},
       compare_at_price: compare_price,
       shopify_id: prod.id,
       product_type: prod.product_type,
@@ -49,7 +49,7 @@ class SyncProductsJob < ApplicationJob
     set_product_record.first_image_url = prod.image.src
     set_product_record.second_image_url = prod.images.second.try(:src)
     set_product_record.price = prod.variants.first.price.to_f
-    set_product_record.quantity = prod.variants.first.inventory_quantity
+    set_product_record.quantity = prod.variants.sum{|p| p.inventory_quantity}
     set_product_record.compare_at_price = compare_price
     set_product_record.product_type =  prod.product_type
     set_product_record.shopify_created_at = prod.created_at.to_datetime
