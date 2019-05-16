@@ -22,22 +22,6 @@
             = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #90d4f7;border-radius: 5em;width: 12em;font-size: 17px;font-weight: bold;'
           p.js-cart-error style="color: red"
 
-
-
-
-    / .the-modal
-    /   .modal-content style="display: flex"
-    /     .this-product-image style="background-image: url('#{product.first_image_url}')"
-    /     .modal-content-sub
-    /       .model-close &times;
-    /       .this-product-title = product.vendor
-    /       .the-price-container
-    /         .the-price-field style="font-size: 3rem" = "£ #{product.price} GPB"
-    /         - if product.compare_at_price != 0.0
-    /           .the-compare-at-price style="font-size: 3rem" = "£ #{product.compare_at_price}"
-    /       .the-product-description style="font-size: 2rem" = product.title
-
-
   .blur-div
     = link_to "/products/#{product.slug_url}" do
       .img-container
@@ -47,6 +31,6 @@
       .title-container
         .title-field = product.title
       .price-container
-        .price-field = "£ #{product.price} GPB"
+        .price-field = "£ #{product.display_price} GPB"
         - if product.compare_at_price != 0.0
-          .compare-at-price = "£ #{product.compare_at_price}"
+          .compare-at-price = "£ #{product.compare_at_display_price}"
