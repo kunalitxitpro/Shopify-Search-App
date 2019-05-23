@@ -149,9 +149,9 @@
                 .js-new-syn
                   .row
                     .columns.medium-6.small-6.large-6
-                      = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', style: 'border-radius: 5px'}
+                      = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', style: 'border-radius: 5px', class: 'js-syn-field'}
                     .columns.medium-6.small-6.large-6
-                      = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', style: 'border-radius: 5px'}
+                      = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', style: 'border-radius: 5px', class: 'js-syn-field'}
           = link_to 'Add new synonym', 'javascript:void(0)', class: 'button js-new-syn-button', style: 'width: 230px'
 
           = f.submit 'Submit', class: 'button' ,style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'

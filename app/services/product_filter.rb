@@ -5,30 +5,59 @@ class ProductFilter
   end
 
   def search
+    products = Product
+    @params[:title].split(' ').each do |query|
+      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase)
+    end
     if ProductSetting.last.overflow_scroll_on
-      Product.where('lower(title) ~* ? OR lower(vendor) ~* ?', @params[:title].downcase,@params[:title].downcase).limit(50)
+      products.limit(50)
     else
-      Product.where('lower(title) ~* ? OR lower(vendor) ~* ?', @params[:title].downcase,@params[:title].downcase).limit(5)
+      products.limit(5)
     end
   end
 
   def popular
-    Product.where('lower(title) ~* ? ', @params[:title]).order(quantity: :asc).limit(8)
+    products = Product
+    @params[:title].split(' ').each do |query|
+      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase)
+    end
+    products.order(quantity: :asc).limit(8)
   end
 
-  def filter
+  def filter(query = nil)
+    return filter_for_search_query(query) if query.present?
     products = param_is_present? ? Product.joins(:sizes).where(sql_query).distinct : Product.joins(:sizes).distinct
     products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     ordered_query(products)
   end
 
-  def count_from_filter
+  def count_from_filter(query = nil)
+    return filter_count_for_search(query) if query.present?
     products = param_is_present? ? Product.joins(:sizes).where(sql_query).distinct  : Product.joins(:sizes).distinct
     products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     return products.count
   end
 
   private
+
+  def filter_for_search_query(search)
+    products = search_filter(search)
+    ordered_query(products)
+  end
+
+  def filter_count_for_search(search)
+    search_filter(search).count
+  end
+
+  def search_filter(search)
+    products = Product
+    search.split(' ').each do |query|
+      products = products.where('lower(products.title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase)
+    end
+    products = param_is_present? ? products.joins(:sizes).where(sql_query).distinct : products.joins(:sizes).distinct
+    products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
+    return products
+  end
 
   def sql_query
     sql_arr = []
