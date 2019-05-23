@@ -6,8 +6,8 @@
     .filter-size-collection.js-size-container
       - @size_array.each do |size|
         - multisize = [size] << params[:size]
-        = link_to proxy_prod_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
-          - if params[:size] == size
+        = link_to proxy_prod_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price], query: params[:query]) do
+          - if params[:size] && params[:size].include?(size)
             .black-box-container
               .black-box-parent style='position: relative'
                 .black-box style='position: relative; top: 0; left: 0'
@@ -26,8 +26,8 @@
     .filter-size-collection.js-size-container
       - @size_array.each do |size|
           - multisize = [size] << params[:size]
-          = link_to proxy_prod_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
-          - if params[:size] == size
+          = link_to proxy_prod_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price], query: params[:query]) do
+          - if params[:size] && params[:size].include?(size)
             .black-box-container
               .black-box-parent style='position: relative'
                 .black-box style='position: relative; top: 0; left: 0'

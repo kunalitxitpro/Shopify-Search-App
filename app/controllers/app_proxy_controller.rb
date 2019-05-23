@@ -8,8 +8,6 @@ class AppProxyController < ApplicationController
       render_filtered_products
     elsif params[:search].present?
       render_searched_products
-    elsif params[:query].present?
-      render_queried_results
     else
       render_all_products
     end
@@ -21,25 +19,30 @@ class AppProxyController < ApplicationController
     render json: {search_on: ProductSetting.last.true_search_on}
   end
 
-  def render_queried_results
-    @products = ProductFilter.new({title: params[:query]}).search
-    render content_type: 'application/liquid'
-  end
-
   def render_all_products
-    @products = ProductFilter.new(product_params).filter
-    @products_count = ProductFilter.new(product_params).count_from_filter
-    @vendor_array = Product.pluck(:vendor).uniq
+    @products = ProductFilter.new(product_params).filter(query_string)
+    @products_count = ProductFilter.new(product_params).count_from_filter(query_string)
+    @vendor_array = all_vendors_for_query
     @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
     @product_type = Product.pluck(:product_type).uniq.reject(&:blank?)
     @price_ranges = ['0 - 31', '31 - 70', '71 - 90', '91 - 110']
     render content_type: 'application/liquid'
   end
 
+  def all_vendors_for_query
+    return Product.pluck(:vendor).uniq unless params[:query].present?
+    vendors = []
+    query_arr = params[:query].split(' ')
+    query_arr.each do |arr|
+      vendors << Product.where('lower(vendor) ~* ?', arr.downcase).pluck(:vendor).uniq
+    end
+    vendors.flatten.present? ? vendors.flatten : Product.pluck(:vendor).uniq
+  end
+
   def render_filtered_products
     page = params[:page]
-    @products = ProductFilter.new(product_params).filter
-    @products_count = ProductFilter.new(product_params).count_from_filter
+    @products = ProductFilter.new(product_params).filter(query_string)
+    @products_count = ProductFilter.new(product_params).count_from_filter(query_string)
     @products = [] if products_are_already_in_view?
     render json: {productsPartial: render_to_string('home/_products', locals: {showFirst: false},layout: false), productCount: @products.count, lastProductID: @products.last.try(:id)}
   end

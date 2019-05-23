@@ -280,14 +280,15 @@ $(document).on('turbolinks:load', () => {
     });
 
     $('.js-new-syn-button').click(function(){
-      $('.js-new-syn').first().clone().appendTo( ".js-syn-container" );
+      var newField = $('.js-new-syn').first().clone()
+      newField.children().find('.js-syn-field').val("")
+      newField.appendTo( ".js-syn-container" );
     });
 
     $( "#sortable" ).sortable({
       update: function( event, ui ) {
         var ids = $("#sortable").children().map(function(){return this.id}).toArray();
         ids = ids.filter(String).join(",")
-        debugger;
         $('.js-filter-order').val(ids)
       }
     });
@@ -298,7 +299,7 @@ $(document).on('turbolinks:load', () => {
       $(this).parent().siblings().first().show()
       // $(this).next().show();
       modalShowing = true;
-      $('.blur-div, .quick-view-button').toggleClass('fade-blur');
+      $('.blur-div, .quick-view-button, .box-1').toggleClass('fade-blur');
       $(body).css({'pointer-events': 'none'});
     });
 
@@ -306,7 +307,7 @@ $(document).on('turbolinks:load', () => {
       $(".the-modal").css({'top': '0'});
       $('.the-modal').hide();
       modalShowing = false;
-      $('.blur-div, .quick-view-button').toggleClass('fade-blur');
+      $('.blur-div, .quick-view-button, .box-1').toggleClass('fade-blur');
       $(body).css({'pointer-events': 'auto'});
     });
 
