@@ -24,52 +24,50 @@ $(document).on('turbolinks:load', () => {
     var modalrunning = false
     var modalShowing = false;
 
-    if ($('.gif-container').length > 0 ) {
-      $(window).bind('scroll', function() {
-          if($(window).scrollTop() >= $('.product-container').offset().top + $('.product-container').outerHeight() - window.innerHeight) {
-            if(running == false){
-              running = true;
-              $('.js-product-group:hidden').slice(0, 12).fadeIn('slow');
-              if ($('.js-product-group:hidden').length <= 1 && canLoadMore){
-                $('.loading-gif').fadeIn();
-                $.ajax({
-                  type: "GET",
-                  url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
-                  data: $(this).serialize(),
-                  success: function(response) {
-                    if(response.productCount != Window.noOfProducts){
-                      canLoadMore = false;
-                    }
-                    $('.loading-gif').fadeOut();
-                    var productID = response.lastProductID;
-                    if($('.js-product-id-'+ productID).length == 0){
-                      $('.js-all-products').append(response.productsPartial);
-                      window.tabs.loadTabs();
-                    }
+    $(window).bind('scroll', function() {
+      if(modalShowing == false && $('.gif-container').length > 0){
+        if($(window).scrollTop() >= $('.product-container').offset().top + $('.product-container').outerHeight() - window.innerHeight) {
+          if(running == false){
+            running = true;
+            $('.js-product-group:hidden').slice(0, 12).fadeIn('slow');
+            if ($('.js-product-group:hidden').length <= 1 && canLoadMore){
+              $('.loading-gif').fadeIn();
+              $.ajax({
+                type: "GET",
+                url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
+                data: $(this).serialize(),
+                success: function(response) {
+                  if(response.productCount != Window.noOfProducts){
+                    canLoadMore = false;
                   }
-                });
-                PageNumber = PageNumber + 1
-              }
-              setTimeout(function(){running = false}, 1000);
-            }
-          }
-      });
-    } else {
-        $(window).scroll(function() {
-            clearTimeout($.data(this, 'scrollTimer'));
-            $.data(this, 'scrollTimer', setTimeout(function() {
-                var scrolled = $(window).scrollTop();
-                if (modalrunning == false && !window.matchMedia("(max-width: 800px)").matches && modalShowing == true){
-                  $(".the-modal").animate({
-                      top: scrolled + 'px',
-                    }, 300, function() {
-                      modalrunning = false
-                  });
+                  $('.loading-gif').fadeOut();
+                  var productID = response.lastProductID;
+                  if($('.js-product-id-'+ productID).length == 0){
+                    $('.js-all-products').append(response.productsPartial);
+                    window.tabs.loadTabs();
+                  }
                 }
-                modalrunning = true
-            }, 250));
-        });
+              });
+              PageNumber = PageNumber + 1
+            }
+            setTimeout(function(){running = false}, 1000);
+          }
+        }
+      }else if (modalShowing == true){
+        clearTimeout($.data(this, 'scrollTimer'));
+        $.data(this, 'scrollTimer', setTimeout(function() {
+            var scrolled = $(window).scrollTop();
+            if (modalrunning == false && !window.matchMedia("(max-width: 800px)").matches && modalShowing == true){
+              $(".the-modal").animate({
+                  top: scrolled + 'px',
+                }, 300, function() {
+                  modalrunning = false
+              });
+            }
+            modalrunning = true
+        }, 250));
       }
+    });
 
     $('.js-load-more').click(function(){
       var element = this

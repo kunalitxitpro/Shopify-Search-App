@@ -1,25 +1,36 @@
 .single-product-container
   - if params[:query]
     .quick-view-button-container style="width: 100%; display: flex; justify-content: center"
-      .quick-view-button value='#{product.id}'view more
+      .quick-view-button value='#{product.id}'Quick view
 
     .the-modal
       .row.row-style
-        .the-modal-sub.medium-4.small-12.large-3 style="background-image: url('#{product.first_image_url}')"
-        .the-modal-sub-two.medium-8.small-12.large-9
+        .the-modal-sub.medium-6.small-12large-6 style="background-image: url('#{product.first_image_url}')"
+        .the-modal-sub-two.medium-6.small-12.large-6
           .model-close &times;
-          h3 = product.vendor
+          .prod-attr = product.vendor
+          .prod-attr__small = product.title
           div style="display: flex"
-            h3 = "£ #{product.display_price} GPB"
+            .prod-attr__price = "£ #{product.display_price} GPB"
             - if product.compare_at_price != 0.0
-              h3 = "£ #{product.compare_at_display_price}"
-          h3 = product.title
-          br
-          select style="border-radius: 5px; width: 13em"
-            - product.sizes.each do |size|
-              option value="#{size.shopify_id}" = size.title
+              .prod-attr__small style="font-size: 22px" = "£ #{product.compare_at_display_price}"
+          .prod-attr__small Earn 375 points
+
+          .prod-attr__small Size guide
+          .select-box
+            .prod-attr__small style="margin-right: 1rem" Size
+            select style="border-radius: 5px; width: 13em"
+              - product.sizes.each do |size|
+                option value="#{size.shopify_id}" = size.title
           div style="display: flex; align-items: center"
-            = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #90d4f7;border-radius: 5em;width: 12em;font-size: 17px;font-weight: bold;'
+            = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #000000; width: 12em;font-size: 17px;font-weight: bold;'
+          .prod-attr__small very good condition, vintage Adidas
+          .prod-attr__small Size on label - L
+          .prod-attr__small Our recomended size - L
+          .prod-attr__small Measurements:
+          .prod-attr__small Pit to pit - 26"
+          .prod-attr__small Length of back - 27"
+          .prod-attr__small Please check measurements and product description carefully
           p.js-cart-error style="color: red"
 
   .blur-div
