@@ -22,6 +22,18 @@ class SyncProductsJob < ApplicationJob
         end
       end
       Product.dedupe
+
+      Product.pluck(:vendor).uniq.each do |vendor|
+        Filter.create(title: vendor, product_setting_id: ProductSetting.last.id, filter_type: 0) if Filter.find_by_title(vendor).nil?
+      end
+
+      Product.pluck(:product_type).uniq.reject(&:blank?).uniq.each do |pt|
+        Filter.create(title: pt, product_setting_id: ProductSetting.last.id, filter_type: 2) if Filter.find_by_title(pt).nil?
+      end
+
+      Size.pluck(:title).uniq.each do |size|
+        Filter.create(title: size, product_setting_id: ProductSetting.last.id, filter_type: 1) if Filter.find_by_title(size).nil?
+      end
     end
   end
 

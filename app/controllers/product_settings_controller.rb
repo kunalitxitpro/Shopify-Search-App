@@ -8,6 +8,7 @@ class ProductSettingsController < ApplicationController
     @product_setting = ProductSetting.find_by_id(params[:id])
     if @product_setting.update(product_setting_params)
       set_synonyms
+      update_filter_position if filter_settings_present?
       flash[:notice] = "Successfully updated..."
       redirect_to root_path
     else
@@ -26,6 +27,24 @@ class ProductSettingsController < ApplicationController
 
   def synonym_params
     params[:product_setting][:product_synonyms].permit!.to_h
+  end
+
+  def update_filter_position
+    filter_setting_params.values.each do |arr|
+      arr.each do |k,v|
+        filter = Filter.find(k)
+        filter.position = v
+        filter.save
+      end
+    end
+  end
+
+  def filter_setting_params
+    params[:product_setting][:filters]
+  end
+
+  def filter_settings_present?
+    params[:product_setting].try(:[], :filters).present?
   end
 
   def set_synonyms

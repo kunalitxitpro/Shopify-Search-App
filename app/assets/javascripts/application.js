@@ -226,17 +226,16 @@ $(document).on('turbolinks:load', () => {
     });
 
     $('.js-show-main-filter').click(function(){
-      // $('.box-2').css({'width': '80%'});
-      $('.js-main-container').toggle("slide");
       $('.js-main-filter-icon' ).toggleClass( 'filter-icon-minus' )
-      if ($('.filter-icon-minus').length > 0 ) {
+      if ($(".js-main-filter-icon").hasClass( "filter-icon-minus" )) {
         $('.box-2').css({'float': 'none'});
         $('.box-2').css({'width': '100%'});
+        $('.js-main-container').hide("slide", { direction: "left" }, 1000);
       } else {
         $('.box-2').css({'width': '85%'});
         $('.box-2').css({'float': 'left'});
+        $('.js-main-container').show("slide", { direction: "left" }, 1000);
       }
-
     });
     $('.js-show-brand-filter').click(function(){
       $('.js-brand-container').toggle();

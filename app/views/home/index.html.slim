@@ -86,6 +86,38 @@
                 .li-sub-box
                   .li-sub-box-text = filter
           = f.input :filter_order, as: :hidden, input_html: { value: ProductSetting.last.filter_order, class: 'js-filter-order' }
+
+          = f.simple_fields_for :filters do |p|
+            hr
+            p style='font-weight: bold' Brand Filter Order
+            hr
+            - ProductSetting.last.filters.brands.each do |b|
+              .row
+                .columns.medium-3.small-3.large-3
+                  p = b.title
+                .columns.medium-9.small-9.large-9
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+            hr
+            p style='font-weight: bold' Size Filter Order
+            hr
+            - ProductSetting.last.filters.sizes.each do |b|
+              .row
+                .columns.medium-3.small-3.large-3
+                  p = b.title
+                .columns.medium-9.small-9.large-9
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+            hr
+            p style='font-weight: bold' Product Type Filter Order
+            hr
+            - ProductSetting.last.filters.types.each do |b|
+              .row
+                .columns.medium-3.small-3.large-3
+                  p = b.title
+                .columns.medium-9.small-9.large-9
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+
+
+
           = f.submit 'Submit', class: 'button', style: 'width: 50%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
 
       .js-admin-section-search-config-container.columns.medium-10 style="display: none"

@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_084120) do
+ActiveRecord::Schema.define(version: 2019_05_28_093534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "filters", force: :cascade do |t|
+    t.string "title"
+    t.integer "position"
+    t.integer "product_setting_id"
+    t.integer "filter_type", default: 0
+    t.index ["product_setting_id"], name: "index_filters_on_product_setting_id"
+  end
 
   create_table "product_settings", force: :cascade do |t|
     t.string "image"
