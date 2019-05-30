@@ -78,6 +78,26 @@
             .toggle-switch-text True Filter Active
             = f.input :true_filter_on, as: :hidden, input_html: { value: "#{ProductSetting.last.true_filter_on ? '1' : '0'}" }
           hr
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.filter_vendor_by_variant
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_filter_vendor_by_variant').val() == '1' ? $('#product_setting_filter_vendor_by_variant').val('0') : $('#product_setting_filter_vendor_by_variant').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_filter_vendor_by_variant').val() == '1' ? $('#product_setting_filter_vendor_by_variant').val('0') : $('#product_setting_filter_vendor_by_variant').val('1')"
+              span.slider.round
+            .toggle-switch-text Filter Vendor By Variant
+            = f.input :filter_vendor_by_variant, as: :hidden, input_html: { value: "#{ProductSetting.last.filter_vendor_by_variant ? '1' : '0'}" }
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.filter_product_type_by_variant
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_filter_product_type_by_variant').val() == '1' ? $('#product_setting_filter_product_type_by_variant').val('0') : $('#product_setting_filter_product_type_by_variant').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_filter_product_type_by_variant').val() == '1' ? $('#product_setting_filter_product_type_by_variant').val('0') : $('#product_setting_filter_product_type_by_variant').val('1')"
+              span.slider.round
+            .toggle-switch-text Filter Product Type By Variant
+            = f.input :filter_product_type_by_variant, as: :hidden, input_html: { value: "#{ProductSetting.last.filter_product_type_by_variant ? '1' : '0'}" }
+          p style='color: #637381;margin-top: 2%;font-size: 12px;font-weight: bold;' * Turning these off will set the search to query the product tag
+          hr
           .filter-app-config-text Drag and drop the blocks to set the order of the filters
           ul#sortable
             - ProductSetting.last.filter_array.each do |filter|
@@ -115,7 +135,15 @@
                   p = b.title
                 .columns.medium-9.small-9.large-9
                   = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
-
+            hr
+            p style='font-weight: bold' Colour Filter Order
+            hr
+            - ProductSetting.last.filters.colours.each do |b|
+              .row
+                .columns.medium-3.small-3.large-3
+                  p = b.title
+                .columns.medium-9.small-9.large-9
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
 
 
           = f.submit 'Submit', class: 'button', style: 'width: 50%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'

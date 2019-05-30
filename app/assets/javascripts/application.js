@@ -228,11 +228,11 @@ $(document).on('turbolinks:load', () => {
       if ($(".js-main-filter-icon").hasClass( "filter-icon-minus" )) {
         $('.box-2').css({'float': 'none'});
         $('.box-2').css({'width': '100%'});
-        $('.js-main-container').hide("slide", { direction: "left" }, 1000);
+        $('.box-1').css({'width': '0'});
       } else {
         $('.box-2').css({'width': '85%'});
         $('.box-2').css({'float': 'left'});
-        $('.js-main-container').show("slide", { direction: "left" }, 1000);
+        $('.box-1').css({'width': '15%'});
       }
     });
     $('.js-show-brand-filter').click(function(){
@@ -250,6 +250,11 @@ $(document).on('turbolinks:load', () => {
     $('.js-show-price-filter').click(function(){
       $('.js-price-container').toggle();
       $('.js-price-filter-icon' ).toggleClass( 'filter-icon-minus' )
+    });
+
+    $('.js-show-colour-filter').click(function(){
+      $('.js-colour-container').toggle();
+      $('.js-colour-filter-icon' ).toggleClass( 'filter-icon-minus' )
     });
 
     $('.openbtn').click(function() {

@@ -24,11 +24,11 @@
   margin-right: 0.5rem
   font-size: 17px
 
-.filter-brand-heading, .filter-size-heading, .filter-type-heading, .filter-price-heading
+.filter-brand-heading, .filter-size-heading, .filter-type-heading, .filter-price-heading, .filter-colour-heading
   font-weight: bold
   font-size: 14px
 
-.js-brand-filter-icon, .js-type-filter-icon, .js-size-filter-icon, .js-main-filter-icon, .js-price-filter-icon
+.js-brand-filter-icon, .js-type-filter-icon, .js-size-filter-icon, .js-main-filter-icon, .js-price-filter-icon, .js-colour-filter-icon
   height: 11px
   width: 11px
   background-image: asset-url('minus.svg')
@@ -50,10 +50,13 @@
 .box-1
   float: left
   width: 15%
+  overflow-x: hidden
+  transition: 1s
 
 .box-2
   float: left
   width: 85%
+  transition: 1s
 
 .clearfix::after
   content: ""
@@ -66,6 +69,11 @@
   margin-bottom: 2rem
 
 .filter-size-container
+  border-bottom: 1px solid #ccc
+  padding-bottom: 1rem
+  margin-bottom: 2rem
+
+.filter-colour-container
   border-bottom: 1px solid #ccc
   padding-bottom: 1rem
   margin-bottom: 2rem

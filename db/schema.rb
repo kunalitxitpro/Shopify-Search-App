@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_093534) do
+ActiveRecord::Schema.define(version: 2019_05_30_141835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2019_05_28_093534) do
     t.boolean "overflow_scroll_on", default: true
     t.boolean "true_filter_on", default: true
     t.boolean "true_search_on", default: true
+    t.boolean "filter_vendor_by_variant", default: true
+    t.boolean "filter_product_type_by_variant", default: true
   end
 
   create_table "product_synonyms", force: :cascade do |t|
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_093534) do
     t.datetime "shopify_created_at"
     t.integer "quantity"
     t.string "slug_url"
+    t.string "colour"
   end
 
   create_table "shops", force: :cascade do |t|

@@ -67,6 +67,6 @@ class ProductSettingsController < ApplicationController
 
 
   def product_setting_params
-    params.require(:product_setting).permit(:image, :number_of_items_to_load, :filter_order, :include_out_of_stock_products, :related_search_on, :autoscroll_on, :load_more_text, :overflow_scroll_on, :true_filter_on, :true_search_on)
+    params.require(:product_setting).permit(:image, :number_of_items_to_load, :filter_order, :include_out_of_stock_products, :related_search_on, :autoscroll_on, :load_more_text, :overflow_scroll_on, :true_filter_on, :true_search_on, :filter_vendor_by_variant, :filter_product_type_by_variant)
   end
 end
