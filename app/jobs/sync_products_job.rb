@@ -22,6 +22,22 @@ class SyncProductsJob < ApplicationJob
         end
       end
       Product.dedupe
+
+      Product.pluck(:vendor).uniq.each do |vendor|
+        Filter.create(title: vendor, product_setting_id: ProductSetting.last.id, filter_type: 0) if Filter.find_by_title(vendor).nil?
+      end
+
+      Product.pluck(:product_type).uniq.reject(&:blank?).uniq.each do |pt|
+        Filter.create(title: pt, product_setting_id: ProductSetting.last.id, filter_type: 2) if Filter.find_by_title(pt).nil?
+      end
+
+      Size.pluck(:title).uniq.each do |size|
+        Filter.create(title: size, product_setting_id: ProductSetting.last.id, filter_type: 1) if Filter.find_by_title(size).nil?
+      end
+
+      Product.pluck(:colour).uniq.compact.each do |colour|
+        Filter.create(title: colour, product_setting_id: ProductSetting.last.id, filter_type: 3) if Filter.find_by_title(colour).nil?
+      end
     end
   end
 
@@ -38,7 +54,8 @@ class SyncProductsJob < ApplicationJob
       shopify_id: prod.id,
       product_type: prod.product_type,
       shopify_created_at: prod.created_at.to_datetime,
-      slug_url: prod.handle
+      slug_url: prod.handle,
+      colour: colour_of_product(prod)
     )
   end
 
@@ -54,7 +71,13 @@ class SyncProductsJob < ApplicationJob
     set_product_record.product_type =  prod.product_type
     set_product_record.shopify_created_at = prod.created_at.to_datetime
     set_product_record.slug_url = prod.handle
+    set_product_record.colour = colour_of_product(prod)
     return set_product_record
+  end
+
+
+  def colour_of_product(product)
+    colour = product.tags.split(',').select{|p| p.include?("Colour")}[0].split('_').last.titleize rescue nil
   end
 
   def add_sizes(product, record)

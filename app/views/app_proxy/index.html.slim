@@ -51,6 +51,18 @@
                 .sub-heading = pt
                 .remove-filter
 
+        - if params[:colour].present?
+          - params[:colour].each do |colour|
+            - newcolour = params[:colour].dup
+            - newcolour.delete(colour)
+            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour) do
+              .black-box-container
+                .black-box-parent style='position: relative'
+                  .black-box style='position: relative; top: 0; left: 0'
+                  .small-black-box style='position: absolute; top: 0; left: 0'
+                .sub-heading = colour
+                .remove-filter
+
         - ProductSetting.last.filter_array.each do |filter|
           = render partial: filter, locals: {desktop: false}
 
@@ -113,7 +125,7 @@
   .clearfix.main-container
     - if ProductSetting.last.true_filter_on
       .box-1
-        .filter-data-options-container.js-main-container.hidden-on-small-screen
+        .filter-data-options-container.js-main-container.hidden-on-small-screen#js-sidebar-filter
           - if params[:brand].present?
             - params[:brand].each do |brand|
               - newbrand = params[:brand].dup
@@ -159,6 +171,18 @@
                   .sub-heading = pt
                   .remove-filter
 
+          - if params[:colour].present?
+            - params[:colour].each do |colour|
+              - newcolour = params[:colour].dup
+              - newcolour.delete(colour)
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, query: params[:query]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = colour
+                  .remove-filter
+
           - ProductSetting.last.filter_array.each do |filter|
             = render partial: filter, locals: {desktop: true}
     .box-2 style="#{ProductSetting.last.true_filter_on ? '' : 'width: 100% !important'}"
@@ -167,7 +191,7 @@
           = render partial: 'home/products', locals: {showFirst: true}
 
   .main-container
-    .filter-data-options-container.js-main-container.hidden-on-small-screen
+    .filter-data-options-container.js-main-container.hidden-on-small-screen#js-sidebar-filter
       - if params[:brand].present?
         - params[:brand].each do |brand|
           - newbrand = params[:brand].dup

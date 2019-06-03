@@ -23,20 +23,21 @@ class AppProxyController < ApplicationController
     @products = ProductFilter.new(product_params).filter(query_string)
     @products_count = ProductFilter.new(product_params).count_from_filter(query_string)
     @vendor_array = all_vendors_for_query
-    @size_array = ['L', 'M', 'S', "Women's", 'XL', 'XS', 'XXL', 'XXS']
-    @product_type = Product.pluck(:product_type).uniq.reject(&:blank?)
+    @size_array = Filter.sizes.pluck(:title)
+    @product_type = Filter.types.pluck(:title)
     @price_ranges = ['0 - 31', '31 - 70', '71 - 90', '91 - 110']
+    @colours = Filter.colours.pluck(:title)
     render content_type: 'application/liquid'
   end
 
   def all_vendors_for_query
-    return Product.pluck(:vendor).uniq unless params[:query].present?
+    return Filter.brands.pluck(:title) unless params[:query].present?
     vendors = []
     query_arr = params[:query].split(' ')
     query_arr.each do |arr|
       vendors << Product.where('lower(vendor) ~* ?', arr.downcase).pluck(:vendor).uniq
     end
-    vendors.flatten.present? ? vendors.flatten : Product.pluck(:vendor).uniq
+    vendors.flatten.present? ? vendors.flatten : Filter.brands.pluck(:title)
   end
 
   def render_filtered_products
@@ -60,7 +61,7 @@ class AppProxyController < ApplicationController
   end
 
   def product_params
-    {limit: 36, title: params[:brand], product_type: params[:product_type], tag: params[:size], page: params[:page], price: params[:price], sort_by: params[:sort_by]}
+    {limit: 36, title: params[:brand], product_type: params[:product_type], tag: params[:size], page: params[:page], price: params[:price], sort_by: params[:sort_by], colour: params[:colour]}
   end
 
   def products_are_already_in_view?

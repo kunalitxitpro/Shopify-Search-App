@@ -65,11 +65,12 @@ class ProductFilter
     sql_arr << product_type if @params[:product_type].present?
     sql_arr << size_lookup if @params[:tag].present?
     sql_arr << price_lookup if @params[:price].present?
+    sql_arr << colour_lookup if @params[:colour].present?
     sql_arr.join(" AND ")
   end
 
   def param_is_present?
-    @params[:title].present? || @params[:product_type].present? || @params[:tag].present? || @params[:price].present?
+    @params[:title].present? || @params[:product_type].present? || @params[:tag].present? || @params[:price].present? || @params[:colour].present?
   end
 
   def ordered_query(products)
@@ -97,7 +98,16 @@ class ProductFilter
   def vendor_lookup
     sql_arr = []
     @params[:title].each do |title|
-      sql_arr << "vendor = '#{title}'"
+      sql = ProductSetting.last.filter_vendor_by_variant ? "vendor = '#{title}'" : "tags LIKE '%#{title}%'"
+      sql_arr << sql
+    end
+    sql_arr.join(" OR ")
+  end
+
+  def colour_lookup
+    sql_arr = []
+    @params[:colour].each do |title|
+      sql_arr << "colour = '#{title}'"
     end
     sql_arr.join(" OR ")
   end
@@ -110,7 +120,8 @@ class ProductFilter
   def product_type
     sql_arr = []
     @params[:product_type].each do |title|
-      sql_arr << "product_type = '#{title}'"
+      sql = ProductSetting.last.filter_product_type_by_variant ? "product_type = '#{title}'" : "tags LIKE '%#{title}%'"
+      sql_arr << sql
     end
     sql_arr.join(" OR ")
   end
