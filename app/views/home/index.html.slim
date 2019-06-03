@@ -109,41 +109,38 @@
 
           = f.simple_fields_for :filters do |p|
             hr
-            p style='font-weight: bold' Brand Filter Order
-            hr
+            p style='font-weight: bold; color: #637381' Brand Filter Order
+            / hr
             - ProductSetting.last.filters.brands.each do |b|
-              .row
+              .row.row-box
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
-                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]", style: "border-radius: 5px; height: 2rem; margin: 0.5rem 0; font-size: 14px"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
             hr
-            p style='font-weight: bold' Size Filter Order
-            hr
+            p style='font-weight: bold; color: #637381' Size Filter Order
             - ProductSetting.last.filters.sizes.each do |b|
-              .row
+              .row.row-box
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
-                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]", style: "border-radius: 5px; height: 2rem; margin: 0.5rem 0; font-size: 14px"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
             hr
-            p style='font-weight: bold' Product Type Filter Order
-            hr
+            p style='font-weight: bold; color: #637381' Product Type Filter Order
             - ProductSetting.last.filters.types.each do |b|
-              .row
+              .row.row-box
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
-                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]", style: "border-radius: 5px; height: 2rem; margin: 0.5rem 0; font-size: 14px"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
             hr
-            p style='font-weight: bold' Colour Filter Order
-            hr
+            p style='font-weight: bold; color: #637381' Colour Filter Order
             - ProductSetting.last.filters.colours.each do |b|
-              .row
+              .row.row-box
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
-                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
+                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]", style: "border-radius: 5px; height: 2rem; margin: 0.5rem 0; font-size: 14px"}, placeholder: 'Set position for filter bar (lowest ordered first)', required: false
 
 
           = f.submit 'Submit', class: 'button', style: 'width: 50%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
