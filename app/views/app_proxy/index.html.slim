@@ -242,7 +242,7 @@
         .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
     - else
       div style="width: 100%; text-align: center"
-        = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px; background-color: black'
+        = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;height: 56px;font-size: 20px; background-color: black'
 
 javascript:
   Window.paramUrl = "&#{request.url.split('?')[1].split('shop')[0]}"

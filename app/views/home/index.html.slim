@@ -114,7 +114,7 @@
             - ProductSetting.last.filters.admin_brands.each do |b|
               .row
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
                   = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
             hr
@@ -123,7 +123,7 @@
             - ProductSetting.last.filters.admin_sizes.each do |b|
               .row
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
                   = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
             hr
@@ -132,7 +132,7 @@
             - ProductSetting.last.filters.admin_types.each do |b|
               .row
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
                   = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
             hr
@@ -141,7 +141,7 @@
             - ProductSetting.last.filters.admin_colours.each do |b|
               .row
                 .columns.medium-3.small-3.large-3
-                  p = b.title
+                  span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
                   = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
 
@@ -193,8 +193,6 @@
               span.slider.round
             .toggle-switch-text Toggle overflow scroll on products searched
             = f.input :overflow_scroll_on, as: :hidden, input_html: { value: "#{ProductSetting.last.overflow_scroll_on ? '1' : '0'}" }
-
-
 
           .synonym-container
             = f.simple_fields_for :product_synonyms do |p|
