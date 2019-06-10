@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     root action: 'index'
     get 'index', to: 'index'
   end
-  get '/apps/index', as: :proxy_prod
+
+  get '/apps/products', as: :proxy_prod
   get 'all_products', to: 'home#products', as: :all_products
   get '/products/sync', to: 'product_settings#sync', as: :sync_products
 
