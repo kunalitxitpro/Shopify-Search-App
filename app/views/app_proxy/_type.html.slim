@@ -3,10 +3,10 @@
     .heading-container
       .filter-type-heading TYPE
       .js-type-filter-icon.js-show-type-filter
-    .filter-type-collection.js-type-container
+    .filter-type-collection.js-type-container.desktop-filter
       - @product_type.each do |pt|
         - prodtype = [pt] << params[:product_type]
-        = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: prodtype.compact.flatten.uniq, price: params[:price], query: params[:query]) do
+        = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: prodtype.compact.flatten.uniq, price: params[:price], query: params[:query], collection: params[:collection]) do
           - if params[:product_type] && params[:product_type].include?(pt)
             .black-box-container
               .black-box-parent style='position: relative'
@@ -27,7 +27,7 @@
     .filter-type-collection.js-type-container
       - @product_type.each do |pt|
           - prodtype = [pt] << params[:product_type]
-          = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: prodtype.compact.flatten.uniq, price: params[:price], query: params[:query]) do
+          = link_to proxy_prod_path(size: params[:size], brand: params[:brand], product_type: prodtype.compact.flatten.uniq, price: params[:price], query: params[:query], collection: params[:collection]) do
           - if params[:product_type] && params[:product_type].include?(pt)
             .black-box-container
               .black-box-parent style='position: relative'

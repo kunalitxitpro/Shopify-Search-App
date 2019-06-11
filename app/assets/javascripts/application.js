@@ -34,7 +34,7 @@ $(document).on('turbolinks:load', () => {
               $('.loading-gif').fadeIn();
               $.ajax({
                 type: "GET",
-                url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
+                url: "/apps/products?&filter=true&page=" + PageNumber + Window.paramUrl,
                 data: $(this).serialize(),
                 success: function(response) {
                   if(response.productCount != Window.noOfProducts){
@@ -74,7 +74,7 @@ $(document).on('turbolinks:load', () => {
       $(element).fadeOut()
       $.ajax({
         type: "GET",
-        url: "/apps/index?&filter=true&page=" + PageNumber + Window.paramUrl,
+        url: "/apps/products?&filter=true&page=" + PageNumber + Window.paramUrl,
         data: $(this).serialize(),
         success: function(response) {
           var productID = response.lastProductID;
@@ -115,7 +115,7 @@ $(document).on('turbolinks:load', () => {
       var min = $( "#slider-range-two" ).slider( "values", 0 )
       var max = $( "#slider-range-two" ).slider( "values", 1 )
 
-      Turbolinks.visit("https://true-vintage-2.myshopify.com/apps/index?price=" + min + "-" + max)
+      Turbolinks.visit("https://true-vintage-2.myshopify.com/apps/products?price=" + min + "-" + max)
     });
 
     // $('.file').change(function() {

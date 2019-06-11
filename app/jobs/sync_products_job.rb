@@ -13,11 +13,13 @@ class SyncProductsJob < ApplicationJob
           products = ShopifyAPI::Product.find(:all, params: {page: page, limit: 250})
 
           products.each do |prod|
-            compare_price = prod.variants.first.compare_at_price.to_f rescue nil
-            set_prod = Product.where(shopify_id: prod.id).first
-            new_prod = set_prod.present? ?  update_product(prod, compare_price, set_prod) : new_product(prod, compare_price)
-            new_prod.save
-            add_sizes(prod, new_prod)
+            unless prod.tags.include?('excluded')
+              compare_price = prod.variants.first.compare_at_price.to_f rescue nil
+              set_prod = Product.where(shopify_id: prod.id).first
+              new_prod = set_prod.present? ?  update_product(prod, compare_price, set_prod) : new_product(prod, compare_price)
+              new_prod.save
+              add_sizes(prod, new_prod)
+            end
           end
         end
       end
@@ -46,7 +48,7 @@ class SyncProductsJob < ApplicationJob
       title: prod.title,
       vendor: prod.vendor,
       tags: prod.tags,
-      first_image_url: prod.image.src,
+      first_image_url: prod.image.try(:src),
       second_image_url: prod.images.second.try(:src),
       price: prod.variants.first.price.to_f,
       quantity: prod.variants.sum{|p| p.inventory_quantity},
@@ -63,7 +65,7 @@ class SyncProductsJob < ApplicationJob
     set_product_record.title = prod.title
     set_product_record.vendor = prod.vendor
     set_product_record.tags = prod.tags
-    set_product_record.first_image_url = prod.image.src
+    set_product_record.first_image_url = prod.image.try(:src)
     set_product_record.second_image_url = prod.images.second.try(:src)
     set_product_record.price = prod.variants.first.price.to_f
     set_product_record.quantity = prod.variants.sum{|p| p.inventory_quantity}

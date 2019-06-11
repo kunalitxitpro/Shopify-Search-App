@@ -10,7 +10,7 @@
           - params[:brand].each do |brand|
             - newbrand = params[:brand].dup
             - newbrand.delete(brand)
-            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand) do
+            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, collection: params[:collection]) do
               .black-box-container
                 .black-box-parent style='position: relative'
                   .black-box style='position: relative; top: 0; left: 0'
@@ -22,7 +22,7 @@
           - params[:size].each do |size|
             - newSize = params[:size].dup
             - newSize.delete(size)
-            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize) do
+            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, collection: params[:collection]) do
               .black-box-container
                 .black-box-parent style='position: relative'
                   .black-box style='position: relative; top: 0; left: 0'
@@ -31,7 +31,7 @@
                 .remove-filter
 
           - if params[:price].present?
-            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], collection: params[:collection]) do
               .black-box-container
                 .black-box-parent style='position: relative'
                   .black-box style='position: relative; top: 0; left: 0'
@@ -43,7 +43,7 @@
           - params[:product_type].each do |pt|
             - newpt = params[:product_type].dup
             - newpt.delete(pt)
-            = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt) do
+            = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, collection: params[:collection]) do
               .black-box-container
                 .black-box-parent style='position: relative'
                   .black-box style='position: relative; top: 0; left: 0'
@@ -55,7 +55,7 @@
           - params[:colour].each do |colour|
             - newcolour = params[:colour].dup
             - newcolour.delete(colour)
-            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour) do
+            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, collection: params[:collection]) do
               .black-box-container
                 .black-box-parent style='position: relative'
                   .black-box style='position: relative; top: 0; left: 0'
@@ -76,22 +76,22 @@
         a href="#{proxy_prod_url}" Sort
       .sort-nav-container
         .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', query: params[:query])}" Alphabetically, A-Z
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', query: params[:query], collection: params[:collection])}" Alphabetically, A-Z
       .sort-nav-container
         .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending', query: params[:query])}" Alphabetically, Z-A
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending', query: params[:query], collection: params[:collection])}" Alphabetically, Z-A
       .sort-nav-container
         .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', query: params[:query])}" Price, low to high
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', query: params[:query], collection: params[:collection])}" Price, low to high
       .sort-nav-container
         .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', query: params[:query])}" Price, high to low
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', query: params[:query], collection: params[:collection])}" Price, high to low
       .sort-nav-container
         .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', query: params[:query])}" Date, new to old
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', query: params[:query], collection: params[:collection])}" Date, new to old
       .sort-nav-container
         .black-box
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', query: params[:query])}" Date, old to new
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', query: params[:query], collection: params[:collection])}" Date, old to new
 
   .openbtn-container.hidden-on-large-screen
     - if ProductSetting.last.true_filter_on
@@ -101,7 +101,10 @@
     .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
       span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
 
-  .product-searched-heading.hidden-on-small-screen = params[:query].present? ? params[:query].titleize  : 'TRUE VINTAGE NEW IN'
+  - if params[:query].present?
+    .product-searched-heading.hidden-on-small-screen = params[:query].titleize
+  - else
+    .product-searched-heading.hidden-on-small-screen = params[:collection].present? ? "#{Filter.title_string_for_collection(params[:collection]).upcase} VINTAGE"  : 'TRUE VINTAGE NEW IN'
   .products-found-count.hidden-on-small-screen = "#{@products_count} ITEMS FOUND"
 
   .filter-container.hidden-on-small-screen
@@ -115,11 +118,11 @@
         span style="color: black" = sort_params_title(params[:sort_by])
         .arrow-down
       .dropdown-content
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', query: params[:query])}"  Alphabetically, A-Z
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', query: params[:query])}"  Price, low to high
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', query: params[:query])}"  Price, high to low
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', query: params[:query])}"  Date, new to old
-        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', query: params[:query])}"  Date, old to new
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', query: params[:query], collection: params[:collection])}"  Alphabetically, A-Z
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', query: params[:query], collection: params[:collection])}"  Price, low to high
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', query: params[:query], collection: params[:collection])}"  Price, high to low
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', query: params[:query], collection: params[:collection])}"  Date, new to old
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', query: params[:query], collection: params[:collection])}"  Date, old to new
 
 
   .clearfix.main-container
@@ -130,7 +133,7 @@
             - params[:brand].each do |brand|
               - newbrand = params[:brand].dup
               - newbrand.delete(brand)
-              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, query: params[:query]) do
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, query: params[:query], collection: params[:collection]) do
                 .black-box-container
                   .black-box-parent style='position: relative'
                     .black-box style='position: relative; top: 0; left: 0'
@@ -142,7 +145,7 @@
             - params[:size].each do |size|
               - newSize = params[:size].dup
               - newSize.delete(size)
-              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, query: params[:query]) do
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, query: params[:query], collection: params[:collection]) do
                 .black-box-container
                   .black-box-parent style='position: relative'
                     .black-box style='position: relative; top: 0; left: 0'
@@ -151,7 +154,7 @@
                   .remove-filter
 
             - if params[:price].present?
-              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], query: params[:query]) do
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], query: params[:query], collection: params[:collection]) do
                 .black-box-container
                   .black-box-parent style='position: relative'
                     .black-box style='position: relative; top: 0; left: 0'
@@ -163,7 +166,7 @@
             - params[:product_type].each do |pt|
               - newpt = params[:product_type].dup
               - newpt.delete(pt)
-              = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, query: params[:query]) do
+              = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, query: params[:query], collection: params[:collection]) do
                 .black-box-container
                   .black-box-parent style='position: relative'
                     .black-box style='position: relative; top: 0; left: 0'
@@ -175,7 +178,7 @@
             - params[:colour].each do |colour|
               - newcolour = params[:colour].dup
               - newcolour.delete(colour)
-              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, query: params[:query]) do
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, query: params[:query], collection: params[:collection]) do
                 .black-box-container
                   .black-box-parent style='position: relative'
                     .black-box style='position: relative; top: 0; left: 0'
@@ -196,7 +199,7 @@
         - params[:brand].each do |brand|
           - newbrand = params[:brand].dup
           - newbrand.delete(brand)
-          = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, query: params[:query]) do
+          = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, query: params[:query], collection: params[:collection]) do
             .black-box-container
               .black-box-parent style='position: relative'
                 .black-box style='position: relative; top: 0; left: 0'
@@ -208,7 +211,7 @@
         - params[:size].each do |size|
           - newSize = params[:size].dup
           - newSize.delete(size)
-          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, query: params[:query]) do
+          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, query: params[:query], collection: params[:collection]) do
             .black-box-container
               .black-box-parent style='position: relative'
                 .black-box style='position: relative; top: 0; left: 0'
@@ -217,7 +220,7 @@
               .remove-filter
 
         - if params[:price].present?
-          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], query: params[:query]) do
+          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], query: params[:query], collection: params[:collection]) do
             .black-box-container
               .black-box-parent style='position: relative'
                 .black-box style='position: relative; top: 0; left: 0'
@@ -229,7 +232,7 @@
         - params[:product_type].each do |pt|
           - newpt = params[:product_type].dup
           - newpt.delete(pt)
-          = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, query: params[:query]) do
+          = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, query: params[:query], collection: params[:collection]) do
             .black-box-container
               .black-box-parent style='position: relative'
                 .black-box style='position: relative; top: 0; left: 0'

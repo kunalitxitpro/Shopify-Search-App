@@ -26,19 +26,24 @@ class ProductFilter
 
   def filter(query = nil)
     return filter_for_search_query(query) if query.present?
-    products = param_is_present? ? Product.joins(:sizes).where(sql_query).distinct : Product.joins(:sizes).distinct
+    products = param_is_present? ? base_query.joins(:sizes).where(sql_query).distinct : base_query.joins(:sizes).distinct
     products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     ordered_query(products)
   end
 
   def count_from_filter(query = nil)
     return filter_count_for_search(query) if query.present?
-    products = param_is_present? ? Product.joins(:sizes).where(sql_query).distinct  : Product.joins(:sizes).distinct
+    products = param_is_present? ? base_query.joins(:sizes).where(sql_query).distinct  : base_query.joins(:sizes).distinct
     products = products.where('quantity > 0') unless ProductSetting.last.include_out_of_stock_products
     return products.count
   end
 
   private
+
+
+  def base_query
+    @params[:collection].present? ? Product.where(Filter.sql_for_string(@params[:collection])) : Product
+  end
 
   def filter_for_search_query(search)
     products = search_filter(search)
@@ -87,7 +92,7 @@ class ProductFilter
     elsif @params[:sort_by] == 'created_descending'
       products.order(shopify_created_at: :desc).offset(offset_page).limit(items_to_load)
     else
-      products.order(title: :asc).offset(offset_page).limit(items_to_load)
+      products.order(price: :desc).offset(offset_page).limit(items_to_load)
     end
   end
 
