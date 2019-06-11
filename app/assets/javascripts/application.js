@@ -66,7 +66,9 @@ $(document).on('turbolinks:load', () => {
             }
             modalrunning = true
         }, 250));
-      }
+      } else {
+          $('.js-product-group:hidden').show();
+        }
     });
 
     $('.js-load-more').click(function(){

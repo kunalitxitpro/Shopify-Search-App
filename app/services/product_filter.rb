@@ -92,8 +92,17 @@ class ProductFilter
     elsif @params[:sort_by] == 'created_descending'
       products.order(shopify_created_at: :desc).offset(offset_page).limit(items_to_load)
     else
-      products.order(price: :desc).offset(offset_page).limit(items_to_load)
+      @params[:collection] == 'new-in' ? order_for_new(products) : default_order_for_products(products)
     end
+  end
+
+
+  def default_order_for_products(products)
+    products.order(price: :desc).offset(offset_page).limit(items_to_load)
+  end
+
+  def order_for_new(products)
+    products.order(shopify_created_at: :desc).offset(offset_page).limit(items_to_load)
   end
 
   def offset_page

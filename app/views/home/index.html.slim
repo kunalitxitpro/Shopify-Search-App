@@ -135,15 +135,15 @@
                   span.row-box-text = b.title
                 .columns.medium-9.small-9.large-9
                   = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
-            hr
-            p style='font-weight: bold' Colour Filter Order
-            hr
-            - ProductSetting.last.filters.admin_colours.each do |b|
-              .row
-                .columns.medium-3.small-3.large-3
-                  span.row-box-text = b.title
-                .columns.medium-9.small-9.large-9
-                  = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
+            / hr
+            / p style='font-weight: bold' Colour Filter Order
+            / hr
+            / - ProductSetting.last.filters.admin_colours.each do |b|
+            /   .row
+            /     .columns.medium-3.small-3.large-3
+            /       span.row-box-text = b.title
+            /     .columns.medium-9.small-9.large-9
+            /       = p.input :position, label: false, as: :integer, input_html: {value: b.position, name: "product_setting[filters][position][#{b.id}]"}, placeholder: 'Set position for filter bar (lowest ordered first and -1 for filter to not be displayed)', required: false
 
 
           = f.submit 'Submit', class: 'button', style: 'width: 50%; margin-top: 1rem; border-radius: 5px; background-color: #3f4eae'
