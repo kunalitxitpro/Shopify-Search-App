@@ -19,6 +19,9 @@ class SyncProductsJob < ApplicationJob
               new_prod = set_prod.present? ?  update_product(prod, compare_price, set_prod) : new_product(prod, compare_price)
               new_prod.save
               add_sizes(prod, new_prod)
+            else
+              set_prod = Product.where(shopify_id: prod.id).first
+              set_prod.destroy if set_prod.present?
             end
           end
         end
