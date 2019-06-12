@@ -12,12 +12,12 @@ class Product < ApplicationRecord
 
   def first_image_url
     return super if super.nil?
-    super.gsub(".jpg", "_350x.jpg")
+    super.gsub(".jpg", "_700x.jpg")
   end
 
   def second_image_url
     return super if super.nil?
-    super.gsub(".jpg", "_350x.jpg")
+    super.gsub(".jpg", "_700x.jpg")
   end
 
   def display_price
