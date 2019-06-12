@@ -13,7 +13,7 @@ class SyncProductsJob < ApplicationJob
           products = ShopifyAPI::Product.find(:all, params: {page: page, limit: 250})
 
           products.each do |prod|
-            unless prod.tags.include?('excluded')
+            if prod.published_at.present?
               compare_price = prod.variants.first.compare_at_price.to_f rescue nil
               set_prod = Product.where(shopify_id: prod.id).first
               new_prod = set_prod.present? ?  update_product(prod, compare_price, set_prod) : new_product(prod, compare_price)
@@ -37,9 +37,9 @@ class SyncProductsJob < ApplicationJob
         Filter.create(title: size, product_setting_id: ProductSetting.last.id, filter_type: 1) if Filter.find_by_title(size).nil?
       end
 
-      Product.pluck(:colour).uniq.compact.each do |colour|
-        Filter.create(title: colour, product_setting_id: ProductSetting.last.id, filter_type: 3) if Filter.find_by_title(colour).nil?
-      end
+      # Product.pluck(:colour).uniq.compact.each do |colour|
+      #   Filter.create(title: colour, product_setting_id: ProductSetting.last.id, filter_type: 3) if Filter.find_by_title(colour).nil?
+      # end
     end
   end
 
