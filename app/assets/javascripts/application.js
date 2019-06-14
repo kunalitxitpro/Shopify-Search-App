@@ -59,7 +59,7 @@ $(document).on('turbolinks:load', () => {
             var scrolled = $(window).scrollTop();
             if (modalrunning == false && !window.matchMedia("(max-width: 800px)").matches && modalShowing == true){
               $(".the-modal").animate({
-                  top: scrolled + 'px',
+                  top: scrolled + 150 + 'px',
                 }, 300, function() {
                   modalrunning = false
               });
@@ -303,7 +303,16 @@ $(document).on('turbolinks:load', () => {
       $(this).parent().siblings().first().show()
       // $(this).next().show();
       modalShowing = true;
-      $('.blur-div, .quick-view-button, .box-1').toggleClass('fade-blur');
+
+      var scrolled = $(window).scrollTop();
+      if (!window.matchMedia("(max-width: 800px)").matches){
+        $(".the-modal").animate({
+            top: scrolled + 150 + 'px',
+          }, 300, function() {
+            modalrunning = false
+        });
+      }
+      $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
       $(body).css({'pointer-events': 'none'});
     });
 
@@ -311,7 +320,7 @@ $(document).on('turbolinks:load', () => {
       $(".the-modal").css({'top': '0'});
       $('.the-modal').hide();
       modalShowing = false;
-      $('.blur-div, .quick-view-button, .box-1').toggleClass('fade-blur');
+      $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
       $(body).css({'pointer-events': 'auto'});
     });
 
