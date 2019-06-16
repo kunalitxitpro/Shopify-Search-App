@@ -87,7 +87,26 @@ class FilterSql
     "compare_at_price > 0 and quantity > 0 and (product_type != 'Mystery Box' or product_type != 'Lucky Dip' or product_type != 'Supreme' or product_type != 'Stone Island' or product_type != 'Palace')"
   end
 
+  def clothing
+    product_type_query(['Bags', 'Bedspreads', 'Bracelets', 'Crochet Tops', 'Festival T-Shirts', 'Jerga Hoodies', 'Jewellery', 'Lucky Dip Shirts', 'Mystery Box', 'Party Shirts', 'Earrings', 'Scarfs', 'Skirts', 'Socks', 'Sunglasses', 'Trainer Accessories', 'TRUE Hoodies', 'TRUE T-shirts', 'Watches', 'Hats', 'Hat', 'Trainers', 'Rings'])
+  end
+
+  def our_picks
+    "vendor != 'Festival Rags' and quantity > 0 and tags LIKE '%featured%'"
+  end
+
   def for_brand(brand)
     "vendor = '#{brand}' and quantity > 0 and product_type != 'Auctions'"
+  end
+
+
+  private
+
+  def product_type_query(product_types)
+    query = []
+    product_types.each do |pt|
+      query << "product_type != '#{pt}'"
+    end
+    return query.join(" AND ")
   end
 end

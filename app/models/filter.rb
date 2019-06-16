@@ -24,6 +24,8 @@ class Filter < ApplicationRecord
     'stone-island' => FilterSql.new.stone_island,
     'tommy-hilfiger-archive' => FilterSql.new.tommy_hilfiger_archive,
     'sale' => FilterSql.new.sale,
+    'clothing' => FilterSql.new.clothing,
+    'our-picks' => FilterSql.new.our_picks
   }
 
   COLLECTION_TITLES = {
@@ -39,6 +41,7 @@ class Filter < ApplicationRecord
     'adidas-archive' => 'Adidas Archive',
     'stone-island' => 'Stone Island',
     'tommy-hilfiger-archive' => 'Tommy Hilfiger Archive',
+    'our-picks' => 'Our Picks'
   }
 
   scope :brands,  -> { where('filter_type = 0 AND (position IS NULL OR position != -1)').order(position: :asc )}
