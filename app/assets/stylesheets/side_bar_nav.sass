@@ -70,11 +70,23 @@ body
 @media screen and (min-width: 800px) and (max-width: 1024px)
   .hidden-on-large-screen
     display: none
+  .row-style
+    position: relative
+  .model-close
+    position: absolute
+    top: 10px
+    right: 16px
 
 // desktop
 @media screen and (min-width: 1025px)
   .hidden-on-large-screen
     display: none
+  .row-style
+    position: relative
+  .model-close
+    position: absolute
+    top: 10px
+    right: 16px
 
 // mobile
 @media screen and (min-width: 0px) and (max-width: 800px)
@@ -99,12 +111,11 @@ body
   .the-modal-sub
     width: 100% !important
   .the-modal
-    // background-color: red !important
     height: 100% !important
     width: 100% !important
-    margin-left: 0 !important
+    overflow-y: auto !important
+    overflow-x: hidden
   .the-modal-sub-two
-    // margin-top: 2rem  !important
   .box-2
     width: 100%
   .app-container

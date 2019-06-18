@@ -5,8 +5,8 @@
 
     .the-modal
       .row.row-style
-        .the-modal-sub.medium-6.small-12large-6 style="background-image: url('#{product.first_image_url}')"
-        .the-modal-sub-two.medium-6.small-12.large-6
+        .the-modal-sub.medium-8.small-12large-8 style="background-image: url('#{product.first_image_url}'); background-size: cover"
+        .the-modal-sub-two.medium-4.small-12.large-4
           .model-close &times;
           .prod-attr = product.vendor
           .prod-attr__small = product.title
@@ -19,11 +19,11 @@
           .prod-attr__small Size guide
           .select-box
             .prod-attr__small style="margin-right: 1rem" Size
-            select style="border-radius: 5px; width: 13em"
+            select style="border-radius: 5px; width: 100%"
               - product.sizes.each do |size|
                 option value="#{size.shopify_id}" = size.title
           div style="display: flex; align-items: center"
-            = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #000000; width: 12em;font-size: 17px;font-weight: bold;'
+            = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #000000; width: 100%;font-size: 17px;font-weight: bold;'
           .prod-attr__small very good condition, vintage Adidas
           .prod-attr__small Size on label - L
           .prod-attr__small Our recomended size - L
