@@ -25,8 +25,8 @@ $(document).on('turbolinks:load', () => {
     var canLoadMore = true;
     var modalrunning = false
     var modalShowing = false;
-    var link = "https://true-vintage-2.myshopify.com/apps/products?price=75-300"
-    var mobilink = "https://true-vintage-2.myshopify.com/apps/products?price=75-300"
+    var link = "https://www.truevintage.com/apps/products?price=75-300"
+    var mobilink = "https://www.truevintage.com/apps/products?price=75-300"
 
     $(window).bind('scroll', function() {
       if(modalShowing == false && $('.gif-container').length > 0){
@@ -101,7 +101,7 @@ $(document).on('turbolinks:load', () => {
       values: [ 75, 300 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-        mobilink = "https://true-vintage-2.myshopify.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
+        mobilink = "https://www.truevintage.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
       }
     });
     $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
@@ -114,7 +114,7 @@ $(document).on('turbolinks:load', () => {
       values: [ 75, 300 ],
       slide: function( event, ui ) {
         $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-        link = "https://true-vintage-2.myshopify.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
+        link = "https://www.truevintage.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
       }
     });
 
