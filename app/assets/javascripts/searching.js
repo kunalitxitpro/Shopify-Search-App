@@ -100,27 +100,28 @@
     };
   //  end Search
   }
-
-  $.ajax({
-    type: "GET",
-    url: "/apps/products?&search_on_query=true",
-    data: $(this).serialize(),
-    success: function(response) {
-      if(response.search_on == true){
-        LoadSearch();
-      }
-    }
-  });
+  // LoadSearch();
+  // $.ajax({
+  //   type: "GET",
+  //   url: "/apps/products?&search_on_query=true",
+  //   data: $(this).serialize(),
+  //   success: function(response) {
+  //     if(response.search_on == true){
+  //       LoadSearch();
+  //     }
+  //   }
+  // });
   $(document).on('turbolinks:load', () => {
-    $.ajax({
-      type: "GET",
-      url: "/apps/products?&search_on_query=true",
-      data: $(this).serialize(),
-      success: function(response) {
-        if(response.search_on == true){
-          LoadSearch();
-        }
-      }
-    });
+    LoadSearch();
+    // $.ajax({
+    //   type: "GET",
+    //   url: "/apps/products?&search_on_query=true",
+    //   data: $(this).serialize(),
+    //   success: function(response) {
+    //     if(response.search_on == true){
+    //       LoadSearch();
+    //     }
+    //   }
+    // });
   });
 })();
