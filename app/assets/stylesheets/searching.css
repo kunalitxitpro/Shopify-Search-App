@@ -19,6 +19,10 @@
   display: none;
 }
 
+.search_input_mob {
+  padding-top: 17px !important;
+}
+
 /* .js-drawer-open-top {
   display: none !important;
 } */
