@@ -16,6 +16,7 @@
 //= require foundation
 //= require turbolinks
 //= require searching
+//= require touch
 
 
 $(document).on('turbolinks:load', () => {
