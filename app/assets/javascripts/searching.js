@@ -3,7 +3,6 @@
   function LoadSearch() {
     //  start Search
     console.log("search loaded..")
-    $('head').append('<link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/shopify-app-prod/searching.css">');
     var isMobile;
     var x = window.matchMedia("(max-width: 930px)")
     MediaFunction(x) // Call listener function at run time
@@ -101,7 +100,7 @@
     };
   //  end Search
   }
-  
+
   $.ajax({
     type: "GET",
     url: "/apps/products?&search_on_query=true",
