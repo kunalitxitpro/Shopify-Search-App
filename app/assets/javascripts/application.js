@@ -15,6 +15,8 @@
 //= require added-jquery-ui
 //= require foundation
 //= require turbolinks
+//= require searching
+
 
 $(document).on('turbolinks:load', () => {
     $(function(){ $(document).foundation(); });
