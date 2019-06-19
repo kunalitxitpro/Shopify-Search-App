@@ -1,5 +1,5 @@
 .single-product-container
-  - if params[:query]
+  - if params[:q]
     .quick-view-button-container style="width: 100%; display: flex; justify-content: center"
       .quick-view-button value='#{product.id}'Quick view
 
@@ -10,11 +10,11 @@
           .model-close &times;
           .prod-attr = product.vendor
           .prod-attr__small = product.title
-          div style="display: flex"
+          div style="display: flex; align-items: center; margin: 0.5rem 0; line-height: 22px"
             .prod-attr__price = "£ #{product.display_price} GPB"
             - if product.compare_at_price != 0.0
-              .prod-attr__small style="font-size: 22px" = "£ #{product.compare_at_display_price}"
-          .prod-attr__small Earn 375 points
+              .prod-attr__small style="font-size: 22px; margin: 0" = "£ #{product.compare_at_display_price}"
+          / .prod-attr__small Earn 375 points
 
           .prod-attr__small Size guide
           .select-box
@@ -24,13 +24,15 @@
                 option value="#{size.shopify_id}" = size.title
           div style="display: flex; align-items: center"
             = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #000000; width: 100%;font-size: 17px;font-weight: bold;'
-          .prod-attr__small very good condition, vintage Adidas
-          .prod-attr__small Size on label - L
-          .prod-attr__small Our recomended size - L
-          .prod-attr__small Measurements:
-          .prod-attr__small Pit to pit - 26"
-          .prod-attr__small Length of back - 27"
-          .prod-attr__small Please check measurements and product description carefully
+          .shopify-info-block
+            = product.body_html.html_safe
+          / .prod-attr__small very good condition, vintage Adidas
+          / .prod-attr__small Size on label - L
+          / .prod-attr__small Our recomended size - L
+          / .prod-attr__small Measurements:
+          / .prod-attr__small Pit to pit - 26"
+          / .prod-attr__small Length of back - 27"
+          / .prod-attr__small Please check measurements and product description carefully
           p.js-cart-error style="color: red"
 
   .blur-div

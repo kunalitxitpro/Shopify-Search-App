@@ -38,8 +38,8 @@ class TestProxiesController < ApplicationController
   end
 
   def query_string
-    synon = ProductSetting.last.product_synonyms.where('synonym = ?', params[:query]).first
-    return params[:query] unless synon
+    synon = ProductSetting.last.product_synonyms.where('synonym = ?', params[:q]).first
+    return params[:q] unless synon
     return synon.value
   end
 

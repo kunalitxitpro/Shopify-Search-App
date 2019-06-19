@@ -3,10 +3,10 @@
     .heading-container
       .filter-brand-heading BRAND
       .js-brand-filter-icon.js-show-brand-filter
-    .filter-brand-collection.js-brand-container.desktop-filter
+    .filter-brand-collection.js-brand-container.scroll-filter
       - @vendor_array.each do |va|
         - brand = [va] << params[:brand]
-        = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], query: params[:query], collection: params[:collection]) do
+        = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], collection: params[:collection]) do
           - if params[:brand] && params[:brand].include?(va)
             .black-box-container
               .black-box-parent style='position: relative'
@@ -24,10 +24,10 @@
     .heading-container
       .filter-brand-heading style='color: white' BRAND
       .js-brand-filter-icon.js-show-brand-filter
-    .filter-brand-collection.js-brand-container
+    .filter-brand-collection.js-brand-container.scroll-filter style='display: none'
       - @vendor_array.each do |va|
           - brand = [va] << params[:brand]
-          = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], query: params[:query], collection: params[:collection]) do
+          = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], collection: params[:collection]) do
           - if params[:brand] && params[:brand].include?(va)
             .black-box-container
               .black-box-parent style='position: relative'

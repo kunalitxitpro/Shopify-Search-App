@@ -2,7 +2,7 @@ class SyncProductsJob < ApplicationJob
   queue_as :default
 
   def perform
-    shop = Shop.last
+    shop = Shop.first
     if shop.present?
       shop.with_shopify_session do
         total_products = ShopifyAPI::Product.count()
@@ -60,7 +60,8 @@ class SyncProductsJob < ApplicationJob
       product_type: prod.product_type,
       shopify_created_at: prod.created_at.to_datetime,
       slug_url: prod.handle,
-      colour: colour_of_product(prod)
+      colour: colour_of_product(prod),
+      body_html: prod.body_html
     )
   end
 
@@ -77,6 +78,7 @@ class SyncProductsJob < ApplicationJob
     set_product_record.shopify_created_at = prod.created_at.to_datetime
     set_product_record.slug_url = prod.handle
     set_product_record.colour = colour_of_product(prod)
+    set_product_record.body_html = prod.body_html
     return set_product_record
   end
 

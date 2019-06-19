@@ -3,10 +3,10 @@
     .heading-container
       .filter-colour-heading COLOUR
       .js-colour-filter-icon.js-show-colour-filter
-    .filter-colour-collection.js-colour-container.desktop-filter
+    .filter-colour-collection.js-colour-container.scroll-filter
       - @colours.each do |va|
         - colour = [va] << params[:colour]
-        = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], query: params[:query], brand: params[:brand], collection: params[:collection]) do
+        = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], brand: params[:brand], collection: params[:collection]) do
           - if params[:colour] && params[:colour].include?(va)
             .black-box-container
               .black-box-parent style='position: relative'
@@ -23,11 +23,11 @@
   .filter-colour-container
     .heading-container
       .filter-colour-heading style='color: white' COLOUR
-      .js-colour-filter-icon.js-show-colour-filter
-    .filter-colour-collection.js-colour-container
+      .js-colour-filter-icon.js-show-colour-filter.filter-icon-minus
+    .filter-colour-collection.js-colour-container style='display: none'
       - @colours.each do |va|
           - colour = [va] << params[:colour]
-          = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], query: params[:query], brand: params[:brand], collection: params[:collection]) do
+          = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], brand: params[:brand], collection: params[:collection]) do
           - if params[:colour] && params[:colour].include?(va)
             .black-box-container
               .black-box-parent style='position: relative'

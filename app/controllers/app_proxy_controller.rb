@@ -31,11 +31,11 @@ class AppProxyController < ApplicationController
   end
 
   def all_vendors_for_query
-    return Filter.brands.pluck(:title) unless params[:query].present?
+    return Filter.brands.pluck(:title) unless params[:q].present?
     vendors = []
-    query_arr = params[:query].split(' ')
+    query_arr = params[:q].split(' ')
     query_arr.each do |arr|
-      vendors << Product.where('lower(vendor) ~* ?', arr.downcase).pluck(:vendor).uniq
+      vendors << Product.where('lower(vendor) ~* ?', arr.gsub("*", "").downcase).pluck(:vendor).uniq
     end
     vendors.flatten.present? ? vendors.flatten : Filter.brands.pluck(:title)
   end
@@ -55,8 +55,9 @@ class AppProxyController < ApplicationController
   end
 
   def query_string
-    synon = ProductSetting.last.product_synonyms.where('synonym = ?', params[:query]).first
-    return params[:query] unless synon
+    query_str = params[:q].gsub("*", "") rescue ""
+    synon = ProductSetting.last.product_synonyms.where('synonym = ?', query_str).first
+    return query_str unless synon
     return synon.value
   end
 

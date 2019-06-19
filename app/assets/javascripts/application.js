@@ -23,6 +23,8 @@ $(document).on('turbolinks:load', () => {
     var canLoadMore = true;
     var modalrunning = false
     var modalShowing = false;
+    var link = "https://true-vintage-2.myshopify.com/apps/products?price=75-300"
+    var mobilink = "https://true-vintage-2.myshopify.com/apps/products?price=75-300"
 
     $(window).bind('scroll', function() {
       if(modalShowing == false && $('.gif-container').length > 0){
@@ -45,6 +47,7 @@ $(document).on('turbolinks:load', () => {
                   if($('.js-product-id-'+ productID).length == 0){
                     $('.js-all-products').append(response.productsPartial);
                     window.tabs.loadTabs();
+                    window.modal.loadModal();
                   }
                 }
               });
@@ -82,6 +85,7 @@ $(document).on('turbolinks:load', () => {
           var productID = response.lastProductID;
           $('.js-all-products').append(response.productsPartial);
           window.tabs.loadTabs();
+          window.modal.loadModal();
           $(element).fadeIn()
         }
       });
@@ -95,6 +99,7 @@ $(document).on('turbolinks:load', () => {
       values: [ 75, 300 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+        mobilink = "https://true-vintage-2.myshopify.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
       }
     });
     $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
@@ -107,23 +112,19 @@ $(document).on('turbolinks:load', () => {
       values: [ 75, 300 ],
       slide: function( event, ui ) {
         $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
+        link = "https://true-vintage-2.myshopify.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
       }
     });
 
     $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) + " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
 
-
     $('.js-filter-price').click(function(){
-      var min = $( "#slider-range-two" ).slider( "values", 0 )
-      var max = $( "#slider-range-two" ).slider( "values", 1 )
-
-      Turbolinks.visit("https://true-vintage-2.myshopify.com/apps/products?price=" + min + "-" + max)
+      Turbolinks.visit(link)
     });
 
-    // $('.file').change(function() {
-    //   alert( "Handler for .change() called." );
-    //   $('.image-placeholder').css({ 'width': `250px` });
-    // });
+    $('.js-filter-price-mobile').click(function(){
+      Turbolinks.visit(mobilink)
+    });
 
     $(function() {
       function readURL(input) {
@@ -261,26 +262,22 @@ $(document).on('turbolinks:load', () => {
 
     $('.openbtn').click(function() {
       $('#mySidenav').css({ 'width': `250px` });
-      $('.app-container').css({'marginLeft' : "250px"});
-      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeOut()
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeOut('slow')
     });
 
     $('.closebtn').click(function() {
       $('#mySidenav').css({ 'width': `0` });
-      $('.app-container').css({'marginLeft' : "0"});
-      $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeIn('slow')
     });
 
     $('.open-sort-btn').click(function() {
       $('#myLeftSidenav').css({ 'width': `250px` });
-      $('.app-container').css({'marginLeft' : "250px"});
-      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeOut()
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeOut('slow')
     });
 
     $('.close-sort-btn').click(function() {
       $('#myLeftSidenav').css({ 'width': `0` });
-      $('.app-container').css({'marginLeft' : "0"});
-      $('#shopify-section-cust-footer, .openbtn-container, .main-container').show('slow')
+      $('#shopify-section-cust-footer, .openbtn-container, .main-container').fadeIn('slow')
     });
 
     $('.js-new-syn-button').click(function(){
@@ -288,6 +285,16 @@ $(document).on('turbolinks:load', () => {
       newField.children().find('.js-syn-field').val("")
       newField.appendTo( ".js-syn-container" );
     });
+
+    function disableScrolling(){
+        var x=window.scrollX;
+        var y=window.scrollY;
+        window.onscroll=function(){window.scrollTo(x, y);};
+    }
+
+    function enableScrolling(){
+        window.onscroll=function(){};
+    }
 
     $( "#sortable" ).sortable({
       update: function( event, ui ) {
@@ -298,55 +305,37 @@ $(document).on('turbolinks:load', () => {
     });
     $( "#sortable" ).disableSelection();
 
-    $('.quick-view-button').click(function() {
-      // debugger;
-      $(this).parent().siblings().first().show()
-      // $(this).next().show();
-      modalShowing = true;
+    window.modal = new function() {
+      this.loadModal = function() {
+        $('.quick-view-button').click(function() {
+          $(this).parent().siblings().first().show()
+          modalShowing = true;
+          disableScrolling()
 
-      var scrolled = $(window).scrollTop();
-      if (!window.matchMedia("(max-width: 800px)").matches){
-        $(".the-modal").animate({
-            top: scrolled + 150 + 'px',
-          }, 300, function() {
-            modalrunning = false
+          var scrolled = $(window).scrollTop();
+          if (!window.matchMedia("(max-width: 800px)").matches){
+            $(".the-modal").animate({
+                top: scrolled + 150 + 'px',
+              }, 300, function() {
+                modalrunning = false
+            });
+          }
+          $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
+          $(body).css({'pointer-events': 'none'});
+        });
+
+        $('.model-close').click(function() {
+          $(".the-modal").css({'top': '0'});
+          $('.the-modal').hide();
+          modalShowing = false;
+          enableScrolling();
+          $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
+          $(body).css({'pointer-events': 'auto'});
         });
       }
-      $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
-      $(body).css({'pointer-events': 'none'});
-    });
-
-    $('.model-close').click(function() {
-      $(".the-modal").css({'top': '0'});
-      $('.the-modal').hide();
-      modalShowing = false;
-      $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
-      $(body).css({'pointer-events': 'auto'});
-    });
-
-    // var modal = document.getElementById('myModal');
-    //
-    // // Get the button that opens the modal
-    // var btn = document.getElementById("myBtn");
-    //
-    // // Get the <span> element that closes the modal
-    // var span = document.getElementsByClassName("close")[0];
-    //
-    // // When the user clicks the button, open the modal
-    // btn.onclick = function() {
-    //   modal.style.display = "block";
-    // }
-    //
-    // // When the user clicks on <span> (x), close the modal
-    // span.onclick = function() {
-    //   modal.style.display = "none";
-    // }
-    //
-    // // When the user clicks anywhere outside of the modal, close it
-    // window.onclick = function(event) {
-    //   if (event.target == modal) {
-    //     modal.style.display = "none";
-    // }
+      this.init = function(){}
+    };
+    window.modal.loadModal();
 
     window.tabs = new function() {
       this.loadTabs = function() {
