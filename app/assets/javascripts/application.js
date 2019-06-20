@@ -12,15 +12,12 @@
 //
 //= require activestorage
 //= require jquery
-//= require added-jquery-ui
 //= require foundation
-//= require turbolinks
+//= require added-jquery-ui
 //= require searching
 //= require touch
 
-
-$(document).on('turbolinks:load', () => {
-    $(function(){ $(document).foundation(); });
+$( document ).ready(function() {
     var PageNumber = 1;
     var running = false;
     var canLoadMore = true;
@@ -94,7 +91,6 @@ $(document).on('turbolinks:load', () => {
       });
       PageNumber = PageNumber + 1
     });
-
     $( "#slider-range" ).slider({
       range: true,
       min: 0,
@@ -122,11 +118,11 @@ $(document).on('turbolinks:load', () => {
     $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) + " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
 
     $('.js-filter-price').click(function(){
-      Turbolinks.visit(link)
+      window.location.href = link
     });
 
     $('.js-filter-price-mobile').click(function(){
-      Turbolinks.visit(mobilink)
+      window.location.href = mobilink
     });
 
     $(function() {
@@ -149,33 +145,6 @@ $(document).on('turbolinks:load', () => {
         readURL(this);
       });
     });
-
-    $( function() {
-      $( "#slider-range" ).slider({
-        range: true,
-        min: 0,
-        max: 500,
-        values: [ 75, 300 ],
-        slide: function( event, ui ) {
-          $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-        }
-      });
-      $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - £" + $( "#slider-range" ).slider( "values", 1 ) );
-
-        $( "#slider-range-two" ).slider({
-          range: true,
-          min: 0,
-          max: 500,
-          values: [ 75, 300 ],
-          slide: function( event, ui ) {
-            $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-          }
-        });
-        $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) +
-          " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
-
-    } );
 
     $('.js-true-scroll-option').click(function(){
       $('.js-admin-section-filter-config-container, .js-admin-section-search-config-container').hide()

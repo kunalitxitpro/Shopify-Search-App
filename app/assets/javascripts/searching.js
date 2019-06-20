@@ -111,7 +111,7 @@
   //     }
   //   }
   // });
-  $(document).on('turbolinks:load', () => {
+  $( document ).ready(function() {
     LoadSearch();
     // $.ajax({
     //   type: "GET",
