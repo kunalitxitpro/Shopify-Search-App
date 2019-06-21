@@ -1,7 +1,7 @@
 .app-container
   #mySidenav.sidenav.hidden-on-large-screen
     - if ProductSetting.last.true_filter_on
-      div style='padding: 16px 16px'
+      div style='padding: 1rem 1rem'
         .close-filter-container
           .close-filter-text FILTER
           a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
@@ -68,12 +68,9 @@
 
   #myLeftSidenav.sidenav.hidden-on-large-screen
     div style='padding: 0 20px'
-      .close-filter-container style='margin: 2rem 0 0 0'
+      .close-filter-container style='margin: 1rem 0 1rem 0'
         .close-filter-text SORT
         a.close-sort-btn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
-      .sort-nav-container
-        .black-box
-        a href="#{proxy_prod_url}" Sort
       .sort-nav-container
         .black-box
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', q: params[:q], collection: params[:collection])}" Alphabetically, A-Z
@@ -95,7 +92,7 @@
 
   .hidden-on-large-screen
       - if params[:q].present?
-        div style="font-size: 18px; font-weight: bold;" = params[:q].titleize
+        div style="font-size: 18px; font-weight: bold;" = "SEARCH RESULTS FOR #{params[:q]}".upcase
       - else
         div style="font-size: 18px; font-weight: bold;" = params[:collection].present? ? "#{Filter.title_string_for_collection(params[:collection]).upcase} VINTAGE"  : 'TRUE VINTAGE NEW IN'
       div style="font-size: 13px;"= "#{@products_count} ITEMS FOUND"
@@ -108,7 +105,7 @@
       span.hidden-on-large-screen style="font-size:14px; cursor:pointer" SORT
 
   - if params[:q].present?
-    .product-searched-heading.hidden-on-small-screen = params[:q].titleize
+    .product-searched-heading.hidden-on-small-screen = "SEARCH RESULTS FOR #{params[:q]}".upcase
   - else
     .product-searched-heading.hidden-on-small-screen = params[:collection].present? ? "#{Filter.title_string_for_collection(params[:collection]).upcase} VINTAGE"  : 'TRUE VINTAGE NEW IN'
   .products-found-count.hidden-on-small-screen = "#{@products_count} ITEMS FOUND"
