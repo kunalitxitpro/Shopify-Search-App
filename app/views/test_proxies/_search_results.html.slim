@@ -8,7 +8,7 @@
         .search-result-sub-container
           .search-result-vendor style="font-weight: bold" = product.vendor
           .search-result-title  = truncate("#{product.title}", length: 45)
-          .search-result-price  = "£ #{product.price} GPB"
+          .search-result-price  = "£ #{product.price} GBP"
   - if ProductSetting.last.related_search_on
     .search-result-product-container
       .search-result-product-text POPULAR SEARCHES

@@ -9,7 +9,7 @@
           .search-result-sub-container style="margin-left: 0.5rem"
             .search-result-vendor style="font-weight: bold" = product.vendor
             .search-result-title = truncate("#{product.title}", length: 45)
-            .search-result-price = "£ #{product.display_price} GPB"
+            .search-result-price = "£ #{product.display_price} GBP"
   - else
     .search-result-main-box style="overflow: hidden;"
       - @products.each do |product|
@@ -18,7 +18,7 @@
           .search-result-sub-container style="margin-left: 0.5rem"
             .search-result-vendor style="font-weight: bold" = product.vendor
             .search-result-title = truncate("#{product.title}", length: 45)
-            .search-result-price = "£ #{product.display_price} GPB"
+            .search-result-price = "£ #{product.display_price} GBP"
   - if ProductSetting.last.related_search_on
     .search-result-product-container
       .search-result-product-text POPULAR SEARCHES
@@ -51,7 +51,7 @@
 /           .search-result-sub-container
 /             .search-result-vendor style="font-weight: bold" = product.vendor
 /             .search-result-title  = truncate("#{product.title}", length: 45)
-/             .search-result-price  = "£ #{product.display_price} GPB"
+/             .search-result-price  = "£ #{product.display_price} GBP"
 /   - unless ProductSetting.last.overflow_scroll_on
 /     div style="overflow: hidden; max-height: 334px; width: 100%; background-color: #ffffff"
 /       - @products.each do |product|
@@ -61,7 +61,7 @@
 /           .search-result-sub-container
 /             .search-result-vendor style="font-weight: bold" = product.vendor
 /             .search-result-title  = truncate("#{product.title}", length: 45)
-/             .search-result-price  = "£ #{product.display_price} GPB"
+/             .search-result-price  = "£ #{product.display_price} GBP"
 /   - if ProductSetting.last.related_search_on
 /     .search-result-product-container
 /       .search-result-product-text POPULAR SEARCHES

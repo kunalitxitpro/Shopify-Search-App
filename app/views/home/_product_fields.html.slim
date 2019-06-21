@@ -11,7 +11,7 @@
           .prod-attr = product.vendor
           .prod-attr__small = product.title
           div style="display: flex; align-items: center; margin: 0.5rem 0; line-height: 22px"
-            .prod-attr__price = "£ #{product.display_price} GPB"
+            .prod-attr__price = "£ #{product.display_price} GBP"
             - if product.compare_at_price != 0.0
               .prod-attr__small style="font-size: 22px; margin: 0" = "£ #{product.compare_at_display_price}"
           / .prod-attr__small Earn 375 points
@@ -44,6 +44,6 @@
       .title-container
         .title-field = product.title
       .price-container
-        .price-field = "£ #{product.display_price} GPB"
+        .price-field = "£ #{product.display_price} GBP"
         - if product.compare_at_price != 0.0
           .compare-at-price = "£ #{product.compare_at_display_price}"
