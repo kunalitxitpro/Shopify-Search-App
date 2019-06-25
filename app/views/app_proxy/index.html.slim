@@ -196,53 +196,6 @@
         .js-all-products
           = render partial: 'home/products', locals: {showFirst: true}
 
-  .main-container
-    .filter-data-options-container.js-main-container.hidden-on-small-screen#js-sidebar-filter
-      - if params[:brand].present?
-        - params[:brand].each do |brand|
-          - newbrand = params[:brand].dup
-          - newbrand.delete(brand)
-          = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, q: params[:q], collection: params[:collection]) do
-            .black-box-container
-              .black-box-parent style='position: relative'
-                .black-box style='position: relative; top: 0; left: 0'
-                .small-black-box style='position: absolute; top: 0; left: 0'
-              .sub-heading = brand
-              .remove-filter
-
-      - if params[:size].present?
-        - params[:size].each do |size|
-          - newSize = params[:size].dup
-          - newSize.delete(size)
-          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, q: params[:q], collection: params[:collection]) do
-            .black-box-container
-              .black-box-parent style='position: relative'
-                .black-box style='position: relative; top: 0; left: 0'
-                .small-black-box style='position: absolute; top: 0; left: 0'
-              .sub-heading = "Size #{size}"
-              .remove-filter
-
-        - if params[:price].present?
-          = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], q: params[:q], collection: params[:collection]) do
-            .black-box-container
-              .black-box-parent style='position: relative'
-                .black-box style='position: relative; top: 0; left: 0'
-                .small-black-box style='position: absolute; top: 0; left: 0'
-              .sub-heading = params[:price]
-              .remove-filter
-
-      - if params[:product_type].present?
-        - params[:product_type].each do |pt|
-          - newpt = params[:product_type].dup
-          - newpt.delete(pt)
-          = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, q: params[:q], collection: params[:collection]) do
-            .black-box-container
-              .black-box-parent style='position: relative'
-                .black-box style='position: relative; top: 0; left: 0'
-                .small-black-box style='position: absolute; top: 0; left: 0'
-              .sub-heading = pt
-              .remove-filter
-
     - if ProductSetting.last.autoscroll_on
       .gif-container
         .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"

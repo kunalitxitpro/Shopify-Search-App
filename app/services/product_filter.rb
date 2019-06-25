@@ -7,7 +7,7 @@ class ProductFilter
   def search
     products = Product
     @params[:title].split(' ').each do |query|
-      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase).where('quantity > 0')
+      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase).where('quantity > 0').order(price: :desc)
     end
     if ProductSetting.last.overflow_scroll_on
       products.limit(50)
@@ -19,7 +19,7 @@ class ProductFilter
   def popular
     products = Product
     @params[:title].split(' ').each do |query|
-      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase).where('quantity > 0')
+      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase).where('quantity > 0').order(price: :desc)
     end
     products.order(quantity: :asc).limit(8)
   end
