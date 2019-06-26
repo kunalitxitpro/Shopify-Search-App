@@ -68,8 +68,10 @@ body
     a
       font-size: 18px
 
+
+
 // tablet
-@media screen and (min-width: 800px) and (max-width: 1024px)
+@media screen and (min-width: 768px) and (max-width: 1024px)
   .hidden-on-large-screen
     display: none
   .row-style
@@ -83,6 +85,7 @@ body
   .the-modal
     height: auto !important
     // background-color: red
+
 
 // desktop
 @media screen and (min-width: 1025px)
@@ -103,8 +106,9 @@ body
       margin-top: 0px !important
     // background-color: red !important
 
+
 // mobile
-@media screen and (min-width: 0px) and (max-width: 800px)
+@media screen and (min-width: 0px) and (max-width: 768px)
   .hidden-on-small-screen
     display: none
   .main-container
@@ -145,7 +149,7 @@ body
   .js-load-more
     width: 100%
   .img-container
-    height: 163px
+    height: calc(100vw/2.5)
   .the-modal-sub
     height: 320px !important
   .main-content

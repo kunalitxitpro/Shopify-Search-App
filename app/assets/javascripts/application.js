@@ -23,8 +23,9 @@ $( document ).ready(function() {
     var canLoadMore = true;
     var modalrunning = false
     var modalShowing = false;
-    var link = "https://www.truevintage.com/apps/products?price=75-300"
-    var mobilink = "https://www.truevintage.com/apps/products?price=75-300"
+    var rootlink = "https://www.truevintage.com/apps/products?"
+    var link = "&price=75-300"
+    var mobilink = "&price=75-300"
 
     $(window).bind('scroll', function() {
       if(modalShowing == false && $('.gif-container').length > 0){
@@ -98,7 +99,7 @@ $( document ).ready(function() {
       values: [ 75, 300 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-        mobilink = "https://www.truevintage.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
+        mobilink = "&price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
       }
     });
     $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
@@ -111,18 +112,18 @@ $( document ).ready(function() {
       values: [ 75, 300 ],
       slide: function( event, ui ) {
         $( "#amount-two" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-        link = "https://www.truevintage.com/apps/products?price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
+        link = "&price=" + ui.values[ 0 ] + "-" + ui.values[ 1 ]
       }
     });
 
     $( "#amount-two" ).val( "£" + $( "#slider-range-two" ).slider( "values", 0 ) + " - £" + $( "#slider-range-two" ).slider( "values", 1 ) );
 
     $('.js-filter-price').click(function(){
-      window.location.href = link
+      window.location.href = rootlink + Window.paramUrl + link
     });
 
     $('.js-filter-price-mobile').click(function(){
-      window.location.href = mobilink
+      window.location.href = rootlink + Window.paramUrl + mobilink
     });
 
     $(function() {
@@ -198,16 +199,29 @@ $( document ).ready(function() {
       });
     });
 
+    $('.dropdown').click(function(){
+      $('.dropdown-content').toggle();
+      if($('.dropdown-content').is(":visible")){
+        $('.arrow-down').css({'transform': 'rotate(180deg)'});
+      }else {
+        $('.arrow-down').css({'transform': 'rotate(0deg)'});
+      }
+    });
+
     $('.js-show-main-filter').click(function(){
       $('.js-main-filter-icon' ).toggleClass( 'filter-icon-minus' )
       if ($(".js-main-filter-icon").hasClass( "filter-icon-minus" )) {
         $('.box-2').css({'float': 'none'});
         $('.box-2').css({'width': '100%'});
         $('.box-1').css({'width': '0'});
+        $('.div-style').css({'padding': '0'});
+        $('.js-product-group').css({'padding-left': '0'});
       } else {
         $('.box-2').css({'width': '85%'});
         $('.box-2').css({'float': 'left'});
         $('.box-1').css({'width': '15%'});
+        $('.div-style').css({'padding-left': '1rem'});
+        $('.js-product-group').css({'padding-left': '0.3125rem'});
       }
     });
     $('.js-show-brand-filter').click(function(){
