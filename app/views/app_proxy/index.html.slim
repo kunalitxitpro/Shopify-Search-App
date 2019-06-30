@@ -1,10 +1,14 @@
 .app-container
+  .filter-overlay
   #mySidenav.sidenav.hidden-on-large-screen
     - if ProductSetting.last.true_filter_on
       div style='padding: 1rem 1rem'
-        .close-filter-container
+        .close-filter-container style="#{@filter_present ? 'margin-bottom: 1rem' : ''}"
           .close-filter-text FILTER
           a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+        - if @filter_present
+          div style="width: 100%;height: 30px;margin-bottom: 3em;"
+            = link_to 'CLEAR ALL', proxy_prod_path(sort_by: params[:sort_by], collection: params[:collection], q: params[:q]), style: 'background: #646464;color: white;float: right;font-weight: bold;width: 100%;text-align: center;'
 
         - if params[:brand].present?
           - params[:brand].each do |brand|
@@ -111,11 +115,10 @@
   .products-found-count.hidden-on-small-screen = "#{@products_count} ITEMS FOUND"
 
   .filter-container.hidden-on-small-screen
-    .filter-heading-container
+    .filter-heading-container style="z-index: 400"
       - if ProductSetting.last.true_filter_on
         .filter-heading FILTER
         .js-main-filter-icon.js-show-main-filter
-
     .dropdown
       button.dropbtn
         span style="color: black" = sort_params_title(params[:sort_by])
@@ -129,6 +132,9 @@
 
 
   .clearfix.main-container
+    - if @filter_present
+      .js-clear-filter.hidden-on-small-screen style="width: 15%; height: 30px; position: relative; z-index: 4; top: -52px; overflow: hidden;"
+        = link_to 'CLEAR ALL', proxy_prod_path(sort_by: params[:sort_by], collection: params[:collection], q: params[:q]), style: 'background: black; color: white; padding: 2px 20px 4px 19px; float: right; font-weight: bold'
     - if ProductSetting.last.true_filter_on
       .box-1
         .filter-data-options-container.js-main-container.hidden-on-small-screen#js-sidebar-filter
@@ -202,7 +208,6 @@
     - else
       div style="width: 100%; text-align: center"
         = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;height: 56px;font-size: 20px; background-color: black'
-
 javascript:
   Window.paramUrl = "&#{request.url.split('?')[1].split('shop')[0]}"
   Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"

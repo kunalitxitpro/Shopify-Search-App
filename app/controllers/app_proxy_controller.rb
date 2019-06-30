@@ -27,6 +27,7 @@ class AppProxyController < ApplicationController
     @product_type = Filter.types.pluck(:title)
     @price_ranges = ['0 - 31', '31 - 70', '71 - 90', '91 - 110']
     @colours = Filter.colours.pluck(:title)
+    @filter_present = filter_present?
     render content_type: 'application/liquid'
   end
 
@@ -59,6 +60,10 @@ class AppProxyController < ApplicationController
     synon = ProductSetting.last.product_synonyms.where('synonym = ?', query_str).first
     return query_str unless synon
     return synon.value
+  end
+
+  def filter_present?
+    params[:brand].present? || params[:product_type].present? || params[:size].present? || params[:price].present?
   end
 
   def product_params
