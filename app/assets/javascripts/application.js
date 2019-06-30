@@ -282,7 +282,12 @@ $( document ).ready(function() {
     });
 
     $('.hamburger').click(function() {
-      $('.app-container').css({"width":"20%",'margin-left':'20rem'});
+      if (window.matchMedia('(min-width: 768px)').matches)
+      {
+        $('.app-container').css({"width":"50%",'margin-left':'calc(100vw/2.4)'});
+      } else {
+        $('.app-container').css({"width":"20%",'margin-left':'calc(100vw/1.3)'});
+      }
     });
 
     $('.icon_menuclose').click(function() {
