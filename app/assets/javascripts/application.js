@@ -256,7 +256,7 @@ $( document ).ready(function() {
       $('#mySidenav').css({ 'width': `250px` });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
-      // $('.filter-overlay').show()
+      $('.filter-overlay').show()
       $('.header').fadeTo( 100, 0 );
     });
 
