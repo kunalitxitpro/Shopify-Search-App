@@ -252,7 +252,7 @@ $( document ).ready(function() {
     });
 
     $('.openbtn').click(function() {
-      $('.template-').css({ 'overflow': 'hidden', 'position': 'fixed', 'width': '100%'});
+      $('.template-').css({'position': 'fixed', 'width': '100%'});
       $('#mySidenav').css({ 'width': `250px` });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
@@ -266,13 +266,13 @@ $( document ).ready(function() {
       $('.app-container').css({ 'margin': '0 1rem' });
       $('.app-container').css({ 'width': '92%' });
       $('.page-container').css({ 'overflow': 'visible' });
-      $('.template-').css({ 'overflow':'visible','position':'relative','width': 'auto'});
+      $('.template-').css({ 'position':'relative','width': 'auto'});
       $('.filter-overlay').hide()
       $('.header').fadeTo( 100, 1 );
     });
 
     $('.open-sort-btn').click(function() {
-      $('.template-').css({ 'overflow': 'hidden', 'position': 'fixed', 'width': '100%'});
+      $('.template-').css({'position': 'fixed', 'width': '100%'});
       $('#myLeftSidenav').css({ 'width': `250px` });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
@@ -300,7 +300,7 @@ $( document ).ready(function() {
       $('.app-container').css({ 'margin': '0 1rem' });
       $('.app-container').css({ 'width': '92%' });
       $('.page-container').css({ 'overflow': 'visible' });
-      $('.template-').css({ 'overflow':'visible','position':'relative','width': 'auto'});
+      $('.template-').css({'position':'relative','width': 'auto'});
       $('.filter-overlay').hide()
       $('.header').fadeTo( 100, 1 );
     });
@@ -345,7 +345,7 @@ $( document ).ready(function() {
                 modalrunning = false
             });
           }
-          $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
+          $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown, .js-clear-filter').toggleClass('fade-blur');
           $(body).css({'pointer-events': 'none'});
         });
 
@@ -354,7 +354,7 @@ $( document ).ready(function() {
           $('.the-modal').hide();
           modalShowing = false;
           enableScrolling();
-          $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown').toggleClass('fade-blur');
+          $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown, .js-clear-filter').toggleClass('fade-blur');
           $(body).css({'pointer-events': 'auto'});
         });
       }
