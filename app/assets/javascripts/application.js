@@ -252,7 +252,7 @@ $( document ).ready(function() {
     });
 
     $('.openbtn').click(function() {
-      $('.template-').css({ 'overflow-y': 'hidden' });
+      $('.template-').css({ 'overflow': 'hidden' });
       $('#mySidenav').css({ 'width': `250px` });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
@@ -266,13 +266,13 @@ $( document ).ready(function() {
       $('.app-container').css({ 'margin': '0 1rem' });
       $('.app-container').css({ 'width': '92%' });
       $('.page-container').css({ 'overflow': 'visible' });
-      $('.template-').css({ 'overflow-y': 'visible' });
+      $('.template-').css({ 'overflow': 'visible' });
       $('.filter-overlay').hide()
       $('.header').fadeTo( 100, 1 );
     });
 
     $('.open-sort-btn').click(function() {
-      $('.template-').css({ 'overflow-y': 'hidden' });
+      $('.template-').css({ 'overflow': 'hidden' });
       $('#myLeftSidenav').css({ 'width': `250px` });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
@@ -300,7 +300,7 @@ $( document ).ready(function() {
       $('.app-container').css({ 'margin': '0 1rem' });
       $('.app-container').css({ 'width': '92%' });
       $('.page-container').css({ 'overflow': 'visible' });
-      $('.template-').css({ 'overflow-y': 'visible' });
+      $('.template-').css({ 'overflow': 'visible' });
       $('.filter-overlay').hide()
       $('.header').fadeTo( 100, 1 );
     });
