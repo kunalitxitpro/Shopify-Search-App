@@ -253,7 +253,7 @@ $( document ).ready(function() {
 
     $('.openbtn').click(function() {
       $('.template-').css({'position': 'fixed', 'width': '100%'});
-      $('#mySidenav').css({ 'width': `250px` });
+      $('#mySidenav').css({ 'width': '250px', 'min-height': '100vh' });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
       $('.filter-overlay').show()
@@ -272,7 +272,7 @@ $( document ).ready(function() {
 
     $('.open-sort-btn').click(function() {
       $('.template-').css({'position': 'fixed', 'width': '100%'});
-      $('#myLeftSidenav').css({ 'width': `250px` });
+      $('#myLeftSidenav').css({ 'width': '250px', 'min-height': '100vh' });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
       $('.page-container').css({ 'overflow': 'hidden' });
