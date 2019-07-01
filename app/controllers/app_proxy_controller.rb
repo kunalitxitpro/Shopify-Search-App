@@ -63,7 +63,7 @@ class AppProxyController < ApplicationController
   end
 
   def filter_present?
-    params[:brand].present? || params[:product_type].present? || params[:size].present? || params[:price].present?
+    params[:brand].present? || params[:product_type].present? || params[:size].present? || params[:price].present? || params[:q].present?
   end
 
   def product_params
