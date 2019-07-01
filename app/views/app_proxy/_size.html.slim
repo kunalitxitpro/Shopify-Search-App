@@ -21,8 +21,8 @@
   .filter-size-container
     .heading-container
       .filter-size-heading style='color: white' SIZE
-      .js-size-filter-icon.js-show-size-filter
-    .filter-size-collection.js-size-container.scroll-filter style='display: none'
+      .js-size-filter-icon.js-show-size-filter.filter-icon-minus
+    .filter-size-collection.js-size-container.scroll-filter
       - @size_array.each do |size|
           - multisize = [size] << params[:size]
           = link_to proxy_prod_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price], q: params[:q], collection: params[:collection]) do

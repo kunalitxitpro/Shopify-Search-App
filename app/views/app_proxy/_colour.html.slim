@@ -23,7 +23,7 @@
     .heading-container
       .filter-colour-heading style='color: white' COLOUR
       .js-colour-filter-icon.js-show-colour-filter.filter-icon-minus
-    .filter-colour-collection.js-colour-container style='display: none'
+    .filter-colour-collection.js-colour-container
       - @colours.each do |va|
           - colour = [va] << params[:colour]
           = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], brand: params[:brand], collection: params[:collection]) do

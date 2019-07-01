@@ -22,8 +22,8 @@
   .filter-brand-container
     .heading-container
       .filter-brand-heading style='color: white' BRAND
-      .js-brand-filter-icon.js-show-brand-filter
-    .filter-brand-collection.js-brand-container.scroll-filter style='display: none'
+      .js-brand-filter-icon.js-show-brand-filter.filter-icon-minus
+    .filter-brand-collection.js-brand-container.scroll-filter
       - @vendor_array.each do |va|
           - brand = [va] << params[:brand]
           = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], collection: params[:collection]) do
