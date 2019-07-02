@@ -35,6 +35,37 @@ body
   align-items: center
   margin-top: 0
 
+.mobi-scroll
+  height: 100%
+  width: 0
+  position: fixed
+  z-index: 5000
+  top: 0
+  left: 0
+  overflow-x: hidden
+  transition: 0.5s
+  -webkit-overflow-scrolling: touch !important
+  height: 100%
+  overflow: auto
+  float: left
+.mobi-scroll::-webkit-scrollbar
+  width: 0 !important
+.mobi-scroll
+  overflow: -moz-scrollbars-none
+.mobi-scroll
+  -ms-overflow-style: none
+
+.sidebar-js
+  background: black
+  width: 0
+  z-index: 4000
+  position: absolute
+  left: 0
+  top: 0
+  height: 100vh
+  top: -75px
+  transition: .5s
+
 .openbtn-sub-container
   background-color: black
   width: 49%
