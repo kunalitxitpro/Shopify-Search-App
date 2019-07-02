@@ -8,7 +8,6 @@ body
   z-index: 5000
   top: 0
   left: 0
-  background-color: #111
   overflow-x: hidden
   transition: 0.5s
   a
@@ -144,6 +143,12 @@ body
     -webkit-overflow-scrolling: touch !important
     height: 100%
     overflow: auto
+  .sidenav::-webkit-scrollbar
+    width: 0 !important
+  .sidenav
+    overflow: -moz-scrollbars-none
+  .sidenav
+    -ms-overflow-style: none
   .the-modal-sub-two
   .box-2
     width: 100%

@@ -1,76 +1,78 @@
 .app-container
   .filter-overlay
   #mySidenav.sidenav.hidden-on-large-screen
-    - if ProductSetting.last.true_filter_on
-      div style='padding: 1rem 1rem'
-        .close-filter-container style="#{@filter_present ? 'margin-bottom: 1rem' : ''}"
-          .close-filter-text FILTER
-          a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
-        - if @filter_present
-          div style="width: 100%;height: 30px;margin-bottom: 3em;"
-            = link_to 'CLEAR ALL', proxy_prod_path(sort_by: params[:sort_by], collection: params[:collection]), style: 'background: #646464;color: white;float: right;font-weight: bold;width: 100%;text-align: center;'
+    div style="width: 65%;float: left;background: black;"
+      - if ProductSetting.last.true_filter_on
+        div style='padding: 1rem 1rem'
+          .close-filter-container style="#{@filter_present ? 'margin-bottom: 1rem' : ''}"
+            .close-filter-text FILTER
+            a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+          - if @filter_present
+            div style="width: 100%;height: 30px;margin-bottom: 3em;"
+              = link_to 'CLEAR ALL', proxy_prod_path(sort_by: params[:sort_by], collection: params[:collection]), style: 'background: #646464;color: white;float: right;font-weight: bold;width: 100%;text-align: center;'
 
-        - if params[:brand].present?
-          - params[:brand].each do |brand|
-            - newbrand = params[:brand].dup
-            - newbrand.delete(brand)
-            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, collection: params[:collection]) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = brand
-                .remove-filter
+          - if params[:brand].present?
+            - params[:brand].each do |brand|
+              - newbrand = params[:brand].dup
+              - newbrand.delete(brand)
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, collection: params[:collection]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = brand
+                  .remove-filter
 
-        - if params[:size].present?
-          - params[:size].each do |size|
-            - newSize = params[:size].dup
-            - newSize.delete(size)
-            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, collection: params[:collection]) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = "Size #{size}"
-                .remove-filter
+          - if params[:size].present?
+            - params[:size].each do |size|
+              - newSize = params[:size].dup
+              - newSize.delete(size)
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, collection: params[:collection]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = "Size #{size}"
+                  .remove-filter
 
-          - if params[:price].present?
-            = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], collection: params[:collection]) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = params[:price]
-                .remove-filter
+            - if params[:price].present?
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], collection: params[:collection]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = params[:price]
+                  .remove-filter
 
-        - if params[:product_type].present?
-          - params[:product_type].each do |pt|
-            - newpt = params[:product_type].dup
-            - newpt.delete(pt)
-            = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, collection: params[:collection]) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = pt
-                .remove-filter
+          - if params[:product_type].present?
+            - params[:product_type].each do |pt|
+              - newpt = params[:product_type].dup
+              - newpt.delete(pt)
+              = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, collection: params[:collection]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = pt
+                  .remove-filter
 
-        - if params[:colour].present?
-          - params[:colour].each do |colour|
-            - newcolour = params[:colour].dup
-            - newcolour.delete(colour)
-            = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, collection: params[:collection]) do
-              .black-box-container
-                .black-box-parent style='position: relative'
-                  .black-box style='position: relative; top: 0; left: 0'
-                  .small-black-box style='position: absolute; top: 0; left: 0'
-                .sub-heading = colour
-                .remove-filter
+          - if params[:colour].present?
+            - params[:colour].each do |colour|
+              - newcolour = params[:colour].dup
+              - newcolour.delete(colour)
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, collection: params[:collection]) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = colour
+                  .remove-filter
 
-        - ProductSetting.last.filter_array.each do |filter|
-          = render partial: filter, locals: {desktop: false}
+          - ProductSetting.last.filter_array.each do |filter|
+            = render partial: filter, locals: {desktop: false}
+    div style="float: left;width: 35%; height: 100vh;"
 
-  #myLeftSidenav.sidenav.hidden-on-large-screen
+  #myLeftSidenav.sidenav.hidden-on-large-screen style="background: black"
     div style='padding: 0 20px'
       .close-filter-container style='margin: 1rem 0 1rem 0'
         .close-filter-text SORT

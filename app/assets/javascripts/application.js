@@ -253,7 +253,7 @@ $( document ).ready(function() {
 
     $('.openbtn').click(function() {
       $('.template-').css({'position': 'fixed', 'width': '100%'});
-      $('#mySidenav').css({ 'width': '250px', 'min-height': '100vh' });
+      $('#mySidenav').css({ 'width': '100%', 'min-height': '100vh' });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
       $('.filter-overlay').show()
