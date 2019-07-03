@@ -80,22 +80,22 @@
         div.close-sort-btn style="padding-left: 30px;"
           a.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
       .sort-nav-container
-        .black-box
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', q: params[:q], collection: params[:collection])}"
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', q: params[:q], collection: params[:collection])}" Alphabetically, A-Z
       .sort-nav-container
-        .black-box
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending', q: params[:q], collection: params[:collection])}"
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending', q: params[:q], collection: params[:collection])}" Alphabetically, Z-A
       .sort-nav-container
-        .black-box
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', q: params[:q], collection: params[:collection])}"
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', q: params[:q], collection: params[:collection])}" Price, low to high
       .sort-nav-container
-        .black-box
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', q: params[:q], collection: params[:collection])}"
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', q: params[:q], collection: params[:collection])}" Price, high to low
       .sort-nav-container
-        .black-box
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', q: params[:q], collection: params[:collection])}"
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', q: params[:q], collection: params[:collection])}" Date, new to old
       .sort-nav-container
-        .black-box
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', q: params[:q], collection: params[:collection])}"
         a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', q: params[:q], collection: params[:collection])}" Date, old to new
 
   .hidden-on-large-screen

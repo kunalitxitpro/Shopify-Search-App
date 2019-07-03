@@ -27,14 +27,14 @@
       - @vendor_array.each do |va|
           - brand = [va] << params[:brand]
           = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], collection: params[:collection]) do
-          - if params[:brand] && params[:brand].include?(va)
-            .black-box-container
-              .black-box-parent style='position: relative'
-                .black-box style='position: relative; top: 0; left: 0'
-                .small-black-box style='position: absolute; top: 0; left: 0'
-              .sub-heading style='color: white' = va
-              .tick-icon
-          - else
-            .black-box-container
-              .black-box
-              .sub-heading style='color: white' = va
+            - if params[:brand] && params[:brand].include?(va)
+              .black-box-container
+                .black-box-parent style='position: relative'
+                  .black-box style='position: relative; top: 0; left: 0'
+                  .small-black-box style='position: absolute; top: 0; left: 0'
+                .sub-heading style='color: white' = va
+                .tick-icon
+            - else
+              .black-box-container
+                .black-box
+                .sub-heading style='color: white' = va

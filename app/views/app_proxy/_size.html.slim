@@ -26,14 +26,14 @@
       - @size_array.each do |size|
           - multisize = [size] << params[:size]
           = link_to proxy_prod_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price], q: params[:q], collection: params[:collection]) do
-          - if params[:size] && params[:size].include?(size)
-            .black-box-container
-              .black-box-parent style='position: relative'
-                .black-box style='position: relative; top: 0; left: 0'
-                .small-black-box style='position: absolute; top: 0; left: 0'
-              .sub-heading style='color: white' = size
-              .tick-icon
-          - else
-            .black-box-container
-              .black-box
-              .sub-heading  style='color: white' = size
+            - if params[:size] && params[:size].include?(size)
+              .black-box-container
+                .black-box-parent style='position: relative'
+                  .black-box style='position: relative; top: 0; left: 0'
+                  .small-black-box style='position: absolute; top: 0; left: 0'
+                .sub-heading style='color: white' = size
+                .tick-icon
+            - else
+              .black-box-container
+                .black-box
+                .sub-heading  style='color: white' = size
