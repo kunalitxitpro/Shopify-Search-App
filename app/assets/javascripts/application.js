@@ -275,7 +275,7 @@ $( document ).ready(function() {
 
     $('.open-sort-btn').click(function() {
       $('.template-').css({'position': 'fixed', 'width': '100%'});
-      $('#myLeftSidenav').css({ 'width': '65%', 'min-height': '100vh' });
+      $('#myLeftSidenav').css({ 'width': '234px', 'min-height': '100vh' });
       $('.app-container').css({ 'margin-left': '260px' });
       $('.app-container').css({ 'width': '100%' });
       $('.page-container').css({ 'overflow': 'hidden' });
