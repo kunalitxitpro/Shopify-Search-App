@@ -26,6 +26,8 @@ $( document ).ready(function() {
     var rootlink = "https://www.truevintage.com/apps/products?"
     var link = "&price=75-300"
     var mobilink = "&price=75-300"
+    var mobiModalScrollx = 0
+    var mobiModalScrolly = 0
 
     $(window).bind('scroll', function() {
       if(modalShowing == false && $('.gif-container').length > 0){
@@ -345,6 +347,10 @@ $( document ).ready(function() {
             });
             disableScrolling()
             $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown, .js-clear-filter').toggleClass('fade-blur');
+          } else {
+            mobiModalScrollx=window.scrollX;
+            mobiModalScrolly=window.scrollY;
+            $('.template-').css({'position': 'fixed'});
           }
           $(body).css({'pointer-events': 'none'});
         });
@@ -356,6 +362,9 @@ $( document ).ready(function() {
           if (!window.matchMedia("(max-width: 800px)").matches){
             enableScrolling();
             $('.blur-div, .quick-view-button, .box-1, .filter-heading-container, .products-found-count, .product-searched-heading, .dropdown, .js-clear-filter').toggleClass('fade-blur');
+          } else {
+            $('.template-').css({'position': 'relative'});
+            window.scrollTo(mobiModalScrollx, mobiModalScrolly);
           }
           $(body).css({'pointer-events': 'auto'});
         });
