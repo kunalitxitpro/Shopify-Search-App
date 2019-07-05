@@ -95,10 +95,17 @@ class FilterSql
     "vendor != 'Festival Rags' and quantity > 0 and tags LIKE '%featured%'"
   end
 
+  def twenty_off
+    "vendor != 'Stone Island' AND vendor != 'Supreme' AND vendor != 'Palace'"
+  end
+
+  def sunglasses
+    "product_type = 'Sunglasses'"
+  end
+
   def for_brand(brand)
     "vendor = '#{brand}' and quantity > 0 and product_type != 'Auctions'"
   end
-
 
   private
 
