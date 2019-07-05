@@ -43,7 +43,7 @@ class Filter < ApplicationRecord
     'adidas-archive' => 'Adidas Archive',
     'stone-island' => 'Stone Island',
     'tommy-hilfiger-archive' => 'Tommy Hilfiger Archive',
-    'our-picks' => 'Our Picks'
+    'our-picks' => 'Our Picks',
     '20-off-1' => '20% OFF',
     'sunglasses' => 'Sunglasses'
   }
