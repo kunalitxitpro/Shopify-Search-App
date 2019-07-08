@@ -20,7 +20,7 @@ class FilterSql
   end
 
   def t_shirts
-    "product_type = 'T-shirts' and quantity > 0 and tags LIKE '%for_guys%'"
+    "product_type = 'T-Shirts' and quantity > 0 and tags LIKE '%for_guys%'"
   end
 
   def polo_shirts
