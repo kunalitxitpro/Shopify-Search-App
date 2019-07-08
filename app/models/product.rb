@@ -21,10 +21,23 @@ class Product < ApplicationRecord
   end
 
   def display_price
+    return '%.2f' % (price - (20.to_f/100.to_f * price)) if falls_under_discount
     '%.2f' % price
   end
 
+  def compare_at_price
+    return price if falls_under_discount
+    super
+  end
+
   def compare_at_display_price
+    return '%.2f' % price if falls_under_discount
     '%.2f' % compare_at_price
+  end
+
+  private
+
+  def falls_under_discount
+    vendor != 'Stone Island' && vendor != 'Supreme' && vendor != 'Palace'
   end
 end
