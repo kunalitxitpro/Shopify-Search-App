@@ -14,7 +14,6 @@
 //= require jquery
 //= require foundation
 //= require added-jquery-ui
-//= require searching
 //= require touch
 
 $( document ).ready(function() {

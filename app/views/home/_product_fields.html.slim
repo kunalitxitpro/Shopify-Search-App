@@ -34,6 +34,9 @@
 
   .blur-div
       = link_to "/products/#{product.slug_url}" do
+        - if product.quantity == 0
+          div style="background: black;height: 23px;position: absolute; padding: 6px"
+           span style="color: white" Sold Out
         .img-container
           .product-image style="background-image: url('#{product.first_image_url}')" value='#{product.id}'
           .product-image-two style="display: none; background-image: url('#{product.second_image_url}')"
@@ -45,6 +48,9 @@
         .title-container
           .title-field = product.title
         .price-container
-          div class="price-field #{product.compare_at_price != 0.0 ? 'new-sale' : ''}" = "£ #{product.display_price} GBP"
-          - if product.compare_at_price != 0.0
-            .compare-at-price = "£ #{product.compare_at_display_price}"
+          - if product.quantity > 0
+            div class="price-field #{product.compare_at_price != 0.0 ? 'new-sale' : ''}" = "£ #{product.display_price} GBP"
+            - if product.compare_at_price != 0.0
+              .compare-at-price = "£ #{product.compare_at_display_price}"
+          - else
+            div class="price-field" style="font-weight: 300; color: black" Sold Out
