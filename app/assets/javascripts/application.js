@@ -15,6 +15,7 @@
 //= require foundation
 //= require added-jquery-ui
 //= require touch
+//= require searching
 
 $( document ).ready(function() {
     var PageNumber = 1;
@@ -221,9 +222,17 @@ $( document ).ready(function() {
         $('.div-style').css({'margin-left': '-4px'});
         $('.img-container').css({'height': 'calc(100vw/4.5)'});
       } else {
-        $('.box-2').css({'width': '85%'});
-        $('.box-1').css({'width': '15%'});
-        $('.js-clear-filter').css({'width': '15%'});
+
+        if (window.matchMedia("(max-width: 1100px)").matches){
+          $('.box-2').css({'width': '80%'});
+          $('.box-1').css({'width': '20%'});
+          $('.js-clear-filter').css({'width': '20%'});
+        } else {
+          $('.box-2').css({'width': '85%'});
+          $('.box-1').css({'width': '15%'});
+          $('.js-clear-filter').css({'width': '15%'});
+        }
+
         $('.div-style').css({'padding-left': '1rem'});
         $('.div-style').css({'margin-left': '-0'});
         $('.img-container').css({'height': 'calc(100vw/5.1)'});
