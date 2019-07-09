@@ -66,11 +66,11 @@ class ProductFilter
 
   def sql_query
     sql_arr = []
-    sql_arr << vendor_lookup if @params[:title].present?
-    sql_arr << product_type if @params[:product_type].present?
-    sql_arr << size_lookup if @params[:tag].present?
-    sql_arr << price_lookup if @params[:price].present?
-    sql_arr << colour_lookup if @params[:colour].present?
+    sql_arr << "(#{vendor_lookup})" if @params[:title].present?
+    sql_arr << "(#{product_type})" if @params[:product_type].present?
+    sql_arr << "(#{size_lookup})" if @params[:tag].present?
+    sql_arr << "(#{price_lookup})" if @params[:price].present?
+    sql_arr << "(#{colour_lookup})" if @params[:colour].present?
     sql_arr.join(" AND ")
   end
 
