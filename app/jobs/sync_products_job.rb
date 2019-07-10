@@ -54,7 +54,7 @@ class SyncProductsJob < ApplicationJob
       vendor: prod.vendor,
       tags: prod.tags,
       first_image_url: prod.image.try(:src),
-      second_image_url: prod.images.second.try(:src),
+      second_image_url: prod.images.last.try(:src),
       price: prod.variants.first.price.to_f,
       quantity: prod.variants.sum{|p| p.inventory_quantity},
       compare_at_price: compare_price,
@@ -72,7 +72,7 @@ class SyncProductsJob < ApplicationJob
     set_product_record.vendor = prod.vendor
     set_product_record.tags = prod.tags
     set_product_record.first_image_url = prod.image.try(:src)
-    set_product_record.second_image_url = prod.images.second.try(:src)
+    set_product_record.second_image_url = prod.images.last.try(:src)
     set_product_record.price = prod.variants.first.price.to_f
     set_product_record.quantity = prod.variants.sum{|p| p.inventory_quantity}
     set_product_record.compare_at_price = compare_price
