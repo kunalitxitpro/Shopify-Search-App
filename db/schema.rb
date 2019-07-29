@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_19_084544) do
+ActiveRecord::Schema.define(version: 2019_07_27_113810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collection_rules", force: :cascade do |t|
+    t.integer "collection_id"
+    t.string "search_attribute"
+    t.string "rule_identifier"
+    t.string "condition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.string "handle"
+    t.string "title"
+    t.string "sort_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "filters", force: :cascade do |t|
     t.string "title"

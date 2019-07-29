@@ -2,6 +2,7 @@ class ProductFilter
 
   def initialize(params)
     @params = params
+    @collection = Collection.find_by_handle(@params[:collection])
   end
 
   def search
@@ -40,9 +41,12 @@ class ProductFilter
 
   private
 
-
   def base_query
-    @params[:collection].present? ? Product.where(Filter.sql_for_string(@params[:collection])) : Product
+    if @collection.present?
+      Product.where(@collection.sql_based_rules)
+    else
+      @params[:collection].present? ? Product.where(Filter.sql_for_string(@params[:collection])) : Product
+    end
   end
 
   def filter_for_search_query(search)
@@ -92,8 +96,16 @@ class ProductFilter
     elsif @params[:sort_by] == 'created_descending'
       products.order(shopify_created_at: :desc).offset(offset_page).limit(items_to_load)
     else
-      @params[:collection].nil? || @params[:collection] == 'new-in' || @params[:collection] == 'clothing' || @params[:collection] == 'our-picks' || @params[:collection] == '20-off-1' || @params[:collection] == 'sunglasses'  ? order_for_new(products) : default_order_for_products(products)
+      if @collection.present?
+        order_for_collection(products)
+      else
+        @params[:collection].nil? || @params[:collection] == 'new-in' || @params[:collection] == 'clothing' || @params[:collection] == 'our-picks' || @params[:collection] == '20-off-1' || @params[:collection] == 'sunglasses'  ? order_for_new(products) : default_order_for_products(products)
+      end
     end
+  end
+
+  def order_for_collection(products)
+    products.order(@collection.sql_for_order).offset(offset_page).limit(items_to_load)
   end
 
   def default_order_for_products(products)

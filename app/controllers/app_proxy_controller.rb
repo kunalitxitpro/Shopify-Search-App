@@ -22,6 +22,7 @@ class AppProxyController < ApplicationController
   def render_all_products
     @products = ProductFilter.new(product_params).filter(query_string)
     @products_count = ProductFilter.new(product_params).count_from_filter(query_string)
+    @collection = Collection.find_by_handle(handle_for_collection)
     @vendor_array = all_vendors_for_query
     @size_array = Filter.sizes.pluck(:title)
     @product_type = Filter.types.pluck(:title)
@@ -67,7 +68,7 @@ class AppProxyController < ApplicationController
   end
 
   def product_params
-    {limit: 36, title: params[:brand], product_type: params[:product_type], tag: params[:size], page: params[:page], price: params[:price], sort_by: params[:sort_by], colour: params[:colour], collection: params[:collection]}
+    {limit: 36, title: params[:brand], product_type: params[:product_type], tag: params[:size], page: params[:page], price: params[:price], sort_by: params[:sort_by], colour: params[:colour], collection: handle_for_collection}
   end
 
   def products_are_already_in_view?

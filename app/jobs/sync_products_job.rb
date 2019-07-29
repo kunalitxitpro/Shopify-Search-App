@@ -42,6 +42,8 @@ class SyncProductsJob < ApplicationJob
         Filter.create(title: size, product_setting_id: ProductSetting.last.id, filter_type: 1) if Filter.find_by_title(size).nil?
       end
 
+      SyncCollectionsJob.perform_later
+
       # Product.pluck(:colour).uniq.compact.each do |colour|
       #   Filter.create(title: colour, product_setting_id: ProductSetting.last.id, filter_type: 3) if Filter.find_by_title(colour).nil?
       # end

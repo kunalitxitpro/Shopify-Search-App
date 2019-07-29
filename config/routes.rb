@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   end
 
   get '/apps/products', as: :proxy_prod
+  get '/app_proxy/index/:id', as: :collect_prod, to: 'app_proxy#index'
+
   get 'all_products', to: 'home#products', as: :all_products
   get '/products/sync', to: 'product_settings#sync', as: :sync_products
 

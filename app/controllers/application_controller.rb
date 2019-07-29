@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
-  helper_method :sort_params_title
+  helper_method :sort_params_title, :handle_for_collection
 
 
   private
+
+  def handle_for_collection
+    params[:id].present? ? params[:id] : params[:collection]
+  end
 
   def sort_params_title(sort)
     case sort

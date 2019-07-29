@@ -39,6 +39,10 @@ gem 'simple_form'
 gem 'sidekiq'
 
 
+# Faraday
+gem 'faraday'
+
+
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim'
 group :development, :test do

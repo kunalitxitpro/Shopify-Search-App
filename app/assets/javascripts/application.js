@@ -15,7 +15,6 @@
 //= require foundation
 //= require added-jquery-ui
 //= require touch
-//= require searching
 
 $( document ).ready(function() {
     var PageNumber = 1;

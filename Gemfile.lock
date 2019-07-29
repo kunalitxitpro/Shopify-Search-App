@@ -515,6 +515,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   dotenv-rails
+  faraday
   fog
   foundation-rails
   jbuilder (~> 2.5)
