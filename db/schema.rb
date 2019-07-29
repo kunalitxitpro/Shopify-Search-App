@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_29_182202) do
+ActiveRecord::Schema.define(version: 2019_07_29_200009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_182202) do
     t.datetime "updated_at", null: false
     t.string "shopify_collection_id"
     t.boolean "is_custom_collection", default: false
+    t.boolean "disjunctive", default: true
   end
 
   create_table "collects", force: :cascade do |t|

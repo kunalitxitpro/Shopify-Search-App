@@ -31,7 +31,7 @@ class Collection < ApplicationRecord
         sql_array << "#{rule.search_attribute} #{SQL_RULE_IDENTIFIER[rule.rule_identifier]} '#{rule.condition}'"
       end
     end
-    sql_array.join(" AND ")
+    sql_array.join(" #{self.disjunctive ? 'OR' : 'AND'} ")
   end
 
   def sql_for_order

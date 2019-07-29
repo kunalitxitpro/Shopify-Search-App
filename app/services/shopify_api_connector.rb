@@ -12,7 +12,7 @@ class ShopifyApiConnector
     collections = get_smart_collections
     collections.each do |collection|
       if collection['published_at'].present?
-        coll = Collection.new(title: collection['title'], handle: collection['handle'], sort_order: collection['sort_order'], shopify_collection_id: collection['id'])
+        coll = Collection.new(title: collection['title'], handle: collection['handle'], sort_order: collection['sort_order'], shopify_collection_id: collection['id'], disjunctive: collection['disjunctive'])
         coll.save
 
         collection['rules'].each do |rule_hash|
