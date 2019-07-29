@@ -16,6 +16,7 @@ class Collection < ApplicationRecord
   }
 
   def sql_based_rules
+    return self.rules_for_custom_collection if self.is_custom_collection
     sql_array = []
     self.collection_rules.each do |rule|
       if rule.search_attribute == 'tags'
@@ -35,5 +36,10 @@ class Collection < ApplicationRecord
 
   def sql_for_order
     SQL_SORT_IDENTIFIER[self.sort_order].present? ? SQL_SORT_IDENTIFIER[self.sort_order] : 'shopify_created_at DESC'
+  end
+
+  def rules_for_custom_collection
+    product_ids = Collect.where(shopify_collection_id: self.shopify_collection_id).pluck(:shopify_product_id).uniq.map{|a| "'#{a}'"}
+    return "products.shopify_id IN (#{product_ids.join(', ')})"
   end
 end

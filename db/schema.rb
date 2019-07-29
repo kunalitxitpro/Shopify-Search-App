@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_27_113810) do
+ActiveRecord::Schema.define(version: 2019_07_29_182202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2019_07_27_113810) do
     t.string "handle"
     t.string "title"
     t.string "sort_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "shopify_collection_id"
+    t.boolean "is_custom_collection", default: false
+  end
+
+  create_table "collects", force: :cascade do |t|
+    t.string "shopify_collection_id"
+    t.string "shopify_product_id"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
