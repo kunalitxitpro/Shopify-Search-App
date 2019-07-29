@@ -3,7 +3,7 @@ class SyncProductsJob < ApplicationJob
 
   def perform
     shop = Shop.first
-    all_product_titles = []
+    all_product_ids = []
     if shop.present?
       shop.with_shopify_session do
         total_products = ShopifyAPI::Product.count()
@@ -19,7 +19,7 @@ class SyncProductsJob < ApplicationJob
               new_prod = set_prod.present? ?  update_product(prod, compare_price, set_prod) : new_product(prod, compare_price)
               new_prod.save
               add_sizes(prod, new_prod)
-              all_product_titles << prod.title
+              all_product_ids << prod.id
             else
               set_prod = Product.where(shopify_id: prod.id).first
               set_prod.destroy if set_prod.present?
@@ -28,7 +28,7 @@ class SyncProductsJob < ApplicationJob
         end
       end
       Product.dedupe
-      Product.where.not(title: all_product_titles.flatten).destroy_all
+      Product.where.not(shopify_id: all_product_ids.flatten).destroy_all
 
       Product.pluck(:vendor).uniq.each do |vendor|
         Filter.create(title: vendor, product_setting_id: ProductSetting.last.id, filter_type: 0) if Filter.find_by_title(vendor).nil?

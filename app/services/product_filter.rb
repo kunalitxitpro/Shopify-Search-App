@@ -8,7 +8,7 @@ class ProductFilter
   def search
     products = Product
     @params[:title].split(' ').each do |query|
-      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase).where('quantity > 0').order(price: :desc)
+      products = products.where("lower(title) ~* ? OR lower(vendor) ~* ? OR tags LIKE '%#{query}%'", query.downcase, query.downcase).where('quantity > 0').order(price: :desc)
     end
     if ProductSetting.last.overflow_scroll_on
       products.limit(50)
@@ -20,7 +20,7 @@ class ProductFilter
   def popular
     products = Product
     @params[:title].split(' ').each do |query|
-      products = products.where('lower(title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase).where('quantity > 0').order(price: :desc)
+      products = products.where("lower(title) ~* ? OR lower(vendor) ~* ? OR tags LIKE '%#{query}%'", query.downcase, query.downcase).where('quantity > 0').order(price: :desc)
     end
     products.order(quantity: :asc).limit(8)
   end
@@ -61,7 +61,7 @@ class ProductFilter
   def search_filter(search)
     products = Product
     search.split(' ').each do |query|
-      products = products.where('lower(products.title) ~* ? OR lower(vendor) ~* ?', query.downcase, query.downcase)
+      products = products.where("lower(products.title) ~* ? OR lower(products.vendor) ~* ? OR tags LIKE '%#{query}%'", query.downcase, query.downcase)
     end
     products = param_is_present? ? products.joins(:sizes).where(sql_query).distinct : products.joins(:sizes).distinct
     products = products.where('quantity > 0')
@@ -99,7 +99,7 @@ class ProductFilter
       if @collection.present?
         order_for_collection(products)
       else
-        @params[:collection].nil? || @params[:collection] == 'new-in' || @params[:collection] == 'clothing' || @params[:collection] == 'our-picks' || @params[:collection] == '20-off-1' || @params[:collection] == 'sunglasses'  ? order_for_new(products) : default_order_for_products(products)
+        @params[:collection].nil? || @params[:collection] == 'new-in' || @params[:collection] == 'clothing' || @params[:collection] == 'our-picks' || @params[:collection] == '20-off-1' || @params[:collection] == 'sunglasses' || @params[:collection] == 'accessories' ? order_for_new(products) : default_order_for_products(products)
       end
     end
   end
@@ -123,7 +123,8 @@ class ProductFilter
   def vendor_lookup
     sql_arr = []
     @params[:title].each do |title|
-      sql = ProductSetting.last.filter_vendor_by_variant ? "vendor = '#{title}'" : "tags LIKE '%#{title}%'"
+      title = ActiveRecord::Base.connection.quote(title)
+      sql = ProductSetting.last.filter_vendor_by_variant ? "vendor = #{title}" : "tags LIKE '%#{title}%'"
       sql_arr << sql
     end
     sql_arr.join(" OR ")
