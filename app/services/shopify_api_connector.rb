@@ -75,7 +75,7 @@ class ShopifyApiConnector
 
   def set_connection
     conn = Faraday.new
-    conn.basic_auth('24cfcbc31eef24b85c2e4e76023e6a52', 'd5f0936dcf7f5ceff79d18354e7d99e7')
+    conn.basic_auth(ENV['SHOP_API_USERNAME'], ENV['SHOP_API_PASSWORD'])
     conn
   end
 end
