@@ -52,7 +52,7 @@ class FilterSql
   end
 
   def footwear
-    "tags LIKE '%footwear%' or product_type = 'Trainers' or product_type = 'Trainer Accessories'"
+    "tags LIKE '%footwear%' and product_type = 'Trainers' or product_type = 'Trainer Accessories'"
   end
 
   def accessories

@@ -111,7 +111,8 @@ class ProductFilter
   def vendor_lookup
     sql_arr = []
     @params[:title].each do |title|
-      sql = ProductSetting.last.filter_vendor_by_variant ? "vendor = '#{title}'" : "tags LIKE '%#{title}%'"
+      title = ActiveRecord::Base.connection.quote(title)
+      sql = ProductSetting.last.filter_vendor_by_variant ? "vendor = #{title}" : "tags LIKE '%#{title}%'"
       sql_arr << sql
     end
     sql_arr.join(" OR ")

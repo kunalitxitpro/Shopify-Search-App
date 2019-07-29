@@ -34,7 +34,7 @@
 
   .blur-div
       = link_to "/products/#{product.slug_url}" do
-        - if product.quantity == 0
+        - if product.quantity <= 0
           div style="background: black;height: 23px;position: absolute; padding: 6px"
            span style="color: white" Sold Out
         .img-container
