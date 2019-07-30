@@ -219,5 +219,5 @@
       div style="width: 100%; text-align: center"
         = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;height: 56px;font-size: 20px; background-color: black'
 javascript:
-  Window.paramUrl = "&#{request.url.split('?')[1].split('shop')[0]}"
+  Window.paramUrl = "&#{request.url.split('?')[1].split('shop')[0]}&collection=#{handle_for_collection}"
   Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"
