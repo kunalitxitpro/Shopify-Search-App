@@ -11,8 +11,6 @@
             .prod-attr__price = "£ #{product.display_price} GBP"
             - if product.compare_at_price != 0.0
               .prod-attr__small style="font-size: 22px; margin: 0" = "£ #{product.compare_at_display_price}"
-          / .prod-attr__small Earn 375 points
-
           .prod-attr__small Size guide
           .select-box
             .prod-attr__small style="margin-right: 1rem" Size
@@ -23,13 +21,6 @@
             = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #000000; width: 100%;font-size: 17px;font-weight: bold;'
           .shopify-info-block
             = product.body_html.try(:html_safe)
-          / .prod-attr__small very good condition, vintage Adidas
-          / .prod-attr__small Size on label - L
-          / .prod-attr__small Our recomended size - L
-          / .prod-attr__small Measurements:
-          / .prod-attr__small Pit to pit - 26"
-          / .prod-attr__small Length of back - 27"
-          / .prod-attr__small Please check measurements and product description carefully
           p.js-cart-error style="color: red"
 
   .blur-div

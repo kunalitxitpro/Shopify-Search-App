@@ -25,51 +25,6 @@
       br
       .popular-search-container
         - @popular.each do |prod|
-          / = link_to "/products/#{prod.slug_url}" do
           a.pop-search-sub-container href="/products/#{prod.slug_url}"
             .popular-search-icon
             .pop-search-sub-text  = prod.title
-
-          / .popular-search-sub-container
-          /   .popular-search-icon
-            / = image_tag('search.svg', size: '10', style: "margin: 0 1.5rem 0 1rem")
-            / span = prod.title
-
-
-
-
-
-/
-/ .search-result-main-container
-/   .search-result-product-container
-/     .search-result-product-text PRODUCTS
-/   - if ProductSetting.last.overflow_scroll_on
-/     div style="overflow: auto; max-height: 334px; width: 100%; background-color: #ffffff"
-/       - @products.each do |product|
-/         a.search-result-container href="#"
-/           .search-result-image style="background-image: url('#{product.first_image_url}')"
-/           .search-result-sub-container
-/             .search-result-vendor style="font-weight: bold" = product.vendor
-/             .search-result-title  = truncate("#{product.title}", length: 45)
-/             .search-result-price  = "£ #{product.display_price} GBP"
-/   - unless ProductSetting.last.overflow_scroll_on
-/     div style="overflow: hidden; max-height: 334px; width: 100%; background-color: #ffffff"
-/       - @products.each do |product|
-/         / = link_to "/products/#{product.slug_url}" do
-/         .search-result-container
-/           .search-result-image style="background-image: url('#{product.first_image_url}')"
-/           .search-result-sub-container
-/             .search-result-vendor style="font-weight: bold" = product.vendor
-/             .search-result-title  = truncate("#{product.title}", length: 45)
-/             .search-result-price  = "£ #{product.display_price} GBP"
-/   - if ProductSetting.last.related_search_on
-/     .search-result-product-container
-/       .search-result-product-text POPULAR SEARCHES
-/       br
-/       .popular-search-container
-/         - @popular.each do |prod|
-/           / = link_to "/products/#{prod.slug_url}" do
-/           .popular-search-sub-container
-/             .popular-search-icon
-/             / = image_tag('search.svg', size: '10', style: "margin: 0 1.5rem 0 1rem")
-/             span = prod.title

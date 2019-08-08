@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Shopify Search App
 
-Things you may want to cover:
+How to get the app running:
 
-* Ruby version
+* Get an ngrok server pointing to localhost 3000
 
-* System dependencies
+* Change the ngrok asset host to the ngrok address eg. config.action_controller.asset_host = "https://42c86952.ngrok.io"
 
-* Configuration
+* In the app configuration on Shopify set the admin redirect url to the ngrok address and change the proxy to the address but with the extension shopifyapp/products
 
-* Database creation
+* Run rake jobs:add_and_update_products (to get a local copy of the products)
 
-* Database initialization
+* In the admin app set true search to true
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Testing can be done on the search field which from the script will auto-populate the results and then after searching would direct the user to the proxy page

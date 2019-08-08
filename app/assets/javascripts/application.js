@@ -22,6 +22,7 @@ $( document ).ready(function() {
     var canLoadMore = true;
     var modalrunning = false
     var modalShowing = false;
+    // set app root link below
     var rootlink = "https://www.truevintage.com/apps/products?"
     var link = "&price=75-300"
     var mobilink = "&price=75-300"

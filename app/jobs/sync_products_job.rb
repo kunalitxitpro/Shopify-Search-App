@@ -2,7 +2,7 @@ class SyncProductsJob < ApplicationJob
   queue_as :default
 
   def perform
-    shop = Shop.first
+    shop = Shop.first # or find specific shop to pull products from
     all_product_ids = []
     if shop.present?
       shop.with_shopify_session do
@@ -43,10 +43,6 @@ class SyncProductsJob < ApplicationJob
       end
 
       SyncCollectionsJob.perform_later
-
-      # Product.pluck(:colour).uniq.compact.each do |colour|
-      #   Filter.create(title: colour, product_setting_id: ProductSetting.last.id, filter_type: 3) if Filter.find_by_title(colour).nil?
-      # end
     end
   end
 
@@ -85,7 +81,6 @@ class SyncProductsJob < ApplicationJob
     set_product_record.body_html = prod.body_html
     return set_product_record
   end
-
 
   def colour_of_product(product)
     colour = product.tags.split(',').select{|p| p.include?("Colour")}[0].split('_').last.titleize rescue nil
