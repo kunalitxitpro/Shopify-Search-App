@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Rails Shopify Search App: development" uuid="888db6a4-1d25-4117-ba7a-7e73fae47ebd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/shopify_development</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails Shopify Search App: production" uuid="28c9d4df-ae58-4d4b-820a-f9a540b65c51">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/shopify_production</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails Shopify Search App: test" uuid="b0a9cfd0-88b8-4b68-ba21-e7d5f53d25bd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/shopify_test</jdbc-url>
+    </data-source>
+  </component>
+</project>
